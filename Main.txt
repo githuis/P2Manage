@@ -1,0 +1,32 @@
+
+Indledning
+Initierende problem
+Metodeafsnit
+AAU Modellen
+Interview
+Dokumentanalyse
+Interessentanalyse
+Teknologivurdering
+Kildekritik 
+Problemanalyse
+Interessentanalyse
+Interessenterne
+Interview
+Interviewspørgsmål
+Interview med arbejdsgivere
+Interview med ansatte
+Nuværende løsninger
+Helhedsvurdering
+Problemafgrænsning
+Problemformulering
+Problemløsning
+Kravspecifikation
+Teori
+Design
+Test
+Implementation
+Konklusion
+Diskussion
+Refleksion
+Litteraturliste
+Bilag A
