@@ -1,14 +1,14 @@
-\input{setup/preamble.tex}% package inclusion and set up of the document
-\input{setup/hyphenations.tex}% 
-\input{setup/macros.tex}% my new macros
+\input{setup/premble}
+\input{setup/hyphenations.tex}
+\input{setup/macros.tex}
 
 \begin{document}
 %frontmatter
 \pagestyle{empty} %disable headers and footers
 \pagenumbering{roman} %use roman page numbering in the frontmatter
-%\input{sections/frontpage.tex}
-%\input{sections/colophon.tex}
-%\input{sections/titlepages.tex}
+\input{sections/frontpage.tex}
+\input{sections/colophon.tex}
+\input{sections/titlepages.tex}
 \cleardoublepage
 \pdfbookmark[0]{Contents}{label:contents}
 \pagestyle{fancy} %enable headers and footers again
@@ -21,7 +21,7 @@
 %\input{sections/introduction.tex}
 \input{sections/ch1Metode.tex}
 %\input{sections/conclusion.tex}
-\bibliography{bib/bibref}
+\bibliography{bib/bibref.bib}
 \label{bib:mybiblio}
 \appendix
 %\input{sections/appAname.tex}
