@@ -1,0 +1,32 @@
+%  You can find the GNU General Public License at <http://www.gnu.org/licenses/>.
+%
+\input{setup/preamble.tex}% package inclusion and set up of the document
+\input{setup/hyphenations.tex}% 
+\input{setup/macros.tex}% my new macros
+
+\begin{document}
+%frontmatter
+\pagestyle{empty} %disable headers and footers
+\pagenumbering{roman} %use roman page numbering in the frontmatter
+\input{sections/frontpage.tex}
+\input{sections/colophon.tex}
+\input{sections/titlepages.tex}
+\cleardoublepage
+\pdfbookmark[0]{Contents}{label:contents}
+\pagestyle{fancy} %enable headers and footers again
+\tableofcontents
+%\listoftodos
+\input{sections/preface.tex}
+\cleardoublepage
+%mainmatter
+\pagenumbering{arabic} %use arabic page numbering in the mainmatter
+\input{sections/ch1indledning.tex}
+\input{sections/ch2metode.tex}
+\input{sections/ch3analyse.tex}
+\input{sections/ch4losning.tex}
+\input{sections/konklusion.tex}
+\bibliography{bib/mybib}
+\label{bib:mybiblio}
+\appendix
+%\input{sections/appAname.tex}
+\end{document}
