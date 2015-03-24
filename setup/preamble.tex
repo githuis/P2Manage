@@ -35,6 +35,11 @@
 % Make latex understand and use the typographic
 % rules of the language used in the document.
 \usepackage[danish,english]{babel}
+\addto\captionsenglish{% Replace "english" with the language you use
+  \renewcommand{\contentsname}%
+    {Indholdsfortegnelse}%
+}
+
 % Use the vector font Latin Modern which is going
 % to be the default font in latex in the future.
 \usepackage{lmodern}
@@ -62,6 +67,8 @@
 % Enable the use of frames around, e.g., theorems
 % The framed package is used in the example environment
 \usepackage{framed}
+
+\usepackage{float}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Mathematics
