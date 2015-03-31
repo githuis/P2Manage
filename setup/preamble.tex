@@ -34,7 +34,7 @@
 \usepackage[gen]{eurosym}
 % Make latex understand and use the typographic
 % rules of the language used in the document.
-\usepackage[danish,english]{babel}
+\usepackage[english,danish]{babel}
 \addto\captionsenglish{% Replace "english" with the language you use
   \renewcommand{\contentsname}%
     {Indholdsfortegnelse}%
@@ -138,7 +138,7 @@
 % reference as [author, year]
 \usepackage[numbers]{natbib}
 % Appearance of the bibliography
-\bibliographystyle{apalike}
+\bibliographystyle{ieeetr}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Misc
@@ -149,7 +149,7 @@
 % Add the command \pageref{LastPage} which refers to the
 % page number of the last page
 \usepackage[
-%  disable, %turn off todonotes
+  %disable, %turn off todonotes
   colorinlistoftodos, %enable a coloured square in the list of todos
   textwidth=\marginparwidth, %set the width of the todonotes
   textsize=scriptsize, %size of the text in the todonotes
