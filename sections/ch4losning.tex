@@ -1,10 +1,55 @@
 \chapter{Løsning}\label{ch:losning}
 
 \section{Kravspecifikation}
+Kravsspecifikationen er lavet, for at danne grundlag for udviklingen af problemløsningen. Dermed bliver der gjort klar, hvad et kommende program skal indeholde. Kravene til en løsning, skal opfylde en række retningslinjer, for at sikre, at alle er klar over, hvad der menes. Først og fremmest skal hvert krav kun have én betydning. Dette vil sige, at hvert krav skal gøres helt klart, hvad der menes. Derudover må der ikke være konflikter mellem kravene.
+
+
+
+\textbf{Entydig}
+En kravsspecifikation skal være entydig, da der ellers kan såes tvivl om, hvad de forskellige krav betyder. Udover betydningen af kravene, kan formuleringen af kravene, også skabe tvivl hos udviklerne, hvis ikke det er helt klart, hvad der præcist menes. 
+
+\textbf{Fuldstændig}
+
+
+\textbf{Konsistent}
+For en fuldkommen kravsspecifikation kræver det, at den er konsistent, hvilket betyder, at der ikke kan være konflikter mellem kravene. Her skelnes der mellem to former for konflikter. Flere krav der beskriver samme problem, men bruger ikke samme navn, samt direkte konflikter krav imellem. Her hjælper det med et konsistent sprog.
+
+\textbf{Korrekt}
+A overhode korrekhed 
+
+\textbf{Testbar}
+For at opnå en brugbar kravspecifikation, så kræves det at kravspecikationen er testbar. En kravspecifikation er testbar når det klart fremgår hvad kravspecifiktationen består af. Udover det skal kravspecifikationen også kunnes afgøres med en økonomisk gennemførlig teknik. Et eksempel på en ikke-testbar kravspecifikation kan lyde således: \textit{"Svartiden på operatørkommandoer skal være rimelig kort."} I dette eksempel er tiden angivet som rimelig kort hvilket ikke kan beregnes på. For at denne kravspecifikation kan blive testbar så skal den omformuleres. Den omformulerede testbare kravspecifikation kan lyde således: \textit{"Svartiden på operatørkommandoer skal være mindre end et sekund."} I dette tilfælde bruges et sekund frem for rimelig kort, hvilket kan beregnes på, hvilket gør det testbart.
+
+
+\textbf{Modificerbar}
+
+
+\textbf{Sporbar}
+Alle kravene er blevet udarbejdet udfra interviewene, hvor de væsentligste punkter blev trukket ud, samt at kravene ligger vægt på hvad interviewpersonerne satte pris på ved deres løsning. Derudover er der også ved teknologivurderingen blevet fundet mangler ved nuværende løsninger, hvorfor de også er kommet med i kravsspecifikationen.
 
 \begin{itemize}
-    \item Systemet skal håndtere op til 50 medarbejdere da der tages udgangspunkt i små virksomheder. Dette kommer af definitionen på SMV, som er på max 50 mennesker.
+    \item Kapacitet: Op til 50 medarbejdere, skal kunne være i systemet, da der tages udgangspunkt i små virksomheder. Dette kommer af definitionen på SMV, som er på max 50 mennesker.
+    \item Time registrering: Systemet skal kun tælle medarbejderens arbejdstimer, så chefen har mulighed for at kunne se, hvor meget den enkelte arbejder.
+    \item Løn registrering: 
+Systemet skal ved hjælp af time registreringen styre lønnen. Her skal der indarbejdes takster for en given dag, for derved at gøre det mere autonomt og lette arbejdet for chefen. Derudover kan medarbejderen også selv holde øje med sin løn.
+    \item Arbjedslov: Systemet skal autonomt opretholde reglerne for de forskellig love der er i forbindelse med arbejde (arbejdstimer, pause, osv.). %eventuelt i form af en advarsels, eller en automatisk konktaktelese til arbejdstilsynet i forbindelse med overtrædelse af loven.
+    \item Kategorisering: Chefen skal have mulighed for at kategorisere sine medarbejdere. Dette vil sikre at en lukke ansvarlig f.eks. ikke kan bytte med en der ikke er. Herved kan systemet blive mere autonomt og der vil være mindre nødvendig indgriben fra chefen.
+    \item Mobil app: Systemet skal have app som medarbejderne kan benytte til at se og bytte vagter. Dette vil give løsningen større tilgængelighed.
+    \item Kontaktliste: Oplysninger om alle medarbejder, skal være tilgængelig for alle ansatte. Så hvis der bliver behov for kontakt med det samme, er det muligt.
+    \item Visuel repræsentation (grafer): Data omkring hvor meget man har arbejdet og hvor mange vagter man har taget, skal kunne ses i form af en visuelt repræsentation. Dette skal være for at skabe overblik for chefen over både økonomi og medarbejdere. 
+    \item Vagtbytning: Medarbejderene skal kunne skifte vagter uden chefens medvirken, dog kun hvis de har samme katogoresring.
+    \item Sygdom: Medarbejderen skal i forbindelse med sygdom, udmelde det igennem systemet. Herved kun der eventuelt laves en automatisk viderestilling til chefen, da dette kan forkomme pludseligt.
+    \item Automatisk genering: Vagtplanen skal altid kunne ændres, men med hensyn til tidligere generet vagtplaner, skal den automatisk kunne give et bud på en, til f.eks. næste uge, måned, år, osv.
+    \item Ønskeliste: Medarbejderen skal kunne ønske vagter, som der så vil bliver taget højde for, når systemet genere en ny vagtplan.
+    \item Overførelse af vagter: Vagter som en tidligere medarbejder har haft, skal kunne overføres til en anden. En situation hvor dette kunne være nødvendigt, kunne være i forbindelse med en fyring/opsigelse. 
+    %\item Overførelse af medarbejder: Når der kommer en ny ansat, eller der er en der skal erstattes, så det være lette at overføre personens informationer. Eventuel kunne man forbinde systemet til facebook, google konto, eller ligne, så alt information let bliver tilgængeligt. 
+    \item Vægtning af arbejdsdag: I forbindelse med helligedag, nat arbejde, osv. skal der være muligt at vægte arbejdsdagene, så det ikke bliver de samme der skal have de "trælse" vagter. Samtidig vil systemet også tage højde for, om der er travlt på den givne dag, udfra tidligere erfaring fra samme dag, og derved sørge for, at der er flere medarbejdere på arbejde.
+    
+    \item Blåt.
     
 \end{itemize}
+
+%\section{Afgrænselse}
+
 
 
