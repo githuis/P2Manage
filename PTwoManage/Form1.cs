@@ -16,5 +16,24 @@ namespace PTwoManage
         {
             InitializeComponent();
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            Core.Temp();
+            Workschedule.NewCalendar();
+            Database db = new Database();
+            
+        }
+
+        private void MenuBar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void addUserToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddUserForm userForm = new AddUserForm();
+            userForm.Show();
+        }
     }
 }
