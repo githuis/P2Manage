@@ -24,5 +24,20 @@ namespace PTwoManage
         {
             InitializeComponent();
         }
+
+        private void AddUser_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EditUser_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RemoveUser_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
