@@ -8,6 +8,7 @@ namespace PTwoManage
 {
     class User
     {
+        static List<User> allUsers = new List<User>();
         List<string> userCategories;
         private string _userName;
         private string _password;
@@ -28,6 +29,8 @@ namespace PTwoManage
             _userName = userName;
             // Todo: Skal laves til hash
             _password = password;
+            allUsers.Add(this);
+            Console.WriteLine(allUsers[allUsers.Count-1].UserName);
         }
 
         static Dictionary<int, string> categories = new Dictionary<int, string>()

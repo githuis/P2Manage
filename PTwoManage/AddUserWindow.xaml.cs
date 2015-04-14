@@ -10,34 +10,27 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace PTwoManage
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AddUserWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AddUserWindow : Window
     {
-        public MainWindow()
+        public AddUserWindow()
         {
             InitializeComponent();
         }
 
-        private void AddUser_Click(object sender, RoutedEventArgs e)
+        private void Submit_AddUser_Click(object sender, RoutedEventArgs e)
         {
-            
-        }
-
-        private void EditUser_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void RemoveUser_Click(object sender, RoutedEventArgs e)
-        {
-
+            if (UserName_TextBox.Text != "" && Password_TextBox.Text != "")
+            {
+                 User newUser = new User(UserName_TextBox.Text, Password_TextBox.Text);
+            }
+           
         }
     }
 }
