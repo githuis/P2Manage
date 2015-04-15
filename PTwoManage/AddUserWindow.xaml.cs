@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace PTwoManage
 {
@@ -26,11 +27,25 @@ namespace PTwoManage
 
         private void Submit_AddUser_Click(object sender, RoutedEventArgs e)
         {
-            if (UserName_TextBox.Text != "" && Password_TextBox.Text != "")
+            if (UserName_TextBox.Text != "" && Password_TextBox.Password != "")
             {
-                 User newUser = new User(UserName_TextBox.Text, Password_TextBox.Text);
+                 User newUser = new User(UserName_TextBox.Text, Password_TextBox.Password);
+                 Core.AddUserToList(newUser);
             }
            
+        }
+
+        private void Populate_UserList()
+        {
+            foreach (User u in Core.GetAllUsers())
+            {
+                Console.WriteLine(u.ToString());
+            }
+        }
+
+        public void EditUser_Load()
+        {
+
         }
     }
 }

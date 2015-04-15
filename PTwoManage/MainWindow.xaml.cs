@@ -20,6 +20,7 @@ namespace PTwoManage
     /// </summary>
     public partial class MainWindow : Window
     {
+        AddUserWindow addUserWindow;
         public MainWindow()
         {
             InitializeComponent();
@@ -27,17 +28,10 @@ namespace PTwoManage
 
         private void AddUser_Click(object sender, RoutedEventArgs e)
         {
-            
+            addUserWindow = new AddUserWindow();
+            addUserWindow.Show();
+            addUserWindow.EditUser_Load();
         }
 
-        private void EditUser_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void RemoveUser_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
