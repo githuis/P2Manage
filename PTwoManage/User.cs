@@ -65,15 +65,10 @@ namespace PTwoManage
             _id = id;
             _userName = userName;
             _password = password;
-<<<<<<< HEAD
-            allUsers.Add(this);
-            Console.WriteLine(allUsers[allUsers.Count-1].UserName);
-=======
             _name = name;
             _cprNumber = cprNummer;
             _phone = phone;
             _email = email;
->>>>>>> 40ba3f3b1b1e4a719822b403b6629cb20ec75812
         }
 
         static Dictionary<int, string> categories = new Dictionary<int, string>()
@@ -102,7 +97,7 @@ namespace PTwoManage
                     return u;
                 }
             }
-            return new User(name + "User was not found", "Password");
+            return new User(1, "User was not found", "Password","Hej per", 90, 90, "asd");
         }
     }
 }

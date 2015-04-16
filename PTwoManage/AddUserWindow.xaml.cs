@@ -31,7 +31,8 @@ namespace PTwoManage
         {
             if (EditUser_UserNameBox.Text != "" && Password_TextBox.Password != "" && EditUser_FullName.Text != "")
             {
-                User newUser = new User(EditUser_UserNameBox.Text, Password_TextBox.Password);
+                //Skal fixes
+                User newUser = new User(1, EditUser_UserNameBox.Text, Password_TextBox.Password, "Navn", 90, 90, "hej@lol.e");
                 Core.AddUserToList(newUser);
                 AddUser_Confirmation.Content = EditUser_FullName.Text + " was added to the system";
                 AddUser_Confirmation.Foreground = Brushes.Green;

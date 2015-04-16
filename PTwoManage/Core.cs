@@ -33,7 +33,6 @@ namespace PTwoManage
         public static void AddUserToList(User user)
         {
             AllUsers.Add(user);
-            Console.WriteLine(vagt.ToString());
         }
     }
 }
