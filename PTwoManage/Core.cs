@@ -8,6 +8,7 @@ namespace PTwoManage
 {
     class Core
     {
+        static List<User> AllUsers = new List<User>();
         public static void Temp()
         {
             User bruger = new User("Jesper", "lol");
@@ -17,6 +18,17 @@ namespace PTwoManage
             Shift vagt = new Shift(bruger, start, end);
 
             Console.WriteLine(vagt.ToString()); 
+            
+        }
+
+        public static List<User> GetAllUsers()
+        {
+            return AllUsers;
+        }
+
+        public static void AddUserToList(User user)
+        {
+            AllUsers.Add(user);
         }
     }
 }

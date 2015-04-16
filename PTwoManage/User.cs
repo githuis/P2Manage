@@ -8,6 +8,7 @@ namespace PTwoManage
 {
     class User
     {
+        static List<User> allUsers = new List<User>();
         List<string> userCategories;
         private string _userName;
         private string _password;
@@ -28,6 +29,8 @@ namespace PTwoManage
             _userName = userName;
             // Todo: Skal laves til hash
             _password = password;
+            allUsers.Add(this);
+            Console.WriteLine(allUsers[allUsers.Count-1].UserName);
         }
 
         static Dictionary<int, string> categories = new Dictionary<int, string>()
@@ -45,6 +48,18 @@ namespace PTwoManage
         void RemoveCategory(int categoryKey)
         {
             categories.Remove(categoryKey);
+        }
+
+        public static User GetUserByName(string name)
+        {
+            foreach (User u in Core.GetAllUsers())
+            {
+                if (u.UserName == name)
+                {
+                    return u;
+                }
+            }
+            return new User(name + "User was not found", "Password");
         }
     }
 }
