@@ -11,6 +11,7 @@ namespace PTwoManage
         public static void Temp()
         {
             User bruger = new User(1,"lucrah2", "1234", "luca2", 564455648, 88888888, "jgdagmailcom");
+
             DateTime start = new DateTime(2015, 04, 20, 15, 30, 00);
             DateTime end = new DateTime(2015, 04, 20, 18, 00, 00);
 
