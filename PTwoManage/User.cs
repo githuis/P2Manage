@@ -49,5 +49,17 @@ namespace PTwoManage
         {
             categories.Remove(categoryKey);
         }
+
+        public static User GetUserByName(string name)
+        {
+            foreach (User u in Core.GetAllUsers())
+            {
+                if (u.UserName == name)
+                {
+                    return u;
+                }
+            }
+            return new User(name + "User was not found", "Password");
+        }
     }
 }

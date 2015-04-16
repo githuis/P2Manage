@@ -31,6 +31,7 @@ namespace PTwoManage
             addUserWindow = new AddUserWindow();
             addUserWindow.Show();
             addUserWindow.EditUser_Load();
+            
         }
 
     }
