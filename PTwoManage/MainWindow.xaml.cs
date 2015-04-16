@@ -24,6 +24,7 @@ namespace PTwoManage
         public MainWindow()
         {
             InitializeComponent();
+            Core.Temp();
         }
 
         private void AddUser_Click(object sender, RoutedEventArgs e)
