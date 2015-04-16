@@ -29,32 +29,17 @@ namespace PTwoManage
             Sunday
         }
 
-        public class Week
+        static Shift ShiftGenerator(int dayInWeek, int dayInYear)
         {
-            DateTime start = new DateTime(2008, 5, 1, 8, 30, 0);
-            DateTime slut = new DateTime(2008, 5, 1, 16, 0, 0);
-            public int weeknumber;
-            day test = new day(Weekdays.Friday, 2, false, start, slut);
-            List<day> w = new List<day>();
-            
-        }
-
-        public class day
-        {
-            public Weekdays weekday;
-            public int numberOfShifts;
-            public bool holiday;
-            public DateTime openingHour;
-            public DateTime closingHour;
-       
-            public day (Weekdays dayInWeek, int shiftsInDay, bool isHoliday, DateTime opening, DateTime closing)
+            Shift outputShift = new Shift(bob,)
+            if (isHoliday(dayInYear)
             {
-                weekday = dayInWeek;
-                numberOfShifts = shiftsInDay;
-                holiday = isHoliday;
-                openingHour = opening;
-                closingHour = closing;
+                
             }
+        }
+        public void isHoliday(int dayInYear)
+        {
+
         }
     }
     
