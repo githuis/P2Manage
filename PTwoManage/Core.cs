@@ -6,10 +6,33 @@ using System.Threading.Tasks;
 
 namespace PTwoManage
 {
-    class Core
+    public sealed class Core
     {
-        static List<User> AllUsers = new List<User>();
-        public static void Temp()
+        
+
+        static readonly Core _instance = new Core();
+        private List<User> _allUsers;
+
+        public static Core Instance
+        {
+            get { return _instance; }
+        }
+
+        Core()
+        {
+            _allUsers = new List<User>();
+            List<string> info = Database.Instance.readInfo;
+            string sql = "SELECT * FROM userTable";
+            Database.Instance.Read(sql, Database.Instance.userTableColumns);
+            foreach (var item in info)
+            {
+                string[] split = item.Split(new Char[]{','});
+                _allUsers.Add(new User(int.Parse(split[0]), split[1], split[2], split[3],int.Parse(split[4]),int.Parse(split[5]), split[6]));
+            }
+        }
+        
+       
+        public void Run()
         {
             User bruger = new User(1,"lucrah2", "1234", "luca2", 564455648, 88888888, "jgdagmailcom");
 
@@ -18,21 +41,18 @@ namespace PTwoManage
 
             Shift vagt = new Shift(bruger, start, end);
 			
-			Database db = new Database();
-            db.FillUserTable(bruger);
-			
             Console.WriteLine(vagt.ToString()); 
             
         }
 
-        public static List<User> GetAllUsers()
+        public List<User> GetAllUsers()
         {
-            return AllUsers;
+            return _allUsers;
         }
 
-        public static void AddUserToList(User user)
+        public void AddUserToList(User user)
         {
-            AllUsers.Add(user);
+            _allUsers.Add(user);
         }
     }
 }

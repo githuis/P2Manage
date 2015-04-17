@@ -19,9 +19,8 @@ namespace PTwoManage
     /// <summary>
     /// Interaction logic for AddUserWindow.xaml
     /// </summary>
-    public partial class AddUserWindow : Window, INotifyPropertyChanged
+    public partial class AddUserWindow : Window
     {
-        public event PropertyChangedEventHandler PropertyChanged;
         public AddUserWindow()
         {
             InitializeComponent();
@@ -33,16 +32,18 @@ namespace PTwoManage
             {
                 //Skal fixes
                 User newUser = new User(1, EditUser_UserNameBox.Text, Password_TextBox.Password, "Navn", 90, 90, "hej@lol.e");
-                Core.AddUserToList(newUser);
+                Core.Instance.AddUserToList(newUser);
                 AddUser_Confirmation.Content = EditUser_FullName.Text + " was added to the system";
                 AddUser_Confirmation.Foreground = Brushes.Green;
+                newUser.SaveUserInfoToDatabase();
+                EditUser_UserNameBox.Text = "";
             }
             else
             {
                 AddUser_Confirmation.Content = "Could not add user to system - please check username and password";
                 AddUser_Confirmation.Foreground = Brushes.Red;
             }
-            EditUser_UserNameBox.Text = "";
+            
             Password_TextBox.Password = "";
             EditUser_NameList.Items.Clear();
             Populate_UserList();
@@ -50,7 +51,7 @@ namespace PTwoManage
 
         private void Populate_UserList()
         {
-            foreach (User u in Core.GetAllUsers())
+            foreach (User u in Core.Instance.GetAllUsers())
             {
                 ListBoxItem item = new ListBoxItem();
                 item.Content = u.UserName;

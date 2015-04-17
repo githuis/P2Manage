@@ -20,11 +20,13 @@ namespace PTwoManage
     /// </summary>
     public partial class MainWindow : Window
     {
+        Core core;
+        Database db;
         AddUserWindow addUserWindow;
         public MainWindow()
         {
+            core = Core.Instance;
             InitializeComponent();
-            Core.Temp();
         }
 
         private void AddUser_Click(object sender, RoutedEventArgs e)

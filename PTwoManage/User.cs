@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace PTwoManage
 {
-    class User
+    public class User
     {
+        Core core;
         static List<User> allUsers = new List<User>();
         List<string> userCategories;
         private int _id;
@@ -69,6 +70,7 @@ namespace PTwoManage
             _cprNumber = cprNummer;
             _phone = phone;
             _email = email;
+            core = Core.Instance;
         }
 
         static Dictionary<int, string> categories = new Dictionary<int, string>()
@@ -90,14 +92,22 @@ namespace PTwoManage
 
         public static User GetUserByName(string name)
         {
-            foreach (User u in Core.GetAllUsers())
+            foreach (User u in Core.Instance.GetAllUsers())
             {
                 if (u.UserName == name)
                 {
                     return u;
                 }
             }
-            return new User(1, "User was not found", "Password","Hej per", 90, 90, "asd");
+            // Todo: Skal kaste error
+            return new User(999999, "User not found", "User not found", "User not found", 564455648, 88888888, "User not found");
+        }
+
+        public void SaveUserInfoToDatabase()
+        {
+            User user = this;
+            string sql = "INSERT INTO userTable (id, username, password, name ,cprNumber, phone , email) values (" + user.Id + ", '" + user.UserName + "', '" + user.Password + "', '" + user.Name + "' , " + user.CprNumber + " , " + user.Phone + ", '" + user.Email + "')";
+            Database.Instance.Execute(sql);
         }
     }
 }
