@@ -30,7 +30,7 @@ namespace PTwoManage
             m_dbConnection = new SQLiteConnection("Data Source=MyDatabase.sqlite;Version=3;");
             m_dbConnection.Open();
 
-            //Execute("CREATE TABLE userTable (id int NOT NULL, username VARCHAR(50), password VARCHAR(50), name VARCHAR(50),cprNumber INT, phone INT, email VARCHAR(50))");
+            Execute("CREATE TABLE userTable (id int NOT NULL, username VARCHAR(50), password VARCHAR(50), name VARCHAR(50),cprNumber INT, phone INT, email VARCHAR(50))");
             Read("SELECT * FROM userTable WHERE id=2", "id", "name");
             readInfo.ForEach(Console.WriteLine);
         }
