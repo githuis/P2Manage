@@ -32,7 +32,7 @@ namespace PTwoManage
             _endTime = end;
         }
 
-        private void CalculateBreakTime()
+        private void CalculateBreakTime(String hours, String breakTime)
         {
 
         }
