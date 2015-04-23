@@ -21,6 +21,7 @@ namespace PTwoManage
     public partial class MainWindow : Window
     {
         AddUserWindow addUserWindow;
+        AddShiftTemplateWindow addShiftTemplateWindow;
         public MainWindow()
         {
             InitializeComponent();
@@ -32,6 +33,12 @@ namespace PTwoManage
             addUserWindow.Show();
             addUserWindow.EditUser_Load();
             
+        }
+
+        private void AddTemplate_Click(object sender, RoutedEventArgs e)
+        {
+            addShiftTemplateWindow = new AddShiftTemplateWindow();
+            addShiftTemplateWindow.Show();
         }
 
     }

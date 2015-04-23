@@ -8,28 +8,20 @@ namespace PTwoManage
 {
     class ShiftTemplate
     {
-        List<TimeTemplate> TemplateCollection = new List<TimeTemplate>();
-        
-        DateTime time1 = new DateTime(2015, 12, 24, 08, 00, 00);
-        DateTime time2 = new DateTime(2015, 12, 24, 16, 00, 00);
+        public string Date;
+        protected DateTime _startTime;
+        protected DateTime _endTime;
+        public List<string> Tag = new List<string>();
+        public bool IsTemplate;
 
-        public void MakeShift()
+
+        public ShiftTemplate(string date, DateTime starttime, DateTime endtime, List<string> tag)
         {
-            TimeTemplate MondayShift = new TimeTemplate(time1, time2);
-            TimeTemplate TuesdayShift = new TimeTemplate(time1.AddDays(1), time2.AddDays(1));
-        }
-
-    }
-    
-    class TimeTemplate
-    {
-        public DateTime Start;
-        public DateTime End;
-
-        public TimeTemplate(DateTime StartShift, DateTime EndShift)
-        {
-            Start = StartShift;
-            End = EndShift;
+            Date = date;
+            _startTime = starttime;
+            _endTime = endtime;
+            IsTemplate = true;
+            Tag = tag;
         }
     }
 }
