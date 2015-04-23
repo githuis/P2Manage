@@ -90,11 +90,11 @@ namespace PTwoManage
             categories.Remove(categoryKey);
         }
 
-        public static User GetUserByName(string userName)
+        public static User GetUserByName(string name)
         {
             foreach (User u in Core.Instance.GetAllUsers())
             {
-                if (u.UserName == userName)
+                if (u.Name == name)
                 {
                     return u;
                 }
