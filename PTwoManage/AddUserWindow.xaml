@@ -1,7 +1,7 @@
 ﻿<Window x:Class="PTwoManage.AddUserWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Manage Users" Height="459" Width="603">
+        Title="Manage Users" Height="460" Width="603" ResizeMode="NoResize">
     <Grid>
         <!--<TabControl BorderThickness="1">
             <TabItem Header="Add User">
@@ -17,14 +17,16 @@
             <TabItem Header="Edit User">-->
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
@@ -33,23 +35,24 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1">Username:</Label>
             <TextBox Name="EditUser_UserNameBox" Grid.Row="0" Grid.Column="1" Margin="3" Grid.ColumnSpan="1"></TextBox>
-            <Button Margin="0,3,3,3" Width="150" Click="EditUser_Select_Button_Click" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right">Load User</Button>
+            <Button Click="EditUser_Select_Button_Click" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" Width="72" Margin="105,0,0,190" Height="20" VerticalAlignment="Bottom">Load User</Button>
             <Label Grid.Row="1" Grid.Column="0">Password:</Label>
-            <PasswordBox Name="Password_TextBox" Grid.Row="1" Grid.Column="1" Margin="3"></PasswordBox>
-            <DockPanel Grid.Row="1" Grid.Column="2" LastChildFill="true" Margin="0" Grid.RowSpan="7">
-                <ScrollViewer DockPanel.Dock="Top" VerticalContentAlignment="Stretch" CanContentScroll="True">
-                    <ListBox Name="EditUser_NameList" SelectionMode="Single" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Stretch"/>
-                </ScrollViewer>
-            </DockPanel>
-            <Label Grid.Row="2" Grid.Column="0" Grid.RowSpan="1">Name:</Label>
-            <TextBox Name="EditUser_FullName" Grid.Row="2" Grid.Column="1" Margin="3"></TextBox>
-            <Label Grid.Row="3" Grid.Column="0">Phone number:</Label>
-            <TextBox Grid.Row="3" Grid.Column="1" Margin="3"></TextBox>
-            <Label Grid.Row="4" Grid.Column="0">E-Mail:</Label>
-            <TextBox Grid.Row="4" Grid.Column="1" Margin="3"></TextBox>
-            <Button Grid.Row="6" Grid.Column="1" Height="20" Width="75" Margin="151,58,54,154" HorizontalContentAlignment="Center" Click="Submit_AddUser_Click">Save User</Button>
-            <Button Grid.Row="6" Grid.Column="1" Height="20" Width="75" Margin="55,58,151,154">Remove User</Button>
-            <Label Name="AddUser_Confirmation" HorizontalAlignment="Left" Grid.Row="5" Grid.Column="1"></Label>
+            <PasswordBox Name="Password_TextBox" Grid.Row="1" Grid.Column="1" Margin="3"/>
+            <Label Grid.Row="2" Grid.Column="0">Confirm:</Label>
+            <PasswordBox Name="ConfirmPassword" Grid.Row="2" Grid.Column="1" Margin="3"></PasswordBox>
+            <ListBox Name="EditUser_NameList" Grid.Row="0" Grid.Column="2" Grid.RowSpan="8" Width="180" SelectionMode="Single" Height="421" SelectionChanged="EditUser_NameList_SelectionChanged" HorizontalAlignment="Left" VerticalAlignment="Top"></ListBox>
+
+            <Label Grid.Row="3" Grid.Column="0" Grid.RowSpan="1">Name:</Label>
+            <TextBox Name="EditUser_FullName" Grid.Row="3" Grid.Column="1" Margin="3"></TextBox>
+            <Label Grid.Row="4" Grid.Column="0">CPR:</Label>
+            <TextBox Name="EditUser_CPR" Grid.Row="4" Grid.Column="1" Margin="3" PreviewTextInput="EditUser_NumberValidation" ></TextBox>
+            <Label Grid.Row="5" Grid.Column="0">Phone number:</Label>
+            <TextBox Name="EditUser_Number" Grid.Row="5" Grid.Column="1" Margin="3" PreviewTextInput="EditUser_NumberValidation" MaxLength="12"></TextBox>
+            <Label Grid.Row="6" Grid.Column="0">E-Mail:</Label>
+            <TextBox Name="EditUser_Email" Grid.Row="6" Grid.Column="1" Margin="3"></TextBox>
+            <Button Grid.Row="7" Grid.Column="1" Height="20" Margin="15,30,0,0" HorizontalContentAlignment="Center" Click="SaveUser_Click" HorizontalAlignment="Left" Width="76" VerticalAlignment="Top">Save User</Button>
+            <Button Grid.Row="7" Grid.Column="1" Height="20" Width="75" Margin="192,0,0,190" HorizontalAlignment="Left" VerticalAlignment="Bottom">Remove User</Button>
+            <Label Name="AddUser_Confirmation" HorizontalAlignment="Left" Grid.Row="7" Grid.Column="1"></Label>
         </Grid>
         <!--<DockPanel Name="Edit_UserPanel">
                     <Button Name="EditUser_Select_Button" Click="EditUser_Select_Button_Click">Load User</Button>
