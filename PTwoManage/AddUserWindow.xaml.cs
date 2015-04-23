@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
 
 namespace PTwoManage
 {
@@ -26,25 +27,28 @@ namespace PTwoManage
             InitializeComponent();
         }
 
-        private void Submit_AddUser_Click(object sender, RoutedEventArgs e)
+        private void Submit_AddUser()
         {
-            if (EditUser_UserNameBox.Text != "" && Password_TextBox.Password != "" && EditUser_FullName.Text != "")
+
+            if (EditUser_UserNameBox.Text != "" && Password_TextBox.Password != "" && Password_TextBox.Password == ConfirmPassword.Password && EditUser_FullName.Text != "" && EditUser_CPR.Text != "" && EditUser_Number.Text != "" && EditUser_Email.Text != "")
             {
                 //Skal fixes
-                User newUser = new User(1, EditUser_UserNameBox.Text, Password_TextBox.Password, "Navn", 90, 90, "hej@lol.e");
+                User newUser = new User(1, EditUser_UserNameBox.Text, Password_TextBox.Password, EditUser_FullName.Text, EditUser_CPR.Text, EditUser_Number.Text, EditUser_Email.Text);
                 Core.Instance.AddUserToList(newUser);
                 AddUser_Confirmation.Content = EditUser_FullName.Text + " was added to the system";
                 AddUser_Confirmation.Foreground = Brushes.Green;
                 newUser.SaveUserInfoToDatabase();
-                EditUser_UserNameBox.Text = "";
+                EmptyForm();
+               
             }
             else
             {
-                AddUser_Confirmation.Content = "Could not add user to system - please check username and password";
+                AddUser_Confirmation.Content = "ERROR: Could not add " + EditUser_UserNameBox.Text + " to the system";
                 AddUser_Confirmation.Foreground = Brushes.Red;
             }
             
             Password_TextBox.Password = "";
+            ConfirmPassword.Password = "";
             EditUser_NameList.Items.Clear();
             Populate_UserList();
         }
@@ -54,7 +58,7 @@ namespace PTwoManage
             foreach (User u in Core.Instance.GetAllUsers())
             {
                 ListBoxItem item = new ListBoxItem();
-                item.Content = u.UserName;
+                item.Content = u.Name;
                 EditUser_NameList.Items.Add(item);
             }
         }
@@ -70,8 +74,62 @@ namespace PTwoManage
             if (EditUser_NameList.SelectedItem != null)
             {
                 ListBoxItem item = (ListBoxItem) EditUser_NameList.SelectedItem;
-                EditUser_UserNameBox.Text = User.GetUserByName(item.Content.ToString()).UserName; 
+                EditUser_UserNameBox.Text = User.GetUserByName(item.Content.ToString()).UserName;
+                Password_TextBox.Password = User.GetUserByName(item.Content.ToString()).Password;
+                EditUser_FullName.Text = User.GetUserByName(item.Content.ToString()).Name;
+                EditUser_CPR.Text = User.GetUserByName(item.Content.ToString()).CprNumber;
+                EditUser_Number.Text = User.GetUserByName(item.Content.ToString()).Phone;
+                EditUser_Email.Text = User.GetUserByName(item.Content.ToString()).Email;
             }
+        }
+
+        private void EditUser_NumberValidation(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void SaveToCurrentUser(User user)
+        {
+            User u = User.GetUserByName(user.UserName);
+            u.Name = EditUser_FullName.Text;
+            u.CprNumber = EditUser_CPR.Text;
+            u.Email = EditUser_Email.Text;
+            u.Phone = EditUser_Number.Text;
+            u.UserName = EditUser_UserNameBox.Text;
+            u.SaveUserInfoToDatabase();
+        }
+
+        private void SaveUser_Click(object sender, RoutedEventArgs e)
+        {
+            User u = User.GetUserByName(EditUser_UserNameBox.Text);
+
+            if (u.UserName != "User not found" && EditUser_UserNameBox.Text == u.UserName)
+            {
+                SaveToCurrentUser(u);
+                EmptyForm();
+            }
+            else
+            {
+                Submit_AddUser();
+            }
+            
+        }
+
+        private void EmptyForm()
+        {
+            EditUser_UserNameBox.Text = "";
+            EditUser_FullName.Text = "";
+            EditUser_CPR.Text = "";
+            EditUser_Number.Text = "";
+            EditUser_Email.Text = "";
+            Password_TextBox.Password = "";
+            ConfirmPassword.Password = "";
+        }
+
+        private void EditUser_NameList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

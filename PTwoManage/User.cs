@@ -15,8 +15,8 @@ namespace PTwoManage
         private string _userName;
         private string _password;
         private string _name;
-        private int _cprNumber;
-        private int _phone;
+        private string _cprNumber;
+        private string _phone;
         private string _email;
 
         public int Id
@@ -28,6 +28,7 @@ namespace PTwoManage
         public string UserName
         {
             get { return _userName; }
+            set { _userName = value; }
         }
 
         public string Password
@@ -42,14 +43,14 @@ namespace PTwoManage
             set { _name = value; }
         }
 
-        public int CprNumber
+        public string CprNumber
         {
             get { return _cprNumber; }
             set { _cprNumber = value; }
         }
 
 
-        public int Phone
+        public string Phone
         {
             get { return _phone; }
             set { _phone = value; }
@@ -61,7 +62,7 @@ namespace PTwoManage
             set { _email = value; }
         }
 
-        public User(int id, string userName, string password, string name, int cprNummer, int phone, string email)
+        public User(int id, string userName, string password, string name, string cprNummer, string phone, string email)
         {
             _id = id;
             _userName = userName;
@@ -70,7 +71,6 @@ namespace PTwoManage
             _cprNumber = cprNummer;
             _phone = phone;
             _email = email;
-            core = Core.Instance;
         }
 
         static Dictionary<int, string> categories = new Dictionary<int, string>()
@@ -90,17 +90,17 @@ namespace PTwoManage
             categories.Remove(categoryKey);
         }
 
-        public static User GetUserByName(string name)
+        public static User GetUserByName(string userName)
         {
             foreach (User u in Core.Instance.GetAllUsers())
             {
-                if (u.UserName == name)
+                if (u.UserName == userName)
                 {
                     return u;
                 }
             }
             // Todo: Skal kaste error
-            return new User(999999, "User not found", "User not found", "User not found", 564455648, 88888888, "User not found");
+            return new User(999999, "User not found", "User not found", "User not found", "564455648", "88888888", "User not found");
         }
 
         public void SaveUserInfoToDatabase()

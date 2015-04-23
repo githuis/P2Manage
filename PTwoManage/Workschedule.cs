@@ -29,14 +29,7 @@ namespace PTwoManage
             Sunday
         }
 
-        static Shift ShiftGenerator(int dayInWeek, int dayInYear)
-        {
-            Shift outputShift = new Shift(bob,)
-            if (isHoliday(dayInYear)
-            {
-                
-            }
-        }
+        
         public void isHoliday(int dayInYear)
         {
 

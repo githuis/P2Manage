@@ -8,8 +8,6 @@ namespace PTwoManage
 {
     public sealed class Core
     {
-        
-
         static readonly Core _instance = new Core();
         private List<User> _allUsers;
 
@@ -27,14 +25,14 @@ namespace PTwoManage
             foreach (var item in info)
             {
                 string[] split = item.Split(new Char[]{','});
-                _allUsers.Add(new User(int.Parse(split[0]), split[1], split[2], split[3],int.Parse(split[4]),int.Parse(split[5]), split[6]));
+                _allUsers.Add(new User(int.Parse(split[0]), split[1], split[2], split[3], split[4], split[5], split[6]));
             }
         }
         
        
         public void Run()
         {
-            User bruger = new User(1,"lucrah2", "1234", "luca2", 564455648, 88888888, "jgdagmailcom");
+            User bruger = new User(1,"lucrah2", "1234", "luca2", "564455648", "88888888", "jgdagmailcom");
 
             DateTime start = new DateTime(2015, 04, 20, 15, 30, 00);
             DateTime end = new DateTime(2015, 04, 20, 18, 00, 00);
