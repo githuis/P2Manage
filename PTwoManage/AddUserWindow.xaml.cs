@@ -38,8 +38,11 @@ namespace PTwoManage
                 AddUser_Confirmation.Content = EditUser_FullName.Text + " was added to the system";
                 AddUser_Confirmation.Foreground = Brushes.Green;
                 newUser.SaveUserInfoToDatabase();
-                EmptyForm();
-               
+                EditUser_UserNameBox.Text = "";
+                EditUser_FullName.Text = "";
+                EditUser_CPR.Text = "";
+                EditUser_Number.Text = "";
+                EditUser_Email.Text = "";
             }
             else
             {
@@ -91,7 +94,7 @@ namespace PTwoManage
 
         private void SaveToCurrentUser(User user)
         {
-            User u = User.GetUserByName(user.UserName);
+            User u = User.GetUserByName(user.Name);
             u.Name = EditUser_FullName.Text;
             u.CprNumber = EditUser_CPR.Text;
             u.Email = EditUser_Email.Text;
@@ -102,29 +105,16 @@ namespace PTwoManage
 
         private void SaveUser_Click(object sender, RoutedEventArgs e)
         {
-            User u = User.GetUserByName(EditUser_UserNameBox.Text);
+            User u = User.GetUserByName(EditUser_FullName.Text);
 
-            if (u.UserName != "User not found" && EditUser_UserNameBox.Text == u.UserName)
-            {
+            if (u.Name != "User not found")
                 SaveToCurrentUser(u);
-                EmptyForm();
-            }
-            else
+
+            else if (u.UserName != EditUser_UserNameBox.Text)
             {
                 Submit_AddUser();
             }
             
-        }
-
-        private void EmptyForm()
-        {
-            EditUser_UserNameBox.Text = "";
-            EditUser_FullName.Text = "";
-            EditUser_CPR.Text = "";
-            EditUser_Number.Text = "";
-            EditUser_Email.Text = "";
-            Password_TextBox.Password = "";
-            ConfirmPassword.Password = "";
         }
 
         private void EditUser_NameList_SelectionChanged(object sender, SelectionChangedEventArgs e)
