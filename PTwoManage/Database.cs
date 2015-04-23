@@ -26,11 +26,16 @@ namespace PTwoManage
 
             string file = AppDomain.CurrentDomain.BaseDirectory + "MyDatabase.sqlite";
             if (!File.Exists(file))
+            {
                 SQLiteConnection.CreateFile("MyDatabase.sqlite");
+                Execute("CREATE TABLE userTable (id int NOT NULL, username VARCHAR(50), password VARCHAR(50), name VARCHAR(50),cprNumber INT, phone INT, email VARCHAR(50))");
+                Execute("CREATE TABLE calender (id int NOT NULL, date INT, day VARCHAR(10), open INT, close INT, holiday INT, tag VARCHAR(1000))");
+                Execute("CREATE TABLE shifts (id int NOT NULL, day VARCHAR(10), date INT, week INT, startTime INT, endTime INT, userTable INT)");
+                Execute("CREATE TABLE template (id int NOT NULL, day VARCHAR(10), open INT, close INT, tag VARCHAR(1000))");
+            }
             m_dbConnection = new SQLiteConnection("Data Source=MyDatabase.sqlite;Version=3;");
             m_dbConnection.Open();
 
-            Execute("CREATE TABLE userTable (id int NOT NULL, username VARCHAR(50), password VARCHAR(50), name VARCHAR(50),cprNumber INT, phone INT, email VARCHAR(50))");
             Read("SELECT * FROM userTable WHERE id=2", "id", "name");
             readInfo.ForEach(Console.WriteLine);
         }
@@ -88,11 +93,10 @@ namespace PTwoManage
             }
         }
 
-        public void CreateTable()
+        public void SaveCalenderInfoToDatabase(int id, int date, string day, int open, int close, int holiday, string tag)
         {
-            
-
-        
+            string sql = "INSERT INTO userTable (id, date, day, open ,close , holiday , tag) values (" + id + ", " + date + " , '" + day + "', " + open + " , " + close + " , " + holiday + ", '" + tag + "')";
+            Database.Instance.Execute(sql);
         }
     }
 }
