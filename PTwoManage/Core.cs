@@ -19,6 +19,8 @@ namespace PTwoManage
         Core()
         {
             _allUsers = new List<User>();
+            //_allShiftTemplates = new List<ShiftTemplates>();
+
             List<string> info = Database.Instance.readInfo;
             string sql = "SELECT * FROM userTable";
             Database.Instance.Read(sql, Database.Instance.userTableColumns);
@@ -44,5 +46,10 @@ namespace PTwoManage
         {
             _allUsers.Add(user);
         }
+
+        /*public List<ShiftTemplate> GetAllShiftTemplates()
+        {
+            return _allShiftTemplates;
+        }*/
     }
 }

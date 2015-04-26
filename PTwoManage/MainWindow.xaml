@@ -9,7 +9,7 @@
             </MenuItem>
             <MenuItem Header="_User" Click="AddUser_Click"></MenuItem>
             <MenuItem Header="_Schedule">
-                <MenuItem Header="_Add Template" Click="AddTemplate_Click"></MenuItem>
+                <MenuItem Header="_Add Shift Template" Click="AddTemplate_Click"></MenuItem>
             </MenuItem>
         </Menu>
         <StackPanel></StackPanel>

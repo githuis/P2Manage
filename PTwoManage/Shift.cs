@@ -12,6 +12,7 @@ namespace PTwoManage
         private int _breakTime;
         public User Employee;
 
+
         public DateTime StartTime
         {
             get { return _startTime; }
@@ -24,8 +25,8 @@ namespace PTwoManage
             set { _endTime = value; }
         }
 
-        public Shift(User user, DateTime start, DateTime end, string date, List<string> tag)
-            : base(date, start, end, tag)
+        public Shift(User user, DateTime start, DateTime end, string date)
+            : base(date, start, end)
         {
             Employee = user;
             _startTime = start;
