@@ -53,7 +53,7 @@ namespace PTwoManage
                 Console.WriteLine("Damn");
             }
 
-            ShiftTemplate test2 = new ShiftTemplate("test", Start, End);
+            ShiftTemplate test2 = new ShiftTemplate(Day_List.SelectedItems.ToString(), Start, End);
             Database.Instance.SaveInfoShiftTemplate(test2);
         }
 

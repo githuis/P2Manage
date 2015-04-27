@@ -3,9 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="addShiftTemplateWindow" Height="453.732" Width="650.634" ResizeMode="NoResize">
     <Grid Margin="0,0,-140,-94">
-        <Label Margin="20,2,716,490">Day</Label>
-        <Label Margin="139,2,572,489">Start Time</Label>
-        <Label Margin="139,73,485,406" >End Time</Label>
+        <Label Margin="20,2,689,0" Height="28" VerticalAlignment="Top">Day</Label>
+        <Label Margin="139,2,572,0" Height="29" VerticalAlignment="Top">Start Time</Label>
+        <Label Margin="139,73,485,0" Height="25" VerticalAlignment="Top">End Time</Label>
+        <Label Margin="20,213,689,0" Height="25" VerticalAlignment="Top">Tags</Label>
+        <Label Margin="139,213,572,0" Height="25" VerticalAlignment="Top">Tag</Label>
+        <Label Margin="472,5,152,0" Height="25" VerticalAlignment="Top">Shift Templates</Label>
         <ListBox Name="Day_List" Margin="20,29,651,325">
             <ListBoxItem>Monday</ListBoxItem>
             <ListBoxItem>Tuesday</ListBoxItem>
@@ -17,15 +20,14 @@
         </ListBox>
         <TextBox Name="Start_Time" PreviewTextInput="EditTime_NumberValidation" Margin="139,30,485,451" MaxLength="5" ToolTip="Enter  &quot;HH.MM&quot; Format"></TextBox>
         <TextBox Name="End_Time" PreviewTextInput="EditTime_NumberValidation" Margin="139,98,485,383" MaxLength="5"></TextBox>
-        <Button Margin="187,166,506,325" Click="Save_ShiftTemplate" >Submit</Button>
-        
-        <ListBox Name="Tag_List" HorizontalAlignment="Left" Height="164" Margin="20,199,0,0" VerticalAlignment="Top" Width="76" SelectionMode="Multiple"></ListBox>
-        <TextBox Name="Tag_Add_TextBox" HorizontalAlignment="Left" Height="23" Margin="139,264,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button HorizontalAlignment="Left" Margin="184,320,0,0" VerticalAlignment="Top" Width="75" Click="Tag_Add_To_ListBox_Click">
-            <Button Content="Save tag" Width="75"/>
-        </Button>
-        <Button Content="Delete tag" HorizontalAlignment="Left" Margin="298,320,0,0" VerticalAlignment="Top" Width="75" Click="Tag_Delete_From_Listbox_Click"/>
+        <Button Margin="187,166,506,0" Click="Save_ShiftTemplate" Height="29" VerticalAlignment="Top">Submit</Button>
 
+        <ListBox Name="Tag_List" HorizontalAlignment="Left" Height="164" Margin="20,238,0,0" VerticalAlignment="Top" Width="76" SelectionMode="Multiple"></ListBox>
+        <TextBox Name="Tag_Add_TextBox" HorizontalAlignment="Left" Height="23" Margin="139,238,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Save Tag" HorizontalAlignment="Left" Margin="184,320,0,0" Width="75" Click="Tag_Add_To_ListBox_Click" Height="22" VerticalAlignment="Top"/>
+        <Button Content="Delete Tag" HorizontalAlignment="Left" Margin="298,320,0,0" VerticalAlignment="Top" Width="75" Click="Tag_Delete_From_Listbox_Click"/>
+
+        <ListBox Name="Shift_Template_List" Margin="472,30,165,118"></ListBox>
 
 
     </Grid>
