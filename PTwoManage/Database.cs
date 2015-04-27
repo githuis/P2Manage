@@ -77,6 +77,7 @@ namespace PTwoManage
             string s="";
             for (int i = 0; i < input.Tag.Count; i++)
             {
+                s += "-";
                 s += input.Tag[i];
             }
             string sql = "INSERT INTO ShiftTemplate (date, start, end, tag) values (" + input.Date + "', '" + input._startTime.ToString("dd-MM-yyyy-HH-mm-ss") + "', '" + input._endTime.ToString("dd-MM-yyyy-HH-mm-ss") + "', '" + s + "')";

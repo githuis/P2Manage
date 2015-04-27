@@ -27,7 +27,7 @@ namespace PTwoManage
 
         private void EditTime_NumberValidation(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex("[^0-9]+");
+            Regex regex = new Regex("[^0-9.]+");
             e.Handled = regex.IsMatch(e.Text);
         }
 
@@ -37,11 +37,16 @@ namespace PTwoManage
             DateTime Start = new DateTime();
             DateTime End = new DateTime();
             string test3 = Tag_List.SelectedItems.ToString();
+            string s = "01-01-1995-";
+            string t = s;
+            s += Start_Time.Text;
+            t += End_Time.Text;
 
-            if(DateTime.TryParse(Start_Time.Text, out test) && DateTime.TryParse(End_Time.Text, out test))
+            if(DateTime.TryParse(s, out test) && DateTime.TryParse(t, out test))
             {
                 Start = DateTime.Parse(Start_Time.Text);
                 End = DateTime.Parse(End_Time.Text);
+                Console.WriteLine("Yes");
             }
             else
             {

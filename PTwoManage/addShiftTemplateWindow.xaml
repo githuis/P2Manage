@@ -4,8 +4,9 @@
         Title="addShiftTemplateWindow" Height="453.732" Width="650.634" ResizeMode="NoResize">
     <Grid Margin="0,0,-140,-94">
         <Label Margin="20,2,716,490">Day</Label>
-        <Label Margin="118,68,506,411" >End Time</Label>
-        <ListBox Name="Day_List" Margin="20,29,672,354">
+        <Label Margin="139,2,572,489">Start Time</Label>
+        <Label Margin="139,73,485,406" >End Time</Label>
+        <ListBox Name="Day_List" Margin="20,29,651,325">
             <ListBoxItem>Monday</ListBoxItem>
             <ListBoxItem>Tuesday</ListBoxItem>
             <ListBoxItem>Wednesday</ListBoxItem>
@@ -14,8 +15,8 @@
             <ListBoxItem>Saturday</ListBoxItem>
             <ListBoxItem>Sunday</ListBoxItem>
         </ListBox>
-        <TextBox Name="Start_Time" PreviewTextInput="EditTime_NumberValidation" Margin="118,29,506,452" MaxLength="4" ToolTip="Enter in &quot;&quot; Format"></TextBox>
-        <TextBox Name="End_Time" PreviewTextInput="EditTime_NumberValidation" Margin="118,95,506,386" MaxLength="4"></TextBox>
+        <TextBox Name="Start_Time" PreviewTextInput="EditTime_NumberValidation" Margin="139,30,485,451" MaxLength="5" ToolTip="Enter  &quot;HH.MM&quot; Format"></TextBox>
+        <TextBox Name="End_Time" PreviewTextInput="EditTime_NumberValidation" Margin="139,98,485,383" MaxLength="5"></TextBox>
         <Button Margin="187,166,506,325" Click="Save_ShiftTemplate" >Submit</Button>
         
         <ListBox Name="Tag_List" HorizontalAlignment="Left" Height="164" Margin="20,199,0,0" VerticalAlignment="Top" Width="76" SelectionMode="Multiple"></ListBox>
