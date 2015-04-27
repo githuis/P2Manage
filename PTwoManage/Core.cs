@@ -10,6 +10,7 @@ namespace PTwoManage
     {
         static readonly Core _instance = new Core();
         private List<User> _allUsers;
+        private List<ShiftTemplate> _allShiftTemplates;
 
         public static Core Instance
         {
@@ -19,7 +20,7 @@ namespace PTwoManage
         Core()
         {
             _allUsers = new List<User>();
-            //_allShiftTemplates = new List<ShiftTemplates>();
+            _allShiftTemplates = new List<ShiftTemplate>();
 
             List<string> info = Database.Instance.readInfo;
             string sql = "SELECT * FROM userTable";
@@ -29,6 +30,15 @@ namespace PTwoManage
                 string[] split = item.Split(new Char[]{','});
                 _allUsers.Add(new User(int.Parse(split[0]), split[1], split[2], split[3], split[4], split[5], split[6]));
             }
+
+            string sql2 = "SELECT * FROM ShiftTemplate";
+            Database.Instance.Read(sql2, Database.Instance.userTableColumns);
+            foreach (var item in info)
+            {
+                string[] split = item.Split(new Char[] { ',' });
+                //_allShiftTemplates.Add(new User(int.Parse(split[0]), split[1], split[2], split[3]));
+            }
+
         }
         
        

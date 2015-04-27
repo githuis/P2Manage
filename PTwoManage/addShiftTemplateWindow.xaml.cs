@@ -49,9 +49,6 @@ namespace PTwoManage
             }
 
             ShiftTemplate test2 = new ShiftTemplate("test", Start, End);
-
-            
-
             Database.Instance.SaveInfoShiftTemplate(test2);
         }
 
@@ -59,6 +56,18 @@ namespace PTwoManage
         {
             Tag_List.Items.Add(Tag_Add_TextBox.Text);
             Tag_Add_TextBox.Clear();
+        }
+
+        private void Tag_Delete_From_Listbox_Click(object sender, RoutedEventArgs e)
+        {
+            if (Tag_List.SelectedItems.Count > 0)
+            {
+                for (int i = 0; i <= Tag_List.SelectedItems.Count+1; i++)
+                {
+                    Tag_List.Items.RemoveAt(Tag_List.SelectedIndex);
+                    Tag_List.Items.Refresh();
+                }
+            }
         }
     }
 }
