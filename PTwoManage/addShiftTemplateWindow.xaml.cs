@@ -27,34 +27,36 @@ namespace PTwoManage
 
         private void EditTime_NumberValidation(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex("[^0-9.]+");
+            Regex regex = new Regex("[^0-9:]+");
             e.Handled = regex.IsMatch(e.Text);
         }
 
         private void Save_ShiftTemplate(object sender, RoutedEventArgs e)
         {
-            DateTime test;
+            DateTime test6;
+            DateTime test7;
             DateTime Start = new DateTime();
             DateTime End = new DateTime();
             string test3 = Tag_List.SelectedItems.ToString();
-            string s = "01-01-1995-";
+            string s = "01/01/1995 ";
             string t = s;
             s += Start_Time.Text;
             t += End_Time.Text;
+            s += ":00";
+            t += ":00";
 
-            if(DateTime.TryParse(s, out test) && DateTime.TryParse(t, out test))
+            if (DateTime.TryParse(s, out test6) && DateTime.TryParse(t, out test7))
             {
-                Start = DateTime.Parse(Start_Time.Text);
-                End = DateTime.Parse(End_Time.Text);
-                Console.WriteLine("Yes");
+                Start = DateTime.Parse(s);
+                End = DateTime.Parse(t);
             }
             else
             {
                 Console.WriteLine("Damn");
             }
 
-            ShiftTemplate test2 = new ShiftTemplate(Day_List.SelectedItems.ToString(), Start, End);
-            Database.Instance.SaveInfoShiftTemplate(test2);
+            ShiftTemplate test2 = new ShiftTemplate("test", Start, End);
+            test2.SaveInfoShiftTemplate();
         }
 
         private void Tag_Add_To_ListBox_Click(object sender, RoutedEventArgs e)
@@ -67,7 +69,7 @@ namespace PTwoManage
         {
             if (Tag_List.SelectedItems.Count > 0)
             {
-                for (int i = 0; i <= Tag_List.SelectedItems.Count+1; i++)
+                for (int i = 0; i <= Tag_List.SelectedItems.Count + 1; i++)
                 {
                     Tag_List.Items.RemoveAt(Tag_List.SelectedIndex);
                     Tag_List.Items.Refresh();

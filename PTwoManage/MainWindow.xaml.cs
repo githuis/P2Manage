@@ -32,7 +32,7 @@ namespace PTwoManage
             addUserWindow = new AddUserWindow();
             addUserWindow.Show();
             addUserWindow.EditUser_Load();
-            
+
         }
 
         private void AddTemplate_Click(object sender, RoutedEventArgs e)
