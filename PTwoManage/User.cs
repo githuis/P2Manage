@@ -106,7 +106,18 @@ namespace PTwoManage
         public void SaveUserInfoToDatabase()
         {
             User user = this;
-            string sql = "INSERT INTO userTable (id, username, password, name ,cprNumber, phone , email) values (" + user.Id + ", '" + user.UserName + "', '" + user.Password + "', '" + user.Name + "' , " + user.CprNumber + " , " + user.Phone + ", '" + user.Email + "')";
+            string sql;
+            sql = "DELETE FROM userTable WHERE username IN (SELECT username FROM userTable WHERE username ='" + user.UserName +"')";
+            Database.Instance.Execute(sql);
+            sql = "INSERT OR REPLACE INTO userTable  (id, username, password, name, cprNumber, phone, email) values (" + user.Id + ", '" + user.UserName + "', '" + user.Password + "', '" + user.Name + "' , " + user.CprNumber + " , " + user.Phone + ", '" + user.Email + "')";
+            Database.Instance.Execute(sql);
+        }
+
+        public void DeleteUser()
+        {
+            User user = this;
+            string sql;
+            sql = "DELETE FROM userTable WHERE username IN (SELECT username FROM userTable WHERE username ='" + user.UserName + "')";
             Database.Instance.Execute(sql);
         }
     }

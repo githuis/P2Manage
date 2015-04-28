@@ -6,30 +6,39 @@ using System.Threading.Tasks;
 
 namespace PTwoManage
 {
-    class ShiftTemplate
+    public class ShiftTemplate
     {
-        List<TimeTemplate> TemplateCollection = new List<TimeTemplate>();
-        
-        DateTime time1 = new DateTime(2015, 12, 24, 08, 00, 00);
-        DateTime time2 = new DateTime(2015, 12, 24, 16, 00, 00);
+        public string Date;
+        public DateTime _startTime;
+        public DateTime _endTime;
+        public List<string> Tag = new List<string>();
+        public bool IsTemplate;
 
-        public void MakeShift()
+
+        public ShiftTemplate(string date, DateTime starttime, DateTime endtime)//List<string> tag
         {
-            TimeTemplate MondayShift = new TimeTemplate(time1, time2);
-            TimeTemplate TuesdayShift = new TimeTemplate(time1.AddDays(1), time2.AddDays(1));
+            Date = date;
+            _startTime = starttime;
+            _endTime = endtime;
+            IsTemplate = true;
+            Tag.Add("TestTag");
         }
 
-    }
-    
-    class TimeTemplate
-    {
-        public DateTime Start;
-        public DateTime End;
-
-        public TimeTemplate(DateTime StartShift, DateTime EndShift)
+        public void SaveInfoShiftTemplate()
         {
-            Start = StartShift;
-            End = EndShift;
+            ShiftTemplate template = this;
+            int test = 1;
+            string s = "test";
+            /*for (int i = 0; i <= template.Tag.Count; i++)
+            {
+                if(i>0)
+                    s += "-";
+                s += template.Tag[i];
+            }
+             */
+
+            string sql = "INSERT INTO ShiftTemplate (id, date, start, end, tag) values (" + test + ", '" + template.Date + "', '" + template._startTime.ToString("dd-MM-yyyy-HH-mm-ss") + "', '" + template._endTime.ToString("dd-MM-yyyy-HH-mm-ss") + "', '" + s + "')";
+            Database.Instance.Execute(sql);
         }
     }
 }

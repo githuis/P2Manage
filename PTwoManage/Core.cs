@@ -26,6 +26,7 @@ namespace PTwoManage
             {
                 string[] split = item.Split(new Char[]{','});
                 _allUsers.Add(new User(int.Parse(split[0]), split[1], split[2], split[3], split[4], split[5], split[6]));
+                Console.WriteLine("User loaded: " + split[1]);
             }
         }
         
@@ -51,6 +52,11 @@ namespace PTwoManage
         public void AddUserToList(User user)
         {
             _allUsers.Add(user);
+        }
+
+        public void RemoveUserFromList(User user)
+        {
+            _allUsers.Remove(user);
         }
     }
 }
