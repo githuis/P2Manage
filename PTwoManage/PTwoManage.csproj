@@ -66,6 +66,7 @@
     <Compile Include="Shift.cs" />
     <Compile Include="ShiftTemplate.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="Week.cs" />
     <Compile Include="Workschedule.cs" />
     <Page Include="addShiftTemplateWindow.xaml">
       <SubType>Designer</SubType>
