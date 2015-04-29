@@ -34,7 +34,21 @@ namespace PTwoManage
                 DateTime t2 = new DateTime();
                 t1 = DateTime.Parse(split[2]);
                 t2 = DateTime.Parse(split[3]);
-                Monday.Add(new Shift(split[1], t1, t2, split[4], int.Parse(split[5]), int.Parse(split[6])));
+
+                if(t1.DayOfWeek == DayOfWeek.Monday)
+                    Monday.Add(new Shift(split[1], t1, t2, split[4], int.Parse(split[5]), int.Parse(split[6])));
+                else if(t1.DayOfWeek == DayOfWeek.Tuesday)
+                    Tuesday.Add(new Shift(split[1], t1, t2, split[4], int.Parse(split[5]), int.Parse(split[6])));
+                else if(t1.DayOfWeek == DayOfWeek.Wednesday)
+                    Wednesday.Add(new Shift(split[1], t1, t2, split[4], int.Parse(split[5]), int.Parse(split[6])));
+                else if (t1.DayOfWeek == DayOfWeek.Thursday)
+                    Thursday.Add(new Shift(split[1], t1, t2, split[4], int.Parse(split[5]), int.Parse(split[6])));
+                else if (t1.DayOfWeek == DayOfWeek.Friday)
+                    Friday.Add(new Shift(split[1], t1, t2, split[4], int.Parse(split[5]), int.Parse(split[6])));
+                else if (t1.DayOfWeek == DayOfWeek.Saturday)
+                    Saturday.Add(new Shift(split[1], t1, t2, split[4], int.Parse(split[5]), int.Parse(split[6])));
+                else if (t1.DayOfWeek == DayOfWeek.Sunday)
+                    Sunday.Add(new Shift(split[1], t1, t2, split[4], int.Parse(split[5]), int.Parse(split[6])));
             } 
         }
 

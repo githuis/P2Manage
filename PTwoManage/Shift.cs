@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PTwoManage
 {
-    class Shift
+    class Shift : ShiftTemplate
     {
         private DateTime _startTime;
         private DateTime _endTime;
@@ -25,11 +25,11 @@ namespace PTwoManage
             set { _endTime = value; }
         }
 
-        public Shift(User user, DateTime start, DateTime end)
+        public Shift(string date, DateTime starttime, DateTime endtime, string tag, int user, int weeknumber) : base(date, starttime, endtime)
         {
             Employee = user;
-            _startTime = start;
-            _endTime = end;
+            _startTime = starttime;
+            _endTime = endtime;
         }
 
         private void CalculateBreakTime(String hours, String breakTime)

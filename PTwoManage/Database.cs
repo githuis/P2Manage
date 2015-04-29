@@ -32,7 +32,7 @@ namespace PTwoManage
             m_dbConnection.Open();
 
             Execute("CREATE TABLE IF NOT EXISTS userTable (id int NOT NULL, username VARCHAR(50), password VARCHAR(50), name VARCHAR(50),cprNumber VARCHAR(50), phone VARCHAR(50), email VARCHAR(50))");
-            Execute("CREATE TABLE IF NOT EXISTS testTable (id int NOT NULL, date VARCHAR(50), start VARCHAR(50), end VARCHAR(50), tag VARCHAR(1000), employeeId INT, weekNumber INT)");
+            Execute("CREATE TABLE IF NOT EXISTS ShiftTable (id int NOT NULL, date VARCHAR(50), start VARCHAR(50), end VARCHAR(50), tag VARCHAR(1000), employeeId INT, weekNumber INT)");
             Execute("CREATE TABLE IF NOT EXISTS ShiftTemplate (id int NOT NULL, date VARCHAR(50), start VARCHAR(50), end VARCHAR(50), tag VARCHAR(1000))");
 
 
