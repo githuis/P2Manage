@@ -25,6 +25,16 @@ namespace PTwoManage
         public MainWindow()
         {
             InitializeComponent();
+            Core.Instance.Run();
+
+            shiftDataBindingMonday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Monday, 2);
+            shiftDataBindingTuesday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Tuesday, 2);
+            shiftDataBindingWednesday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Wednesday, 2);
+            shiftDataBindingThursday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Thursday, 2);
+            shiftDataBindingFriday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Friday, 2);
+            shiftDataBindingSaturday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Saturday, 2);
+            shiftDataBindingSunday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Sunday, 2);
+
         }
 
         private void AddUser_Click(object sender, RoutedEventArgs e)
@@ -40,6 +50,17 @@ namespace PTwoManage
             addShiftTemplateWindow = new AddShiftTemplateWindow();
             addShiftTemplateWindow.Show();
         }
+
+        private void LoadSchedule_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
 
     }
 }
