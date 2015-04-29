@@ -11,7 +11,7 @@ namespace PTwoManage
         private DateTime _startTime;
         private DateTime _endTime;
         private int _breakTime;
-        public User Employee;
+        public int Employee;
 
         public DateTime StartTime
         {
@@ -35,12 +35,6 @@ namespace PTwoManage
         private void CalculateBreakTime(String hours, String breakTime)
         {
 
-        }
-
-        public override string ToString()
-        {
-            return (Employee.UserName + " " + StartTime + " " + EndTime);
-        }
-        
+        }   
     }
 }

@@ -42,10 +42,7 @@ namespace PTwoManage
 
             DateTime start = new DateTime(2015, 04, 20, 15, 30, 00);
             DateTime end = new DateTime(2015, 04, 20, 18, 00, 00);
-
-            Shift vagt = new Shift(bruger, start, end);
-			
-            Console.WriteLine(vagt.ToString()); 
+		
             
         }
 
