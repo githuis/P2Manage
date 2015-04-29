@@ -25,9 +25,9 @@ namespace PTwoManage
             set { _endTime = value; }
         }
 
-        public Shift(string date, DateTime starttime, DateTime endtime, string tag, int user, int weeknumber) : base(date, starttime, endtime)
+        public Shift(string date, DateTime starttime, DateTime endtime, string tag, int userID, int weeknumber) : base(date, starttime, endtime)
         {
-            Employee = user;
+            Employee = userID;
             _startTime = starttime;
             _endTime = endtime;
         }

@@ -54,8 +54,6 @@ namespace PTwoManage
                 isValidated = true;
             }
 
-
-
             DateTime test6;
             DateTime test7;
             DateTime Start = new DateTime();
@@ -78,10 +76,12 @@ namespace PTwoManage
                 Console.WriteLine("Damn");
             }
 
-            ShiftTemplate test2 = new ShiftTemplate("test", Start, End);
+            
 
             if (isValidated == true)
             {
+                ListBoxItem SelectedDay = Day_List.SelectedItem as ListBoxItem;
+                ShiftTemplate test2 = new ShiftTemplate(SelectedDay.Content.ToString(), Start, End);
                 test2.SaveInfoShiftTemplate();
                 Error_message.Content = "";
             }
