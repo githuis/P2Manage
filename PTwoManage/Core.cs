@@ -10,6 +10,7 @@ namespace PTwoManage
     {
         static readonly Core _instance = new Core();
         private List<User> _allUsers;
+        private List<string> _AllTags;
 
         public static Core Instance
         {
@@ -18,6 +19,7 @@ namespace PTwoManage
 
         Core()
         {
+            
             _allUsers = new List<User>();
             List<string> info = Database.Instance.readInfo;
             string sql = "SELECT * FROM userTable";
@@ -27,7 +29,10 @@ namespace PTwoManage
                 string[] split = item.Split(new Char[]{','});
                 _allUsers.Add(new User(int.Parse(split[0]), split[1], split[2], split[3], split[4], split[5], split[6]));
                 Console.WriteLine("User loaded: " + split[1]);
-            }
+            } 
+            
+            _AllTags = new List<string>();
+
         }
         
        
@@ -57,6 +62,14 @@ namespace PTwoManage
         public void RemoveUserFromList(User user)
         {
             _allUsers.Remove(user);
+        }
+
+        public  List<string> GetAllTags()
+        {
+            string s = "lol";
+            _AllTags.Add(s);
+            Console.WriteLine(_AllTags);
+            return _AllTags;
         }
     }
 }

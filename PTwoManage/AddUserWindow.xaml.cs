@@ -27,6 +27,8 @@ namespace PTwoManage
             InitializeComponent();
         }
 
+        public BindingList<string> Tags { get; set; }
+
         private void Submit_AddUser()
         {
 
@@ -64,9 +66,16 @@ namespace PTwoManage
             }
         }
 
+        private void Populate_TagList()
+        {
+            Tags = new BindingList<string>(Core.Instance.GetAllTags());
+            Tag_ListBox.DataContext = Tags;
+        }
+
         public void EditUser_Load()
         {
             Populate_UserList();
+            Populate_TagList();
         }
 
         private void EditUser_Select_Button_Click(object sender, RoutedEventArgs e)
@@ -102,6 +111,7 @@ namespace PTwoManage
             u.Phone = EditUser_Number.Text;
             u.UserName = EditUser_UserNameBox.Text;
             u.Password = Password_TextBox.Password;
+            
             u.SaveUserInfoToDatabase();
             Console.WriteLine("Saved Current");
             Populate_UserList();
@@ -132,6 +142,7 @@ namespace PTwoManage
             EditUser_Email.Text = "";
             Password_TextBox.Password = "";
             ConfirmPassword.Password = "";
+            ConfirmPassword.IsEnabled = true;
         }
 
         private string CreateUserName(string FullName, string cpr)
@@ -160,15 +171,13 @@ namespace PTwoManage
             EmptyForm();
             Core.Instance.RemoveUserFromList(u);
             Populate_UserList();
-                    
-
         }
+
+
 
         private void EditUser_NameList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
-
-       
     }
 }

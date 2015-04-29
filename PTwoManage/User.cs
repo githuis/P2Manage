@@ -10,7 +10,7 @@ namespace PTwoManage
     {
         Core core;
         static List<User> allUsers = new List<User>();
-        List<string> userCategories;
+       // private List<string> _userCategories;
         private int _id;
         private string _userName;
         private string _password;
@@ -18,6 +18,7 @@ namespace PTwoManage
         private string _cprNumber;
         private string _phone;
         private string _email;
+        //static List<string> userCategories = new List<string>();
 
         public int Id
         {
@@ -71,24 +72,18 @@ namespace PTwoManage
             _cprNumber = cprNummer;
             _phone = phone;
             _email = email;
+
         }
 
-        static Dictionary<int, string> categories = new Dictionary<int, string>()
+      /*  void AddCategory(string newCategory)
         {
-            {0, "Default"}, 
-            {1, "Lukker"},
-            {2, "Åbner"}
-        };
-
-        void AddCategory(string newCategory)
-        {
-            categories.Add(categories.Count, newCategory);
+            userCategories.Add(newCategory);
         }
 
         void RemoveCategory(int categoryKey)
         {
             categories.Remove(categoryKey);
-        }
+        }*/
 
         public static User GetUserByName(string userName)
         {

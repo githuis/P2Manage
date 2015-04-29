@@ -3,6 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Manage Users" Height="460" Width="603" ResizeMode="NoResize">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="251*"/>
+            <RowDefinition Height="180*"/>
+        </Grid.RowDefinitions>
         <!--<TabControl BorderThickness="1">
             <TabItem Header="Add User">
                 <StackPanel>
@@ -15,7 +19,7 @@
                 </StackPanel>
             </TabItem>
             <TabItem Header="Edit User">-->
-        <Grid>
+        <Grid Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -25,7 +29,8 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="29.667"/>
-                <RowDefinition Height="210.333"/>
+                <RowDefinition Height="36"/>
+                <RowDefinition Height="174"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
@@ -40,7 +45,7 @@
             <TextBox Name="EditUser_FullName" Grid.Row="1" Grid.Column="1" Margin="3"></TextBox>
             <Label Grid.Row="2" Grid.Column="0">Password:</Label>
             <PasswordBox Name="Password_TextBox" Grid.Row="2" Grid.Column="1" Margin="3"/>
-            
+
             <Label Grid.Row="3" Grid.Column="0" Grid.RowSpan="1">Confirm:</Label>
             <PasswordBox Name="ConfirmPassword" Grid.Row="3" Grid.Column="1" Margin="3"></PasswordBox>
             <Label Grid.Row="4" Grid.Column="0">CPR:</Label>
@@ -49,11 +54,18 @@
             <TextBox Name="EditUser_Number" Grid.Row="5" Grid.Column="1" Margin="3" PreviewTextInput="EditUser_NumberValidation" MaxLength="12"></TextBox>
             <Label Grid.Row="6" Grid.Column="0">E-Mail:</Label>
             <TextBox Name="EditUser_Email" Grid.Row="6" Grid.Column="1" Margin="3"></TextBox>
-            <Button Grid.Row="8" Grid.Column="1" Height="20" Margin="15,0,0,190" HorizontalAlignment="Left" Width="76" VerticalAlignment="Bottom"  Click="SaveUser_Click" >Save User</Button>
-            <Button Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left" Width="72" Margin="105,0,0,190" Height="20" VerticalAlignment="Bottom" Click="EditUser_Select_Button_Click">Load User</Button>
-            <Button Grid.Row="8" Grid.Column="1" Height="20" Width="75" Margin="192,0,0,190" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="Remove_User_Click">Remove User</Button>
+            <Button Grid.Row="8" Grid.Column="1" Height="20" Margin="15,0,0,16" HorizontalAlignment="Left" Width="76" VerticalAlignment="Bottom"  Click="SaveUser_Click" >Save User</Button>
+            <Button Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left" Width="72" Margin="105,0,0,16" Height="20" VerticalAlignment="Bottom" Click="EditUser_Select_Button_Click">Load User</Button>
+            <Button Grid.Row="8" Grid.Column="1" Height="20" Width="75" Margin="192,0,0,16" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="Remove_User_Click">Remove User</Button>
             <Label Name="AddUser_Confirmation" HorizontalAlignment="Left" Grid.Row="7" Grid.Column="1" Width="326"></Label>
-            <ListBox Name="EditUser_NameList" Grid.Row="0" Grid.Column="2" Grid.RowSpan="9" Width="180" SelectionMode="Single" Height="421" SelectionChanged="EditUser_NameList_SelectionChanged" HorizontalAlignment="Left" VerticalAlignment="Top"></ListBox>
+            <ListBox Name="EditUser_NameList" Grid.Row="0" Grid.Column="2" Grid.RowSpan="10" Width="180" SelectionMode="Single" Height="421" SelectionChanged="EditUser_NameList_SelectionChanged" HorizontalAlignment="Left" VerticalAlignment="Top"></ListBox>
+            <ListBox Name="Tag_ListBox" Grid.Column="1" Grid.Row="9" Margin="15" ItemsSource="{Binding}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Content="{Binding}" IsChecked="False" Margin="5 5 0 0"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
         <!--<DockPanel Name="Edit_UserPanel">
                     <Button Name="EditUser_Select_Button" Click="EditUser_Select_Button_Click">Load User</Button>
