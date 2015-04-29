@@ -36,7 +36,7 @@ namespace PTwoManage
                 && (Core.Instance.GetAllUsers().Find(x => x.UserName.Contains(CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text))) == null))
             {
                 //Skal fixes
-                User newUser = new User(1, CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text), Password_TextBox.Password, EditUser_FullName.Text, EditUser_CPR.Text, EditUser_Number.Text, EditUser_Email.Text);
+                User newUser = new User(1, CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text), Password_TextBox.Password, EditUser_FullName.Text, EditUser_CPR.Text, EditUser_Number.Text, EditUser_Email.Text, Checked_Tags());
                 Core.Instance.AddUserToList(newUser);
                 AddUser_Confirmation.Content = EditUser_FullName.Text + " was added to the system";
                 AddUser_Confirmation.Foreground = Brushes.Green;
@@ -68,8 +68,13 @@ namespace PTwoManage
 
         private void Populate_TagList()
         {
-            Tags = new BindingList<string>(Core.Instance.GetAllTags());
-            Tag_ListBox.DataContext = Tags;
+            Tag_ListBox.Items.Clear();
+            foreach (string tag in Core.Instance.GetAllTags())
+            {
+                ListBoxItem item = new ListBoxItem();
+                item.Content = tag;
+                Tag_ListBox.Items.Add(item);
+            }
         }
 
         public void EditUser_Load()
@@ -92,6 +97,7 @@ namespace PTwoManage
                 EditUser_Email.Text = User.GetUserByName(item.Content.ToString()).Email;
                 ConfirmPassword.Password = User.GetUserByName(item.Content.ToString()).Password;
                 ConfirmPassword.IsEnabled = false;
+                //Console.WriteLine(User.GetUserByName(item.Content.ToString()).UserCategories);
             }
             
         }
@@ -173,6 +179,17 @@ namespace PTwoManage
             Populate_UserList();
         }
 
+        private List<string> Checked_Tags()
+        {
+            List<string> UserTags = new List<string>();
+
+            foreach (ListBoxItem item in Tag_ListBox.SelectedItems)
+            {
+                string tag = item.Name;
+                UserTags.Add(tag);
+            }
+            return UserTags;
+        }
 
 
         private void EditUser_NameList_SelectionChanged(object sender, SelectionChangedEventArgs e)

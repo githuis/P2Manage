@@ -10,7 +10,7 @@ namespace PTwoManage
     {
         static readonly Core _instance = new Core();
         private List<User> _allUsers;
-        private List<string> _AllTags;
+        private List<string> _allTags;
 
         public static Core Instance
         {
@@ -19,7 +19,7 @@ namespace PTwoManage
 
         Core()
         {
-            
+            _allTags = new List<string>();
             _allUsers = new List<User>();
             List<string> info = Database.Instance.readInfo;
             string sql = "SELECT * FROM userTable";
@@ -27,27 +27,24 @@ namespace PTwoManage
             foreach (var item in info)
             {
                 string[] split = item.Split(new Char[]{','});
-                _allUsers.Add(new User(int.Parse(split[0]), split[1], split[2], split[3], split[4], split[5], split[6]));
+                _allUsers.Add(new User(int.Parse(split[0]), split[1], split[2], split[3], split[4], split[5], split[6], Database.Instance.stringToList(split[7])));
                 Console.WriteLine("User loaded: " + split[1]);
-            } 
-            
-            _AllTags = new List<string>();
-
+            }
         }
         
        
-        public void Run()
+       /* public void Run()
         {
-            User bruger = new User(1,"lucrah2", "1234", "luca2", "564455648", "88888888", "jgdagmailcom");
+           // User bruger = new User(1,"lucrah2", "1234", "luca2", "564455648", "88888888", "jgdagmailcom");
 
             DateTime start = new DateTime(2015, 04, 20, 15, 30, 00);
             DateTime end = new DateTime(2015, 04, 20, 18, 00, 00);
 
-            Shift vagt = new Shift(bruger, start, end);
+           // Shift vagt = new Shift(bruger, start, end);
 			
             Console.WriteLine(vagt.ToString()); 
             
-        }
+        }*/
 
         public List<User> GetAllUsers()
         {
@@ -67,9 +64,8 @@ namespace PTwoManage
         public  List<string> GetAllTags()
         {
             string s = "lol";
-            _AllTags.Add(s);
-            Console.WriteLine(_AllTags);
-            return _AllTags;
+            _allTags.Add(s);
+            return _allTags;
         }
     }
 }

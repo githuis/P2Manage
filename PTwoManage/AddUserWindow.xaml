@@ -59,12 +59,7 @@
             <Button Grid.Row="8" Grid.Column="1" Height="20" Width="75" Margin="192,0,0,16" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="Remove_User_Click">Remove User</Button>
             <Label Name="AddUser_Confirmation" HorizontalAlignment="Left" Grid.Row="7" Grid.Column="1" Width="326"></Label>
             <ListBox Name="EditUser_NameList" Grid.Row="0" Grid.Column="2" Grid.RowSpan="10" Width="180" SelectionMode="Single" Height="421" SelectionChanged="EditUser_NameList_SelectionChanged" HorizontalAlignment="Left" VerticalAlignment="Top"></ListBox>
-            <ListBox Name="Tag_ListBox" Grid.Column="1" Grid.Row="9" Margin="15" ItemsSource="{Binding}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <CheckBox Content="{Binding}" IsChecked="False" Margin="5 5 0 0"/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
+            <ListBox Name="Tag_ListBox" Grid.Column="1" Grid.Row="9" Margin="15">
             </ListBox>
         </Grid>
         <!--<DockPanel Name="Edit_UserPanel">
