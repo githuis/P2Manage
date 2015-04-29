@@ -33,6 +33,29 @@ namespace PTwoManage
 
         private void Save_ShiftTemplate(object sender, RoutedEventArgs e)
         {
+            bool isValidated;
+            if (!Check_If_Valid_Time(Start_Time.Text))
+            {
+                isValidated = false;
+                Error_message.Content = "Start time is not a valid hour format";
+            }
+            else if (!Check_If_Valid_Time(End_Time.Text))
+            {
+                isValidated = false;
+                Error_message.Content = "End time is not a valid minute format";
+            }
+            else if (Day_List.SelectedItem == null)
+            {
+                isValidated = false;
+                Error_message.Content = "A day haven't been selected";
+            }
+            else
+            {
+                isValidated = true;
+            }
+
+
+
             DateTime test6;
             DateTime test7;
             DateTime Start = new DateTime();
@@ -56,7 +79,29 @@ namespace PTwoManage
             }
 
             ShiftTemplate test2 = new ShiftTemplate("test", Start, End);
-            test2.SaveInfoShiftTemplate();
+
+            if (isValidated == true)
+            {
+                test2.SaveInfoShiftTemplate();
+                Error_message.Content = "";
+            }
+        }
+
+        private bool Check_If_Valid_Time(string s)
+        {
+            string[] split;
+
+            if (s == "")
+                return false;
+            else if (s.Contains(':'))
+                split = s.Split(new Char[] { ':' });
+            else return false;
+            
+            if (int.Parse(split[0].ToString()) <= 23 && int.Parse(split[1].ToString()) <= 59)
+                return true;
+            else
+                return false;
+
         }
 
         private void Tag_Add_To_ListBox_Click(object sender, RoutedEventArgs e)

@@ -28,6 +28,7 @@
         <Button Content="Delete Tag" HorizontalAlignment="Left" Margin="298,320,0,0" VerticalAlignment="Top" Width="75" Click="Tag_Delete_From_Listbox_Click"/>
 
         <ListBox Name="Shift_Template_List" Margin="472,30,165,118"></ListBox>
+        <Label Name="Error_message" HorizontalAlignment="Left" Margin="375,66,0,0" VerticalAlignment="Top"/>
 
 
     </Grid>
