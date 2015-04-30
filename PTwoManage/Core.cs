@@ -20,6 +20,10 @@ namespace PTwoManage
         Core()
         {
             _allTags = new List<string>();
+            string s = "lol";
+            string b = "wat";
+            _allTags.Add(s);
+            _allTags.Add(b);
             _allUsers = new List<User>();
             List<string> info = Database.Instance.readInfo;
             string sql = "SELECT * FROM userTable";
@@ -63,8 +67,6 @@ namespace PTwoManage
 
         public  List<string> GetAllTags()
         {
-            string s = "lol";
-            _allTags.Add(s);
             return _allTags;
         }
     }
