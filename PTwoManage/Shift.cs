@@ -25,7 +25,7 @@ namespace PTwoManage
             set { _endTime = value; }
         }
 
-        public Shift(string date, DateTime starttime, DateTime endtime, string tag, int userID, int weeknumber) : base(date, starttime, endtime)
+        public Shift(string date, DateTime starttime, DateTime endtime, string tag, int userID, int weeknumber) : base(date, starttime, endtime, tag)
         {
             Employee = userID;
             _startTime = starttime;
@@ -35,6 +35,7 @@ namespace PTwoManage
         private void CalculateBreakTime(String hours, String breakTime)
         {
 
-        }   
+        }
+
     }
 }

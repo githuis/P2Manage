@@ -64,5 +64,10 @@ namespace PTwoManage
             } 
         }
 
+        public void ScheduleGenerator(int weeknumber)
+        {
+
+        }
+
     }
 }

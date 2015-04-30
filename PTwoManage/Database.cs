@@ -12,6 +12,7 @@ namespace PTwoManage
     {
         static readonly Database _instance = new Database();
         public string[] userTableColumns = new string[7]{"id", "username", "password", "name", "cprNumber", "phone", "email"};
+        public string[] ShiftTemplateTableColumns = new string[5] { "id", "date", "start", "end", "tag" };
         SQLiteConnection m_dbConnection;
         public List<string> readInfo;
 
@@ -62,5 +63,12 @@ namespace PTwoManage
 
             }
         }
+
+        public string listToString(List<string> inputList)
+        {
+            string returnString = string.Join(",", inputList.ToArray());
+            return (returnString);
+        }
+
     }
 }

@@ -76,12 +76,11 @@ namespace PTwoManage
                 Console.WriteLine("Damn");
             }
 
-            
 
             if (isValidated == true)
             {
                 ListBoxItem SelectedDay = Day_List.SelectedItem as ListBoxItem;
-                ShiftTemplate test2 = new ShiftTemplate(SelectedDay.Content.ToString(), Start, End);
+                ShiftTemplate test2 = new ShiftTemplate(SelectedDay.Content.ToString(), Start, End, "testTag");
                 test2.SaveInfoShiftTemplate();
                 Error_message.Content = "";
             }
@@ -120,6 +119,11 @@ namespace PTwoManage
                     Tag_List.Items.Refresh();
                 }
             }
+        }
+
+        private void Tag_List_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

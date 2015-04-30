@@ -15,7 +15,7 @@ namespace PTwoManage
         public bool IsTemplate;
 
 
-        public ShiftTemplate(string date, DateTime starttime, DateTime endtime)//List<string> tag
+        public ShiftTemplate(string date, DateTime starttime, DateTime endtime, string tag)//List<string> tag
         {
             Date = date;
             _startTime = starttime;

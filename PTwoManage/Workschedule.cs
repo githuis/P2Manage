@@ -9,6 +9,38 @@ namespace PTwoManage
 {
     class Workschedule
     {
+        public void ScheduleGenerator(int weeknumber)
+        {
+            List<ShiftTemplate> AllShiftTemplates = new List<ShiftTemplate>();
+            foreach (ShiftTemplate t in Core.Instance.GetAllTemplates())
+            {
+                AllShiftTemplates.Add(t);
+            }
+
+
+            int TemplateCount = AllShiftTemplates.Count;
+            for (int i = 0; i <= TemplateCount; i++ )
+                switch (AllShiftTemplates[i]._startTime.DayOfWeek)
+                {
+                    case DayOfWeek.Friday:
+                        break;
+                    case DayOfWeek.Monday:
+                        break;
+                    case DayOfWeek.Saturday:
+                        break;
+                    case DayOfWeek.Sunday:
+                        break;
+                    case DayOfWeek.Thursday:
+                        break;
+                    case DayOfWeek.Tuesday:
+                        break;
+                    case DayOfWeek.Wednesday:
+                        break;
+                    default:
+                        break;
+                }
+
+        }
         
         public static void NewCalendar()
         {
@@ -17,19 +49,7 @@ namespace PTwoManage
             dt = cal.AddYears(dt, 2);
             Console.WriteLine(cal.GetYear(dt));
         }
-
-        enum Weekdays 
-        {
-            Monday,
-            Tuesday,
-            Wednesday,
-            Thursday,
-            Friday,
-            Saturday,
-            Sunday
-        }
-
-        
+  
         public void isHoliday(int dayInYear)
         {
 
