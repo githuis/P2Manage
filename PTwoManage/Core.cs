@@ -10,6 +10,7 @@ namespace PTwoManage
     {
         static readonly Core _instance = new Core();
         private List<User> _allUsers;
+        private List<string> _allTags;
         private List<string> _AllTags;
         private List<ShiftTemplate> _allTemplates;
 
@@ -20,6 +21,11 @@ namespace PTwoManage
 
         Core()
         {
+            _allTags = new List<string>();
+            string s = "lol";
+            string b = "wat";
+            _allTags.Add(s);
+            _allTags.Add(b);
             _allUsers = new List<User>();
             _allTemplates = new List<ShiftTemplate>();
 
@@ -29,10 +35,9 @@ namespace PTwoManage
             foreach (var item in info)
             {
                 string[] split = item.Split(new Char[]{','});
-                _allUsers.Add(new User(int.Parse(split[0]), split[1], split[2], split[3], split[4], split[5], split[6]));
+                _allUsers.Add(new User(int.Parse(split[0]), split[1], split[2], split[3], split[4], split[5], split[6], Database.Instance.stringToList(split[7])));
                 Console.WriteLine("User loaded: " + split[1]);
             }
-
             /*string sql2 = "SELECT * FROM ShiftTemplate";
             Database.Instance.Read(sql2, Database.Instance.ShiftTemplateTableColumns);
             foreach (var item in info)
@@ -48,19 +53,21 @@ namespace PTwoManage
             }*/
 
             _AllTags = new List<string>();
-
         }
         
        
-        public void Run()
+       /* public void Run()
         {
-            User bruger = new User(1,"lucrah2", "1234", "luca2", "564455648", "88888888", "jgdagmailcom");
+           // User bruger = new User(1,"lucrah2", "1234", "luca2", "564455648", "88888888", "jgdagmailcom");
 
             DateTime start = new DateTime(2015, 04, 20, 15, 30, 00);
             DateTime end = new DateTime(2015, 04, 20, 18, 00, 00);
-		
+
+           // Shift vagt = new Shift(bruger, start, end);
+			
+            Console.WriteLine(vagt.ToString()); 
             
-        }
+        }*/
 
         public List<User> GetAllUsers()
         {
@@ -84,10 +91,7 @@ namespace PTwoManage
 
         public  List<string> GetAllTags()
         {
-            string s = "lol";
-            _AllTags.Add(s);
-            Console.WriteLine(_AllTags);
-            return _AllTags;
+            return _allTags;
         }
     }
 }

@@ -8,9 +8,8 @@ namespace PTwoManage
 {
     public class User
     {
-        Core core;
         static List<User> allUsers = new List<User>();
-       // private List<string> _userCategories;
+        public List<string> UserCategories;
         private int _id;
         private string _userName;
         private string _password;
@@ -18,7 +17,6 @@ namespace PTwoManage
         private string _cprNumber;
         private string _phone;
         private string _email;
-        //static List<string> userCategories = new List<string>();
 
         public int Id
         {
@@ -63,7 +61,7 @@ namespace PTwoManage
             set { _email = value; }
         }
 
-        public User(int id, string userName, string password, string name, string cprNummer, string phone, string email)
+        public User(int id, string userName, string password, string name, string cprNummer, string phone, string email, List<string> tag)
         {
             _id = id;
             _userName = userName;
@@ -72,7 +70,7 @@ namespace PTwoManage
             _cprNumber = cprNummer;
             _phone = phone;
             _email = email;
-
+            UserCategories = new List<string>();
         }
 
       /*  void AddCategory(string newCategory)
@@ -95,7 +93,7 @@ namespace PTwoManage
                 }
             }
             // Todo: Skal kaste error
-            return new User(999999, "User not found", "User not found", "User not found", "564455648", "88888888", "User not found");
+            return new User(999999, "User not found", "User not found", "User not found", "564455648", "88888888", "User not found", Database.Instance.stringToList("User not found"));
         }
 
         public void SaveUserInfoToDatabase()
@@ -104,7 +102,7 @@ namespace PTwoManage
             string sql;
             sql = "DELETE FROM userTable WHERE username IN (SELECT username FROM userTable WHERE username ='" + user.UserName +"')";
             Database.Instance.Execute(sql);
-            sql = "INSERT OR REPLACE INTO userTable  (id, username, password, name, cprNumber, phone, email) values (" + user.Id + ", '" + user.UserName + "', '" + user.Password + "', '" + user.Name + "' , " + user.CprNumber + " , " + user.Phone + ", '" + user.Email + "')";
+            sql = "INSERT OR REPLACE INTO userTable  (id, username, password, name, cprNumber, phone, email, tag) values (" + user.Id + ", '" + user.UserName + "', '" + user.Password + "', '" + user.Name + "' , " + user.CprNumber + " , " + user.Phone + ", '" + user.Email + "', '" + Database.Instance.listToString(user.UserCategories) +"')";
             Database.Instance.Execute(sql);
         }
 
