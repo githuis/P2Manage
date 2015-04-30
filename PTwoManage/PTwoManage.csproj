@@ -52,7 +52,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="Xceed.Wpf.Toolkit">
-      <HintPath>..\..\..\..\Downloads\Extended WPF Toolkit Binaries\Extended WPF Toolkit Binaries\Xceed.Wpf.Toolkit.dll</HintPath>
+      <HintPath>..\..\..\..\Downloads\Extended WPF Toolkit Binaries\Xceed.Wpf.Toolkit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +69,7 @@
     <Compile Include="Shift.cs" />
     <Compile Include="ShiftTemplate.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="Week.cs" />
     <Compile Include="Workschedule.cs" />
     <Page Include="addShiftTemplateWindow.xaml">
       <SubType>Designer</SubType>
