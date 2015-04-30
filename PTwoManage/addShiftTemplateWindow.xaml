@@ -22,12 +22,13 @@
         <TextBox Name="End_Time" PreviewTextInput="EditTime_NumberValidation" Margin="139,98,485,383" MaxLength="5"></TextBox>
         <Button Margin="187,166,506,0" Click="Save_ShiftTemplate" Height="29" VerticalAlignment="Top">Submit</Button>
 
-        <ListBox Name="Tag_List" HorizontalAlignment="Left" Height="164" Margin="20,238,0,0" VerticalAlignment="Top" Width="76" SelectionMode="Multiple"></ListBox>
+        <ListBox Name="Tag_List" HorizontalAlignment="Left" Height="164" Margin="20,243,0,0" VerticalAlignment="Top" Width="76" SelectionMode="Multiple"></ListBox>
         <TextBox Name="Tag_Add_TextBox" HorizontalAlignment="Left" Height="23" Margin="139,238,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Save Tag" HorizontalAlignment="Left" Margin="184,320,0,0" Width="75" Click="Tag_Add_To_ListBox_Click" Height="22" VerticalAlignment="Top"/>
-        <Button Content="Delete Tag" HorizontalAlignment="Left" Margin="298,320,0,0" VerticalAlignment="Top" Width="75" Click="Tag_Delete_From_Listbox_Click"/>
+        <Button Content="Save Tag" HorizontalAlignment="Left" Margin="128,304,0,0" Width="75" Click="Tag_Add_To_ListBox_Click" Height="22" VerticalAlignment="Top"/>
+        <Button Content="Delete Tag" HorizontalAlignment="Left" Margin="225,304,0,0" VerticalAlignment="Top" Width="75" Click="Tag_Delete_From_Listbox_Click"/>
 
         <ListBox Name="Shift_Template_List" Margin="472,30,165,118"></ListBox>
+        <Label Name="Error_message" HorizontalAlignment="Left" Margin="375,66,0,0" VerticalAlignment="Top"/>
 
 
     </Grid>

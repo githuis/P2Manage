@@ -15,13 +15,13 @@ namespace PTwoManage
         public bool IsTemplate;
 
 
-        public ShiftTemplate(string date, DateTime starttime, DateTime endtime)//List<string> tag
+        public ShiftTemplate(string date, DateTime starttime, DateTime endtime, string tag)//List<string> tag
         {
             Date = date;
             _startTime = starttime;
             _endTime = endtime;
             IsTemplate = true;
-            Tag.Add("TestTag");
+            Tag = Database.Instance.stringToList(tag);
         }
 
         public void SaveInfoShiftTemplate()
@@ -37,7 +37,7 @@ namespace PTwoManage
             }
              */
 
-            string sql = "INSERT INTO ShiftTemplate (id, date, start, end, tag) values (" + test + ", '" + template.Date + "', '" + template._startTime.ToString("dd-MM-yyyy-HH-mm-ss") + "', '" + template._endTime.ToString("dd-MM-yyyy-HH-mm-ss") + "', '" + s + "')";
+            string sql = "INSERT INTO ShiftTemplate (id, date, start, end, tag) values (" + test + ", '" + template.Date + "', '" + template._startTime.ToString("dd-MM-yyyy-HH-mm-ss") + "', '" + template._endTime.ToString("dd-MM-yyyy-HH-mm-ss") + "', '" + Database.Instance.listToString(template.Tag) + "')";
             Database.Instance.Execute(sql);
         }
     }
