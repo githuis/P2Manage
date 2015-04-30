@@ -55,38 +55,56 @@ namespace PTwoManage
                 isValidated = true;
             }
 
-            DateTime test6;
-            DateTime test7;
-            DateTime Start = new DateTime();
-            DateTime End = new DateTime();
-            string test3 = Tag_List.SelectedItems.ToString();
-            string s = "01/01/1995 ";
-            string t = s;
-            s += Start_Time.Text;
-            t += End_Time.Text;
-            s += ":00";
-            t += ":00";
-
-            if (DateTime.TryParse(s, out test6) && DateTime.TryParse(t, out test7))
-            {
-                Start = DateTime.Parse(s);
-                End = DateTime.Parse(t);
-            }
-            else
-            {
-                Console.WriteLine("Damn");
-            }
-
-            List<string> TemplateTags = new List<string>();
-            foreach (object item in Tag_List.SelectedItems)
-            {
-                string tag = item as string;
-                TemplateTags.Add(tag);
-            }
-
             if (isValidated == true)
             {
-                ListBoxItem SelectedDay = Day_List.SelectedItem as ListBoxItem;
+
+                switch (SelectedDay.Content.ToString())
+                {
+                    case DayOfWeek.Friday:
+                        break;
+                    case DayOfWeek.Monday:
+                        break;
+                    case DayOfWeek.Saturday:
+                        break;
+                    case DayOfWeek.Sunday:
+                        break;
+                    case DayOfWeek.Thursday:
+                        break;
+                    case DayOfWeek.Tuesday:
+                        break;
+                    case DayOfWeek.Wednesday:
+                        break;
+                    default:
+                        break;
+                }
+
+                DateTime Start = new DateTime();
+                DateTime End = new DateTime();
+                string s = "01/01/1995 ";
+                string t = s;
+                s += Start_Time.Text;
+                t += End_Time.Text;
+                s += ":00";
+                t += ":00";
+
+                if (DateTime.TryParse(s, out Start) && DateTime.TryParse(t, out End))
+                {
+                    Start = DateTime.Parse(s);
+                    End = DateTime.Parse(t);
+                }
+                else
+                {
+                    Console.WriteLine("Damn");
+                }
+
+                List<string> TemplateTags = new List<string>();
+                foreach (object item in Tag_List.SelectedItems)
+                {
+                    string tag = item as string;
+                    TemplateTags.Add(tag);
+                }
+
+
                 ShiftTemplate test2 = new ShiftTemplate(SelectedDay.Content.ToString(), Start, End, Database.Instance.listToString(TemplateTags));
                 test2.SaveInfoShiftTemplate();
                 Error_message.Content = "";
