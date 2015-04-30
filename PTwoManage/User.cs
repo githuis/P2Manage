@@ -71,6 +71,7 @@ namespace PTwoManage
             _phone = phone;
             _email = email;
             UserCategories = new List<string>();
+            UserCategories = tag;
         }
 
       /*  void AddCategory(string newCategory)
@@ -93,6 +94,18 @@ namespace PTwoManage
                 }
             }
             throw new UserNotFoundException();
+        }
+
+        public static bool CheckUserExists(string userName)
+        {
+            foreach (User u in Core.Instance.GetAllUsers())
+            {
+                if (u.UserName == userName)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void SaveUserInfoToDatabase()

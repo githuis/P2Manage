@@ -35,11 +35,11 @@ namespace PTwoManage
             foreach (var item in info)
             {
                 string[] split = item.Split(new Char[]{','});
-                _allUsers.Add(new User(int.Parse(split[0]), split[1], split[2], split[3], split[4], split[5], split[6], Database.Instance.stringToList(split[7])));
-                Console.WriteLine("User loaded: " + split[1]);
+                User u = new User(int.Parse(split[0]), split[1], split[2], split[3], split[4], split[5], split[6], Database.Instance.stringToList(split[7]));
+                _allUsers.Add(u);
+                Console.WriteLine("User loaded: " + split[1] + " with tags : " + Database.Instance.stringToList(split[7]));
             } 
             
-            _AllTags = new List<string>();
             _allShifts = new List<Shift>();
         }
            
@@ -58,9 +58,9 @@ namespace PTwoManage
             }*/
    
        
-       public void Run()
+       /*public void Run()
         {
-            User bruger = new User(1,"lucrah2", "1234", "Jens Petersen", "564455648", "88888888", "jgdagmailcom");
+            User bruger = new User(1,"lucrah2", "1234", "Jens Petersen", "564455648", "88888888", "jgdagmailcom", _allTags);
 
             DateTime start = new DateTime(2015, 04, 20, 15, 30, 00);
             DateTime end = new DateTime(2015, 04, 20, 18, 00, 00);
@@ -78,9 +78,9 @@ namespace PTwoManage
             _allShifts.Add(new Shift(bruger, new DateTime(2015, 04, 25, 15, 30, 00), new DateTime(2015, 04, 25, 16, 30, 00)));
             _allShifts.Add(new Shift(bruger, new DateTime(2015, 04, 26, 15, 30, 00), new DateTime(2015, 04, 26, 16, 30, 00)));
             _allShifts.Add(new Shift(bruger, new DateTime(2015, 04, 27, 15, 30, 00), new DateTime(2015, 04, 27, 16, 30, 00)));
-        }
+        } */
             
-        }
+        
         public List<User> GetAllUsers()
         {
             return _allUsers;

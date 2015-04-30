@@ -36,7 +36,6 @@ namespace PTwoManage
             Employee = userID;
             _startTime = starttime;
             _endTime = endtime;
-            EmployeeName = Employee.Name;
             Day = _startTime.DayOfWeek;
             Week = 2;
             PrintableStartTime = _startTime.Hour.ToString() + ":" + _startTime.Minute.ToString();

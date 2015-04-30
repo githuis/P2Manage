@@ -25,7 +25,7 @@ namespace PTwoManage
         public MainWindow()
         {
             InitializeComponent();
-            Core.Instance.Run();
+            /*Core.Instance.Run();
 
             shiftDataBindingMonday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Monday, 2);
             shiftDataBindingTuesday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Tuesday, 2);
@@ -34,6 +34,8 @@ namespace PTwoManage
             shiftDataBindingFriday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Friday, 2);
             shiftDataBindingSaturday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Saturday, 2);
             shiftDataBindingSunday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Sunday, 2);
+             * 
+             * */
 
         }
 
