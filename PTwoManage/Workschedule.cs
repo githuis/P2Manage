@@ -19,26 +19,11 @@ namespace PTwoManage
 
 
             int TemplateCount = AllShiftTemplates.Count;
-            for (int i = 0; i <= TemplateCount; i++ )
-                switch (AllShiftTemplates[i]._startTime.DayOfWeek)
-                {
-                    case DayOfWeek.Friday:
-                        break;
-                    case DayOfWeek.Monday:
-                        break;
-                    case DayOfWeek.Saturday:
-                        break;
-                    case DayOfWeek.Sunday:
-                        break;
-                    case DayOfWeek.Thursday:
-                        break;
-                    case DayOfWeek.Tuesday:
-                        break;
-                    case DayOfWeek.Wednesday:
-                        break;
-                    default:
-                        break;
-                }
+            for (int i = 0; i <= TemplateCount; i++)
+            {
+
+            }
+                
 
         }
         
