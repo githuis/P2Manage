@@ -30,11 +30,11 @@ namespace PTwoManage
             foreach (var item in info)
             {
                 string[] split = item.Split(new Char[]{','});
-                _allUsers.Add(new User(int.Parse(split[0]), split[1], split[2], split[3], split[4], split[5], split[6], Database.Instance.stringToList(split[7])));
+                _allUsers.Add(new User(int.Parse(split[0]), split[1], split[2], split[3], split[4], split[5], split[6], Database.Instance.stringToList(split[7]), int.Parse(split[8])));
                 Console.WriteLine("User loaded: " + split[1]);
             }
 
-            /*string sql2 = "SELECT * FROM ShiftTemplate";
+            string sql2 = "SELECT * FROM ShiftTemplate";
             Database.Instance.Read(sql2, Database.Instance.ShiftTemplateTableColumns);
             foreach (var item in info)
             {
@@ -44,9 +44,9 @@ namespace PTwoManage
                 t1 = DateTime.Parse(split2[2]);
                 t2 = DateTime.Parse(split2[3]);
 
-                //_allTemplates.Add(new ShiftTemplate(split2[1], t1, t2, split2[4]));
+                _allTemplates.Add(new ShiftTemplate(split2[1], t1, t2, split2[4]));
                 Console.WriteLine("Template loaded: " + split2[1]);
-            }*/
+            }
 
             string sql3 = "SELECT * FROM TagTable";
             Database.Instance.Read(sql3, Database.Instance.TagTableColumns);

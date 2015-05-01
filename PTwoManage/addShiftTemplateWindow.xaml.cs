@@ -176,16 +176,15 @@ namespace PTwoManage
             Populate_TagList();
         }
 
-        // skal smides ind rigtige sted, når det er klar
-        public void CompareTags(ShiftTemplate shift, User user)
+        public static bool CompareTags(List<string> UserTags, List<string> ShiftTags)
         {
-            foreach (string tag in user.UserCategories)
-            {
-                if (shift.Tag.Contains(tag))
-                {
-                    // add user to shift
-                }
-            }
+            return !ShiftTags.Except(UserTags).Any();
+        }
+
+        private void Populate_ShiftTemplateList()
+        {
+            Shift_Template_List.Items.Clear();
+
         }
     }
 }
