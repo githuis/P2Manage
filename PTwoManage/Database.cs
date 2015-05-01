@@ -13,6 +13,7 @@ namespace PTwoManage
         static readonly Database _instance = new Database();
         public string[] userTableColumns = new string[7]{"id", "username", "password", "name", "cprNumber", "phone", "email"};
         public string[] ShiftTemplateTableColumns = new string[5] { "id", "date", "start", "end", "tag" };
+        public string[] TagTableColumns = new string[1] { "tag" };
         SQLiteConnection m_dbConnection;
         public List<string> readInfo;
 
@@ -36,6 +37,7 @@ namespace PTwoManage
            // Execute("CREATE TABLE IF NOT EXISTS Shifts (id int NOT NULL, employeeId INT, weekNumber INT");
             Execute("CREATE TABLE IF NOT EXISTS ShiftTable (id int NOT NULL, date VARCHAR(50), start VARCHAR(50), end VARCHAR(50), tag VARCHAR(1000), employeeId INT, weekNumber INT)");
             Execute("CREATE TABLE IF NOT EXISTS ShiftTemplate (id int NOT NULL, date VARCHAR(50), start VARCHAR(50), end VARCHAR(50), tag VARCHAR(1000))");
+            Execute("CREATE TABLE IF NOT EXISTS TagTable (tag VARCHAR(1000))");
 
 
             Read("SELECT * FROM userTable WHERE id=2", "id", "name");

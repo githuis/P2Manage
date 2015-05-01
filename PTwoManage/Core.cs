@@ -11,7 +11,6 @@ namespace PTwoManage
         static readonly Core _instance = new Core();
         private List<User> _allUsers;
         private List<string> _allTags;
-        private List<string> _AllTags;
         private List<ShiftTemplate> _allTemplates;
 
         public static Core Instance
@@ -22,10 +21,6 @@ namespace PTwoManage
         Core()
         {
             _allTags = new List<string>();
-            string s = "lol";
-            string b = "wat";
-            _allTags.Add(s);
-            _allTags.Add(b);
             _allUsers = new List<User>();
             _allTemplates = new List<ShiftTemplate>();
 
@@ -38,6 +33,7 @@ namespace PTwoManage
                 _allUsers.Add(new User(int.Parse(split[0]), split[1], split[2], split[3], split[4], split[5], split[6], Database.Instance.stringToList(split[7])));
                 Console.WriteLine("User loaded: " + split[1]);
             }
+
             /*string sql2 = "SELECT * FROM ShiftTemplate";
             Database.Instance.Read(sql2, Database.Instance.ShiftTemplateTableColumns);
             foreach (var item in info)
@@ -52,7 +48,13 @@ namespace PTwoManage
                 Console.WriteLine("Template loaded: " + split2[1]);
             }*/
 
-            _AllTags = new List<string>();
+            string sql3 = "SELECT * FROM TagTable";
+            Database.Instance.Read(sql3, Database.Instance.TagTableColumns);
+            foreach (var item in info)
+            {
+                string[] split = item.Split(new Char[]{','});
+                _allTags.Add(split[0]);
+            }
         }
         
        
@@ -92,6 +94,16 @@ namespace PTwoManage
         public  List<string> GetAllTags()
         {
             return _allTags;
+        }
+
+        public void AddTagToList(string tag)
+        {
+            _allTags.Add(tag);
+        }
+
+        public void DeleteTagFromList(string s)
+        {
+            _allTags.Remove(s);
         }
     }
 }

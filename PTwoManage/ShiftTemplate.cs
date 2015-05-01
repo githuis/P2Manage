@@ -28,7 +28,7 @@ namespace PTwoManage
         {
             ShiftTemplate template = this;
             int test = 1;
-            string s = "test";
+            //string s = "test";
             /*for (int i = 0; i <= template.Tag.Count; i++)
             {
                 if(i>0)

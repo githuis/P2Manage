@@ -39,6 +39,7 @@ namespace PTwoManage
         {
             addShiftTemplateWindow = new AddShiftTemplateWindow();
             addShiftTemplateWindow.Show();
+            addShiftTemplateWindow.LoadShift();
         }
 
     }

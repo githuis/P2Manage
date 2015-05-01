@@ -39,8 +39,7 @@ namespace PTwoManage
                 && (Core.Instance.GetAllUsers().Find(x => x.UserName.Contains(CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text))) == null))
             {
                 //Skal fixes
-                List<string> stringlist = Checked_Tags();
-                User newUser = new User(1, CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text), Password_TextBox.Password, EditUser_FullName.Text, EditUser_CPR.Text, EditUser_Number.Text, EditUser_Email.Text, stringlist);
+                User newUser = new User(1, CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text), Password_TextBox.Password, EditUser_FullName.Text, EditUser_CPR.Text, EditUser_Number.Text, EditUser_Email.Text, Checked_Tags());
                 Core.Instance.AddUserToList(newUser);
                 AddUser_Confirmation.Content = EditUser_FullName.Text + " was added to the system";
                 AddUser_Confirmation.Foreground = Brushes.Green;
@@ -178,8 +177,6 @@ namespace PTwoManage
             {
                 string tag = item as string;
                 UserTags.Add(tag);
-                Console.WriteLine(tag);
-                Console.WriteLine("test");
             }
             return UserTags;
         }
