@@ -57,30 +57,40 @@ namespace PTwoManage
 
             if (isValidated == true)
             {
+                ListBoxItem SelectedDay = Day_List.SelectedItem as ListBoxItem;
 
+                int DayInWeek = 0;
                 switch (SelectedDay.Content.ToString())
                 {
-                    case DayOfWeek.Friday:
+                    case "Monday":
+                        DayInWeek = 1;
                         break;
-                    case DayOfWeek.Monday:
+                    case "Tuesday":
+                        DayInWeek = 2;
                         break;
-                    case DayOfWeek.Saturday:
+                    case "Wednesday":
+                        DayInWeek = 3;
                         break;
-                    case DayOfWeek.Sunday:
+                    case "Thursday":
+                        DayInWeek = 4;
                         break;
-                    case DayOfWeek.Thursday:
+                    case "Friday":
+                        DayInWeek = 5;
                         break;
-                    case DayOfWeek.Tuesday:
+                    case "Saturday":
+                        DayInWeek = 6;
                         break;
-                    case DayOfWeek.Wednesday:
+                    case "Sunday":
+                        DayInWeek = 7;
                         break;
                     default:
+                        DayInWeek = 0;
                         break;
                 }
 
                 DateTime Start = new DateTime();
                 DateTime End = new DateTime();
-                string s = "01/01/1995 ";
+                string s = "01/" + DayInWeek +"/2007 ";
                 string t = s;
                 s += Start_Time.Text;
                 t += End_Time.Text;
