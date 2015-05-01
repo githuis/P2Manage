@@ -33,10 +33,10 @@ namespace PTwoManage
             m_dbConnection = new SQLiteConnection("Data Source=MyDatabase.sqlite;Version=3;");
             m_dbConnection.Open();
 
-            Execute("CREATE TABLE IF NOT EXISTS userTable (id int NOT NULL, username VARCHAR(50), password VARCHAR(50), name VARCHAR(50),cprNumber VARCHAR(50), phone VARCHAR(50), email VARCHAR(50), tag VARCHAR(1000), points VARCHAR(1000))");
+            Execute("CREATE TABLE IF NOT EXISTS userTable (id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR(50), password VARCHAR(50), name VARCHAR(50),cprNumber VARCHAR(50), phone VARCHAR(50), email VARCHAR(50), tag VARCHAR(1000), points VARCHAR(1000))");
            // Execute("CREATE TABLE IF NOT EXISTS Shifts (id int NOT NULL, employeeId INT, weekNumber INT");
-            Execute("CREATE TABLE IF NOT EXISTS ShiftTable (id int NOT NULL, date VARCHAR(50), start VARCHAR(50), end VARCHAR(50), tag VARCHAR(1000), employeeId INT, weekNumber INT)");
-            Execute("CREATE TABLE IF NOT EXISTS ShiftTemplate (id int NOT NULL, date VARCHAR(50), start VARCHAR(50), end VARCHAR(50), tag VARCHAR(1000))");
+            Execute("CREATE TABLE IF NOT EXISTS ShiftTable (id INTEGER PRIMARY KEY AUTOINCREMENT, date VARCHAR(50), start VARCHAR(50), end VARCHAR(50), tag VARCHAR(1000), employeeId INT, weekNumber INT)");
+            Execute("CREATE TABLE IF NOT EXISTS ShiftTemplate (id INTEGER PRIMARY KEY AUTOINCREMENT, date VARCHAR(50), start VARCHAR(50), end VARCHAR(50), tag VARCHAR(1000))");
             Execute("CREATE TABLE IF NOT EXISTS TagTable (tag VARCHAR(1000))");
 
 

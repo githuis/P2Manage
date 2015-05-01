@@ -100,7 +100,7 @@ namespace PTwoManage
             string sql;
             sql = "DELETE FROM userTable WHERE username IN (SELECT username FROM userTable WHERE username ='" + user.UserName +"')";
             Database.Instance.Execute(sql);
-            sql = "INSERT OR REPLACE INTO userTable  (id, username, password, name, cprNumber, phone, email, tag, points) values (" + user.Id + ", '" + user.UserName + "', '" + user.Password + "', '" + user.Name + "' , " + user.CprNumber + " , " + user.Phone + ", '" + user.Email + "', '" + Database.Instance.listToString(user.UserCategories) +"', " + user.Points + ")";
+            sql = "INSERT OR REPLACE INTO userTable  (username, password, name, cprNumber, phone, email, tag, points) values ('" + user.UserName + "', '" + user.Password + "', '" + user.Name + "' , " + user.CprNumber + " , " + user.Phone + ", '" + user.Email + "', '" + Database.Instance.listToString(user.UserCategories) +"', " + user.Points + ")";
             Database.Instance.Execute(sql);
         }
 
