@@ -24,13 +24,8 @@ namespace PTwoManage
 
                 string Date = AllShiftTemplates[i]._startTime.DayOfWeek.ToString();
 
-                int testweek = weeknumber * 7;
-
-                DateTime start;
-                DateTime end;
-
                 DateTime test4 = new DateTime(year, 1, 1);
-                int FirstDayInYear;
+                int FirstDayInYear = 0;
                 switch (test4.DayOfWeek)
                 {
                     case DayOfWeek.Monday:
@@ -58,50 +53,48 @@ namespace PTwoManage
                         break;
                 }
 
-                int md;
-                int dayH;
-                int RunningMonth;
-                int month;
+                int DayInYear = FirstDayInYear + (weeknumber - 2) * 7 + AllShiftTemplates[i]._startTime.Day;
 
+                int dayH=1; //Skal sende en værdi med til funktionen så den returnerer remainder
+                int md = TotalDayToDayInMonth(DayInYear, year);
 
-
-                /* switch (month)
-                 {
-                     case DayOfWeek.Monday:
-                         DayInCurrentWeek = 7;
-                         break;
-                     case DayOfWeek.Tuesday:
-                         DayInCurrentWeek = 6;
-                          break;
-                     case DayOfWeek.Wednesday:
-                         DayInCurrentWeek = 5;
-                          break;
-                     case DayOfWeek.Thursday:
-                         DayInCurrentWeek = 4;
-                          break;
-                     case DayOfWeek.Friday:
-                         DayInCurrentWeek = 3;
-                          break;
-                     case DayOfWeek.Saturday:
-                         DayInCurrentWeek = 2;
-                          break;
-                     case DayOfWeek.Sunday:
-                         DayInCurrentWeek = 1;
-                          break;
-                     default:
-                          break;
-                 }*/
-
-                //int dayNumber = FirstDayInYear + (weeknumber - 2);
+                DateTime start = new DateTime(year,md,dayH,AllShiftTemplates[i]._startTime.Hour, AllShiftTemplates[i]._startTime.Minute,AllShiftTemplates[i]._startTime.Second);
+                DateTime end   = new DateTime(year,md,dayH,AllShiftTemplates[i]._endTime.Hour, AllShiftTemplates[i]._endTime.Minute,AllShiftTemplates[i]._endTime.Second);
+;
 
 
                 string tag;
                 int UserID;
                 int Weeknumber;
 
-                //Shift resultShift = new Shift();
+               // Shift resultShift = new Shift(Date, start, end, AllShiftTemplates[i].Tag, missing, weeknumber);
                 //resultShift.SaveInfoShiftTemplate();
             }
+        }
+        
+        int TotalDayToDayInMonth(int DayInYear, int year)
+        {
+            int RunningDays = 0;
+            int MonthLenght = 0;
+            int Month = 1;
+            int Remainder = 0;
+
+            for (int i = 1; i <= 12; i++)
+            {
+                MonthLenght = DateTime.DaysInMonth(year, Month);
+                if ((DayInYear - RunningDays) < Month)
+                {
+                    Remainder = DayInYear - RunningDays;
+                    return Month;
+                }
+                    
+                else
+                {
+                    RunningDays += MonthLenght;
+                    Month++;
+                }
+            }
+            return -1;
         }
     }
 }
