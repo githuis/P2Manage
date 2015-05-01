@@ -81,16 +81,6 @@ namespace PTwoManage
             _points = points;
         }
 
-      /*  void AddCategory(string newCategory)
-        {
-            userCategories.Add(newCategory);
-        }
-
-        void RemoveCategory(int categoryKey)
-        {
-            categories.Remove(categoryKey);
-        }*/
-
         public static User GetUserByName(string userName)
         {
             foreach (User u in Core.Instance.GetAllUsers())
