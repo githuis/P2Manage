@@ -70,7 +70,6 @@ namespace PTwoManage
             _cprNumber = cprNummer;
             _phone = phone;
             _email = email;
-            UserCategories = new List<string>();
             UserCategories = tag;
         }
 
