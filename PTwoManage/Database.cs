@@ -12,9 +12,9 @@ namespace PTwoManage
     {
         static readonly Database _instance = new Database();
         public string[] userTableColumns = new string[9]{"id", "username", "password", "name", "cprNumber", "phone", "email", "tag", "points"};
-        public string[] ShiftTemplateTableColumns = new string[5] { "id", "date", "start", "end", "tag" };
+        public string[] ShiftTemplateTableColumns = new string[4] { "id", "start", "end", "tag" };
         public string[] TagTableColumns = new string[1] { "tag" };
-        public string[] ShiftTableColumns = new string[7] { "id", "date", "start", "end", "tag", "employeeId", "weekNumber" };
+        public string[] ShiftTableColumns = new string[6] { "id", "start", "end", "tag", "employeeName", "weekNumber" };
         public string[] FreeTimeRequestColumns = new string[4] { "start", "end", "text", "userID" };
         SQLiteConnection m_dbConnection;
         public List<string> readInfo = new List<string>();
@@ -37,8 +37,8 @@ namespace PTwoManage
 
             Execute("CREATE TABLE IF NOT EXISTS userTable (id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR(50), password VARCHAR(50), name VARCHAR(50),cprNumber VARCHAR(50), phone VARCHAR(50), email VARCHAR(50), tag VARCHAR(1000), points VARCHAR(1000))");
            // Execute("CREATE TABLE IF NOT EXISTS Shifts (id int NOT NULL, employeeId INT, weekNumber INT");
-            Execute("CREATE TABLE IF NOT EXISTS ShiftTable (id INTEGER PRIMARY KEY AUTOINCREMENT, date VARCHAR(50), start VARCHAR(50), end VARCHAR(50), tag VARCHAR(1000), employeeId INT, weekNumber INT)");
-            Execute("CREATE TABLE IF NOT EXISTS ShiftTemplate (id INTEGER PRIMARY KEY AUTOINCREMENT, date VARCHAR(50), start VARCHAR(50), end VARCHAR(50), tag VARCHAR(1000))");
+            Execute("CREATE TABLE IF NOT EXISTS ShiftTable (id INTEGER PRIMARY KEY AUTOINCREMENT, start VARCHAR(50), end VARCHAR(50), tag VARCHAR(1000), employeeName VARCHAR(50), weekNumber INT)");
+            Execute("CREATE TABLE IF NOT EXISTS ShiftTemplate (id INTEGER PRIMARY KEY AUTOINCREMENT, start VARCHAR(50), end VARCHAR(50), tag VARCHAR(1000))");
             Execute("CREATE TABLE IF NOT EXISTS TagTable (tag VARCHAR(1000))");
             Execute("CREATE TABLE IF NOT EXISTS FreeRequestTable (start VARCHAR(50), end VARCHAR(50), text VARCHAR(300), userID varchar(50))");
 
