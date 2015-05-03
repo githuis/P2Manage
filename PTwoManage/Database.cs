@@ -50,7 +50,7 @@ namespace PTwoManage
             command.ExecuteNonQuery();
         }
 
-        public List<string> Read(string sql, ref List<string> resultData, params string[] elements)
+        public void Read(string sql, ref List<string> resultData, params string[] elements)
         {
             resultData.Clear();
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
@@ -64,7 +64,6 @@ namespace PTwoManage
                 }
                 resultData.Add(s);
             }
-            return resultData;
         }
 
         public string listToString(List<string> inputList)

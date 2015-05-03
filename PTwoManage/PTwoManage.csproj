@@ -52,7 +52,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="Xceed.Wpf.Toolkit">
-      <HintPath>..\..\..\Downloads\Extended WPF Toolkit Binaries\Xceed.Wpf.Toolkit.dll</HintPath>
+      <HintPath>.\Xceed.Wpf.Toolkit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -74,6 +74,7 @@
       <DependentUpon>UserFreeTimeRequestWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Week.cs" />
+    <Compile Include="UserNotFoundException.cs" />
     <Compile Include="Workschedule.cs" />
     <Page Include="addShiftTemplateWindow.xaml">
       <SubType>Designer</SubType>
