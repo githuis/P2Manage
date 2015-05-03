@@ -51,6 +51,7 @@ namespace PTwoManage
         {
             addShiftTemplateWindow = new AddShiftTemplateWindow();
             addShiftTemplateWindow.Show();
+            addShiftTemplateWindow.LoadShift();
         }
 
         private void LoadSchedule_Click(object sender, RoutedEventArgs e)

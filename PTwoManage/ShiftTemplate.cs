@@ -27,8 +27,7 @@ namespace PTwoManage
         public void SaveInfoShiftTemplate()
         {
             ShiftTemplate template = this;
-            int test = 1;
-            string s = "test";
+            //string s = "test";
             /*for (int i = 0; i <= template.Tag.Count; i++)
             {
                 if(i>0)
@@ -36,8 +35,7 @@ namespace PTwoManage
                 s += template.Tag[i];
             }
              */
-
-            string sql = "INSERT INTO ShiftTemplate (id, date, start, end, tag) values (" + test + ", '" + template.Date + "', '" + template._startTime.ToString("dd-MM-yyyy-HH-mm-ss") + "', '" + template._endTime.ToString("dd-MM-yyyy-HH-mm-ss") + "', '" + Database.Instance.listToString(template.Tag) + "')";
+            string sql = "INSERT INTO ShiftTemplate (date, start, end, tag) values ('" + template.Date + "', '" + template._startTime.ToString() + "', '" + template._endTime.ToString() + "', '" + Database.Instance.listToString(template.Tag) + "')";
             Database.Instance.Execute(sql);
         }
     }

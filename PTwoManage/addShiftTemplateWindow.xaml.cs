@@ -23,7 +23,6 @@ namespace PTwoManage
         public AddShiftTemplateWindow()
         {
             InitializeComponent();
-            Tag_List.ItemsSource = Core.Instance.GetAllTags();
         }
 
         private void EditTime_NumberValidation(object sender, TextCompositionEventArgs e)
@@ -55,38 +54,66 @@ namespace PTwoManage
                 isValidated = true;
             }
 
-            DateTime test6;
-            DateTime test7;
-            DateTime Start = new DateTime();
-            DateTime End = new DateTime();
-            string test3 = Tag_List.SelectedItems.ToString();
-            string s = "01/01/1995 ";
-            string t = s;
-            s += Start_Time.Text;
-            t += End_Time.Text;
-            s += ":00";
-            t += ":00";
-
-            if (DateTime.TryParse(s, out test6) && DateTime.TryParse(t, out test7))
-            {
-                Start = DateTime.Parse(s);
-                End = DateTime.Parse(t);
-            }
-            else
-            {
-                Console.WriteLine("Damn");
-            }
-
-            List<string> TemplateTags = new List<string>();
-            foreach (object item in Tag_List.SelectedItems)
-            {
-                string tag = item as string;
-                TemplateTags.Add(tag);
-            }
-
             if (isValidated == true)
             {
                 ListBoxItem SelectedDay = Day_List.SelectedItem as ListBoxItem;
+
+                int DayInWeek = 0;
+                switch (SelectedDay.Content.ToString())
+                {
+                    case "Monday":
+                        DayInWeek = 1;
+                        break;
+                    case "Tuesday":
+                        DayInWeek = 2;
+                        break;
+                    case "Wednesday":
+                        DayInWeek = 3;
+                        break;
+                    case "Thursday":
+                        DayInWeek = 4;
+                        break;
+                    case "Friday":
+                        DayInWeek = 5;
+                        break;
+                    case "Saturday":
+                        DayInWeek = 6;
+                        break;
+                    case "Sunday":
+                        DayInWeek = 7;
+                        break;
+                    default:
+                        DayInWeek = 0;
+                        break;
+                }
+
+                DateTime Start = new DateTime();
+                DateTime End = new DateTime();
+                string s = "01/" + DayInWeek +"/2007 ";
+                string t = s;
+                s += Start_Time.Text;
+                t += End_Time.Text;
+                s += ":00";
+                t += ":00";
+
+                if (DateTime.TryParse(s, out Start) && DateTime.TryParse(t, out End))
+                {
+                    Start = DateTime.Parse(s);
+                    End = DateTime.Parse(t);
+                }
+                else
+                {
+                    Console.WriteLine("Damn");
+                }
+
+                List<string> TemplateTags = new List<string>();
+                foreach (object item in Tag_List.SelectedItems)
+                {
+                    string tag = item as string;
+                    TemplateTags.Add(tag);
+                }
+
+
                 ShiftTemplate test2 = new ShiftTemplate(SelectedDay.Content.ToString(), Start, End, Database.Instance.listToString(TemplateTags));
                 test2.SaveInfoShiftTemplate();
                 Error_message.Content = "";
@@ -116,16 +143,76 @@ namespace PTwoManage
             Tag_Add_TextBox.Clear();
         }
 
-        private void Tag_Delete_From_Listbox_Click(object sender, RoutedEventArgs e)
+        private void Populate_TagList()
         {
-            if (Tag_List.SelectedItems.Count > 0)
+            Tag_List.Items.Clear();
+            foreach (string tag in Core.Instance.GetAllTags())
             {
-                for (int i = 0; i <= Tag_List.SelectedItems.Count + 1; i++)
+                ListBoxItem item = new ListBoxItem();
+                item.Content = tag as string;
+                Tag_List.Items.Add(item);
+            }
+        }
+
+        private void Add_Tag_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (Tag_Add_TextBox.Text != "")
+            {
+                string newTag = Tag_Add_TextBox.Text;
+                Core.Instance.AddTagToList(newTag);
+                SaveTagToDatabase(newTag);
+                Populate_TagList();
+                Tag_Add_TextBox.Clear();
+            }   
+        }
+
+        public void SaveTagToDatabase(string s)
+        {
+            string tag = s;
+            string sql = "INSERT INTO TagTable (tag) values ( '" + tag + "')";
+            Database.Instance.Execute(sql);
+        }
+
+        public void LoadShift()
+        {
+            Populate_TagList();
+        }
+
+        public void DeleteTag(string s)
+        {
+            string tag = s;
+            foreach (ListBoxItem item in Tag_List.Items)
+            {
+                string itemTag = item.Name;
+                if (itemTag == tag)
                 {
-                    Tag_List.Items.RemoveAt(Tag_List.SelectedIndex);
-                    Tag_List.Items.Refresh();
+                    string sql;
+                    sql = "DELETE FROM TagTable WHERE tag IN (SELECT tag FROM TagTable WHERE tag ='" + item + "')";
+                    Database.Instance.Execute(sql);
                 }
             }
+        }
+
+        private void Tag_Delete_From_Listbox_Click(object sender, RoutedEventArgs e)
+        {
+            object tag = Tag_List.SelectedItem;
+            string s = tag as string;
+            Console.WriteLine(s);
+            DeleteTag(s);
+            Core.Instance.DeleteTagFromList(s);
+            Populate_TagList();
+        }
+
+        public static bool CompareTags(List<string> UserTags, List<string> ShiftTags)
+        {
+            return !ShiftTags.Except(UserTags).Any();
+        }
+
+        private void Populate_ShiftTemplateList()
+        {
+            Shift_Template_List.Items.Clear();
+
         }
     }
 }

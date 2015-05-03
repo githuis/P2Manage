@@ -17,6 +17,7 @@ namespace PTwoManage
         private string _cprNumber;
         private string _phone;
         private string _email;
+        private int _points;
 
         public int Id
         {
@@ -61,7 +62,13 @@ namespace PTwoManage
             set { _email = value; }
         }
 
-        public User(int id, string userName, string password, string name, string cprNummer, string phone, string email, List<string> tag)
+        public int Points
+        {
+            get { return _points; }
+            set { _points = value; }
+        }
+
+        public User(int id, string userName, string password, string name, string cprNummer, string phone, string email, List<string> tag, int points)
         {
             _id = id;
             _userName = userName;
@@ -71,17 +78,8 @@ namespace PTwoManage
             _phone = phone;
             _email = email;
             UserCategories = tag;
+             _points = points;
         }
-
-      /*  void AddCategory(string newCategory)
-        {
-            userCategories.Add(newCategory);
-        }
-
-        void RemoveCategory(int categoryKey)
-        {
-            categories.Remove(categoryKey);
-        }*/
 
         public static User GetUserByName(string userName)
         {
@@ -113,7 +111,7 @@ namespace PTwoManage
             string sql;
             sql = "DELETE FROM userTable WHERE username IN (SELECT username FROM userTable WHERE username ='" + user.UserName +"')";
             Database.Instance.Execute(sql);
-            sql = "INSERT OR REPLACE INTO userTable  (id, username, password, name, cprNumber, phone, email, tag) values (" + user.Id + ", '" + user.UserName + "', '" + user.Password + "', '" + user.Name + "' , " + user.CprNumber + " , " + user.Phone + ", '" + user.Email + "', '" + Database.Instance.listToString(user.UserCategories) +"')";
+            sql = "INSERT OR REPLACE INTO userTable  (username, password, name, cprNumber, phone, email, tag, points) values ('" + user.UserName + "', '" + user.Password + "', '" + user.Name + "' , " + user.CprNumber + " , " + user.Phone + ", '" + user.Email + "', '" + Database.Instance.listToString(user.UserCategories) +"', " + user.Points + ")";
             Database.Instance.Execute(sql);
         }
 
@@ -124,5 +122,7 @@ namespace PTwoManage
             sql = "DELETE FROM userTable WHERE username IN (SELECT username FROM userTable WHERE username ='" + user.UserName + "')";
             Database.Instance.Execute(sql);
         }
+
+
     }
 }
