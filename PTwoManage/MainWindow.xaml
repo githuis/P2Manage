@@ -12,6 +12,7 @@
             <MenuItem Header="_Schedule" Click="MenuItem_Click_1">
                 <MenuItem Header="_Add Shift Template" Click="AddTemplate_Click"></MenuItem>
                 <MenuItem Header="_Load Schedule" Click="LoadSchedule_Click"></MenuItem>
+                <MenuItem Header="_Free request" Click="UserFreeRequest_Click"></MenuItem>
             </MenuItem>
         </Menu>
 

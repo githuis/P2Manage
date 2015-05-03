@@ -34,12 +34,7 @@ namespace PTwoManage
             if (Password_TextBox.Password != "" && Password_TextBox.Password == ConfirmPassword.Password && EditUser_FullName.Text != "" && EditUser_CPR.Text != "" && EditUser_Number.Text != "" && EditUser_Email.Text != ""
                 && (Core.Instance.GetAllUsers().Find(x => x.UserName.Contains(CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text))) == null))
             {
-<<<<<<< HEAD
-                User newUser = new User(1, CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text), Password_TextBox.Password, EditUser_FullName.Text, EditUser_CPR.Text, EditUser_Number.Text, EditUser_Email.Text, GetCheckedTags());
-=======
-                //Skal fixes
-                User newUser = new User(1, CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text), Password_TextBox.Password, EditUser_FullName.Text, EditUser_CPR.Text, EditUser_Number.Text, EditUser_Email.Text, Checked_Tags(), 100);
->>>>>>> origin/smed
+                User newUser = new User(1, CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text), Password_TextBox.Password, EditUser_FullName.Text, EditUser_CPR.Text, EditUser_Number.Text, EditUser_Email.Text, GetCheckedTags(), 100);
                 Core.Instance.AddUserToList(newUser);
                 AddUser_Confirmation.Content = EditUser_FullName.Text + " was added to the system";
                 AddUser_Confirmation.Foreground = Brushes.Green;
@@ -115,15 +110,8 @@ namespace PTwoManage
                 EditUser_Email.Text = User.GetUserByName(userName).Email;
                 ConfirmPassword.Password = User.GetUserByName(userName).Password;
                 ConfirmPassword.IsEnabled = false;
-<<<<<<< HEAD
-                Populate_TagList(User.GetUserByName(userName).UserCategories);
-
-                //Tag_ListBox.SelectedItemsOverride = User.GetUserByName(item.Content.ToString()).UserCategories;
-                //Console.WriteLine(User.GetUserByName(item.Content.ToString()).UserCategories);
-=======
                 Tag_ListBox.SelectedItemsOverride = User.GetUserByName(item.Content.ToString()).UserCategories;
                 Console.WriteLine(User.GetUserByName(item.Content.ToString()).Points);
->>>>>>> origin/smed
             }
             Tag_ListBox.Items.Refresh();
         }
@@ -206,12 +194,9 @@ namespace PTwoManage
             List<string> UserTags = new List<string>();
             foreach (string s in Tag_ListBox.SelectedItems)
             {
-<<<<<<< HEAD
                 UserTags.Add(s);
-=======
-                string tag = item as string;
-                UserTags.Add(tag);
->>>>>>> origin/smed
+                //string tag = item as string;
+                //UserTags.Add(tag);
             }
             return UserTags;
         }

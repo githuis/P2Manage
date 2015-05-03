@@ -212,7 +212,6 @@ namespace PTwoManage
         private void Populate_ShiftTemplateList()
         {
             Shift_Template_List.Items.Clear();
-
         }
     }
 }

@@ -17,16 +17,15 @@ namespace PTwoManage
         List<Shift> Sunday = new List<Shift>();
         int WeekNumber;
         int Year;
-        public string[] ShiftTableColumns = new string[7] { "id", "date", "start", "end", "tag", "employeeId", "weekNumber" };
 
         public Week(int week, int year)
         {
             WeekNumber = week;
             Year = year;
 
-            List<string> info = Database.Instance.readInfo;
+            List<string> info = new List<string>();
             string sql = "SELECT * FROM ShiftTable WHERE weekNumber=" + this.WeekNumber;
-            Database.Instance.Read(sql, this.ShiftTableColumns);
+            Database.Instance.Read(sql, ref info, Database.Instance.ShiftTableColumns);
             foreach (var item in info)
             {
                 string[] split = item.Split(new Char[] { ',' });

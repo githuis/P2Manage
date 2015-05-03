@@ -69,6 +69,10 @@
     <Compile Include="Shift.cs" />
     <Compile Include="ShiftTemplate.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="UserFreeRequest.cs" />
+    <Compile Include="UserFreeTimeRequestWindow.xaml.cs">
+      <DependentUpon>UserFreeTimeRequestWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Week.cs" />
     <Compile Include="UserNotFoundException.cs" />
     <Compile Include="Workschedule.cs" />
@@ -94,6 +98,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserFreeTimeRequestWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
