@@ -8,9 +8,8 @@ namespace PTwoManage
 {
     public class User
     {
-        Core core;
         static List<User> allUsers = new List<User>();
-        List<string> userCategories;
+        public List<string> UserCategories;
         private int _id;
         private string _userName;
         private string _password;
@@ -18,6 +17,7 @@ namespace PTwoManage
         private string _cprNumber;
         private string _phone;
         private string _email;
+        private int _points;
 
         public int Id
         {
@@ -62,7 +62,13 @@ namespace PTwoManage
             set { _email = value; }
         }
 
-        public User(int id, string userName, string password, string name, string cprNummer, string phone, string email)
+        public int Points
+        {
+            get { return _points; }
+            set { _points = value; }
+        }
+
+        public User(int id, string userName, string password, string name, string cprNummer, string phone, string email, List<string> tag, int points)
         {
             _id = id;
             _userName = userName;
@@ -71,43 +77,41 @@ namespace PTwoManage
             _cprNumber = cprNummer;
             _phone = phone;
             _email = email;
+            UserCategories = tag;
+            _points = points;
         }
 
-        static Dictionary<int, string> categories = new Dictionary<int, string>()
-        {
-            {0, "Default"}, 
-            {1, "Lukker"},
-            {2, "Åbner"}
-        };
-
-        void AddCategory(string newCategory)
-        {
-            categories.Add(categories.Count, newCategory);
-        }
-
-        void RemoveCategory(int categoryKey)
-        {
-            categories.Remove(categoryKey);
-        }
-
-        public static User GetUserByName(string name)
+        public static User GetUserByName(string userName)
         {
             foreach (User u in Core.Instance.GetAllUsers())
             {
-                if (u.Name == name)
+                if (u.UserName == userName)
                 {
                     return u;
                 }
             }
             // Todo: Skal kaste error
-            return new User(999999, "User not found", "User not found", "User not found", "564455648", "88888888", "User not found");
+            return new User(999999, "User not found", "User not found", "User not found", "564455648", "88888888", "User not found", Database.Instance.stringToList("User not found"), 999);
         }
 
         public void SaveUserInfoToDatabase()
         {
             User user = this;
-            string sql = "INSERT INTO userTable (id, username, password, name ,cprNumber, phone , email) values (" + user.Id + ", '" + user.UserName + "', '" + user.Password + "', '" + user.Name + "' , " + user.CprNumber + " , " + user.Phone + ", '" + user.Email + "')";
+            string sql;
+            sql = "DELETE FROM userTable WHERE username IN (SELECT username FROM userTable WHERE username ='" + user.UserName +"')";
+            Database.Instance.Execute(sql);
+            sql = "INSERT OR REPLACE INTO userTable  (username, password, name, cprNumber, phone, email, tag, points) values ('" + user.UserName + "', '" + user.Password + "', '" + user.Name + "' , " + user.CprNumber + " , " + user.Phone + ", '" + user.Email + "', '" + Database.Instance.listToString(user.UserCategories) +"', " + user.Points + ")";
             Database.Instance.Execute(sql);
         }
+
+        public void DeleteUser()
+        {
+            User user = this;
+            string sql;
+            sql = "DELETE FROM userTable WHERE username IN (SELECT username FROM userTable WHERE username ='" + user.UserName + "')";
+            Database.Instance.Execute(sql);
+        }
+
+
     }
 }

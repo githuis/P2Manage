@@ -15,13 +15,20 @@ namespace PTwoManage
         public bool IsTemplate;
 
 
-        public ShiftTemplate(string date, DateTime starttime, DateTime endtime)//List<string> tag
+        public ShiftTemplate(string date, DateTime starttime, DateTime endtime, string tag)//List<string> tag
         {
             Date = date;
             _startTime = starttime;
             _endTime = endtime;
             IsTemplate = true;
-            //Tag = tag;
+            Tag = Database.Instance.stringToList(tag);
+        }
+
+        public void SaveInfoShiftTemplate()
+        {
+            ShiftTemplate template = this;
+            string sql = "INSERT INTO ShiftTemplate (date, start, end, tag) values ('" + template.Date + "', '" + template._startTime.ToString() + "', '" + template._endTime.ToString() + "', '" + Database.Instance.listToString(template.Tag) + "')";
+            Database.Instance.Execute(sql);
         }
     }
 }

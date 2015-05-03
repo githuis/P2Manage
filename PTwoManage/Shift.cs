@@ -8,10 +8,10 @@ namespace PTwoManage
 {
     class Shift : ShiftTemplate
     {
-        public int WeekNumber;
+        private DateTime _startTime;
+        private DateTime _endTime;
         private int _breakTime;
-        public User Employee;
-
+        public int Employee;
 
         public DateTime StartTime
         {
@@ -25,22 +25,34 @@ namespace PTwoManage
             set { _endTime = value; }
         }
 
-        public Shift(User user, DateTime start, DateTime end, string date)
-            : base(date, start, end)
+        public Shift(string date, DateTime starttime, DateTime endtime, string tag, int userID, int weeknumber) : base(date, starttime, endtime, tag)
         {
-            Employee = user;
-            _startTime = start;
-            _endTime = end;
+            Employee = userID;
+            _startTime = starttime;
+            _endTime = endtime;
         }
 
-        private void CalculateBreakTime(string hours, string breakTime)
+        private void CalculateBreakTime(String hours, String breakTime)
         {
 
         }
 
-        public override string ToString()
+        public void SaveInfoShiftTemplate()
         {
-            return (Employee.UserName + " " + StartTime + " " + EndTime);
+            ShiftTemplate template = this;
+            int test = 1;
+            string s = "test";
+            /*for (int i = 0; i <= template.Tag.Count; i++)
+            {
+                if(i>0)
+                    s += "-";
+                s += template.Tag[i];
+            }
+             */
+
+            string sql = "INSERT INTO ShiftTemplate (id, date, start, end, tag) values (" + test + ", '" + template.Date + "', '" + template._startTime.ToString("dd-MM-yyyy-HH-mm-ss") + "', '" + template._endTime.ToString("dd-MM-yyyy-HH-mm-ss") + "', '" + Database.Instance.listToString(template.Tag) + "')";
+            Database.Instance.Execute(sql);
         }
+
     }
 }

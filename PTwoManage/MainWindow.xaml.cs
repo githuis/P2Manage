@@ -32,14 +32,19 @@ namespace PTwoManage
             addUserWindow = new AddUserWindow();
             addUserWindow.Show();
             addUserWindow.EditUser_Load();
-            
+
         }
 
         private void AddTemplate_Click(object sender, RoutedEventArgs e)
         {
             addShiftTemplateWindow = new AddShiftTemplateWindow();
             addShiftTemplateWindow.Show();
+            addShiftTemplateWindow.LoadShift();
         }
 
+        private void Login_click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }
