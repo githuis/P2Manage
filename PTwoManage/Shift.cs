@@ -10,8 +10,7 @@ namespace PTwoManage
     {
         private DateTime _startTime;
         private DateTime _endTime;
-        private int _breakTime;
-        public int Employee;
+        private int _weeknumber;
 
         public string EmployeeName { get; set; }
         public DayOfWeek Day { get; set; }
@@ -31,9 +30,11 @@ namespace PTwoManage
             set { _endTime = value; }
         }
 
-        public Shift(string date, DateTime starttime, DateTime endtime, string tag, int userID, int weeknumber) : base(date, starttime, endtime, tag)
+        public Shift(DateTime starttime, DateTime endtime, string tag, string userName, int weeknumber)
+            : base(starttime, endtime, tag)
         {
-            Employee = userID;
+            EmployeeName = userName;
+            _weeknumber = weeknumber;
             _startTime = starttime;
             _endTime = endtime;
             Day = _startTime.DayOfWeek;
@@ -47,10 +48,10 @@ namespace PTwoManage
 
         }
 
-        public void SaveInfoShiftTemplate()
+        public void SaveShift()
         {
-            ShiftTemplate template = this;
-            string sql = "INSERT INTO ShiftTemplate (date, start, end, tag) values ('" + template.Date + "', '" + template._startTime.ToString("dd-MM-yyyy-HH-mm-ss") + "', '" + template._endTime.ToString("dd-MM-yyyy-HH-mm-ss") + "', '" + Database.Instance.listToString(template.Tag) + "')";
+            Shift shift = this;
+            string sql = "INSERT INTO ShiftTable (start, end, tag, employeeName, weekNumber) values ('" + shift._startTime.ToString() + "', '" + shift._endTime.ToString() + "', '" + Database.Instance.listToString(shift.Tag) + "', '" + shift.EmployeeName + "', " + shift._weeknumber + ")";
             Database.Instance.Execute(sql);
         }
     }

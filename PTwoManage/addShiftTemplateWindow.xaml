@@ -29,6 +29,7 @@
 
         <ListBox Name="Shift_Template_List" Margin="472,30,165,118"></ListBox>
         <Label Name="Error_message" HorizontalAlignment="Left" Margin="375,66,0,0" VerticalAlignment="Top"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="320,189,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
 
 
     </Grid>
