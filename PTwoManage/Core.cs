@@ -9,9 +9,11 @@ namespace PTwoManage
     public sealed class Core
     {
         static readonly Core _instance = new Core();
-        private List<User> _allUsers;
-        private List<string> _allTags;
-        private List<ShiftTemplate> _allTemplates;
+        private List<User> _allUsers = new List<User>();
+        private List<string> _allTags = new List<string>();
+        private List<ShiftTemplate> _allTemplates = new List<ShiftTemplate>();
+        private List<UserFreeRequest> _allRequests = new List<UserFreeRequest>();
+        private List<string> info = new List<string>();
 
         public static Core Instance
         {
@@ -23,38 +25,48 @@ namespace PTwoManage
             _allTags = new List<string>();
             _allUsers = new List<User>();
             _allTemplates = new List<ShiftTemplate>();
-
-            List<string> info = Database.Instance.readInfo;
+            _allRequests = new List<UserFreeRequest>();
+            info = new List<string>();
+            
             string sql = "SELECT * FROM userTable";
-            Database.Instance.Read(sql, Database.Instance.userTableColumns);
+            Database.Instance.Read(sql, ref info, Database.Instance.userTableColumns);
             foreach (var item in info)
             {
                 string[] split = item.Split(new Char[]{','});
                 _allUsers.Add(new User(int.Parse(split[0]), split[1], split[2], split[3], split[4], split[5], split[6], Database.Instance.stringToList(split[7]), int.Parse(split[8])));
-                Console.WriteLine("User loaded: " + split[1]);
             }
 
-            string sql2 = "SELECT * FROM ShiftTemplate";
-            Database.Instance.Read(sql2, Database.Instance.ShiftTemplateTableColumns);
+            sql = "SELECT * FROM ShiftTemplate";
+            Database.Instance.Read(sql, ref info, Database.Instance.ShiftTemplateTableColumns);
             foreach (var item in info)
             {
-                string[] split2 = item.Split(new Char[] { ',' });
-                DateTime t1 = new DateTime();
-                DateTime t2 = new DateTime();
-                t1 = DateTime.Parse(split2[2]);
-                t2 = DateTime.Parse(split2[3]);
-
-                _allTemplates.Add(new ShiftTemplate(split2[1], t1, t2, split2[4]));
-                Console.WriteLine("Template loaded: " + split2[1]);
+                string[] split2 = item.Split(new Char[] {','});
+                _allTemplates.Add(new ShiftTemplate(split2[1], DateTime.Parse(split2[2]), DateTime.Parse(split2[3]), split2[4]));
             }
 
-            string sql3 = "SELECT * FROM TagTable";
-            Database.Instance.Read(sql3, Database.Instance.TagTableColumns);
+            sql = "SELECT * FROM TagTable";
+            Database.Instance.Read(sql, ref info, Database.Instance.TagTableColumns);
             foreach (var item in info)
             {
-                string[] split = item.Split(new Char[]{','});
-                _allTags.Add(split[0]);
+                string[] split3 = item.Split(new Char[]{','});
+                if(!(split3[0] == ""))
+                    _allTags.Add(split3[0]);
             }
+
+            sql = "SELECT * FROM FreeRequestTable";
+            Database.Instance.Read(sql, ref info, Database.Instance.FreeTimeRequestColumns);
+            foreach (var item in info)
+            {
+                string holder;
+                string[] split4 = item.Split(new Char[] { ',' });
+                if(split4[2] == null)
+                    holder = "empty";
+                else
+                    holder = split4[2];
+                _allRequests.Add(new UserFreeRequest(DateTime.Parse(split4[0]), DateTime.Parse(split4[1]), holder, split4[3]));
+                    
+            }
+
         }
         
        
@@ -74,6 +86,11 @@ namespace PTwoManage
         public List<User> GetAllUsers()
         {
             return _allUsers;
+        }
+
+        public List<UserFreeRequest> GetAllUserRequests()
+        {
+            return _allRequests;
         }
 
         public List<ShiftTemplate> GetAllTemplates()
@@ -104,6 +121,11 @@ namespace PTwoManage
         public void DeleteTagFromList(string s)
         {
             _allTags.Remove(s);
+        }
+
+        public void CoreInit()
+        {
+            Console.WriteLine("Core activated");
         }
     }
 }
