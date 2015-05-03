@@ -166,7 +166,7 @@ namespace PTwoManage
         {
             string userName;
             string[] split;
-            int n = int.Parse(cpr), sum = 0;
+            long n = long.Parse(cpr), sum = 0;
 
             while (n != 0)
             {
