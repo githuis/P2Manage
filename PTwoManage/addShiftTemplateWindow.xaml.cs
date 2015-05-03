@@ -107,16 +107,16 @@ namespace PTwoManage
                 }
 
                 List<string> TemplateTags = new List<string>();
-                foreach (object item in Tag_List.SelectedItems)
+                foreach (ListBoxItem item in Tag_List.SelectedItems)
                 {
-                    string tag = item as string;
+                    string tag = item.Content.ToString();
+                    Console.WriteLine(tag);
                     TemplateTags.Add(tag);
                 }
 
-
-                ShiftTemplate shiftTemplate = new ShiftTemplate(SelectedDay.Content.ToString(), Start, End, Database.Instance.listToString(TemplateTags));
-                shiftTemplate.SaveInfoShiftTemplate();
-                Core.Instance.AddShiftTemplateToList(shiftTemplate);
+                ShiftTemplate template = new ShiftTemplate(SelectedDay.Content.ToString(), Start, End, Database.Instance.listToString(TemplateTags));
+                template.SaveInfoShiftTemplate();
+                Core.Instance.AddTemplateToList(template);
                 Start_Time.Clear();
                 End_Time.Clear();
                 Populate_ShiftTemplateList();
@@ -225,7 +225,6 @@ namespace PTwoManage
                 item.Content = text;
                 Shift_Template_List.Items.Add(item);
             }
-
         }
     }
 }
