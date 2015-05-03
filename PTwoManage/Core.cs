@@ -28,8 +28,6 @@ namespace PTwoManage
             _allUsers = new List<User>();
             _allTemplates = new List<ShiftTemplate>();
             _allRequests = new List<UserFreeRequest>();
-             _info = new List<string>();
-
             _info = new List<string>();
             _allShifts = new List<Shift>();
             
@@ -90,7 +88,6 @@ namespace PTwoManage
             _allShifts.Add(new Shift(new DateTime(2015, 04, 26, 15, 30, 00), new DateTime(2015, 04, 26, 16, 30, 00), "Åbner", "10", 2));
             _allShifts.Add(new Shift(new DateTime(2015, 04, 27, 15, 30, 00), new DateTime(2015, 04, 27, 16, 30, 00), "Åbner", "10", 2));
         }
-            
         
         public List<User> GetAllUsers()
         {

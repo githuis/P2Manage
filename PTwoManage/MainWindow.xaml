@@ -4,12 +4,12 @@
         Title="P2Manage" Height="350" Width="525"  WindowState="Maximized"  
         >
     <DockPanel>
-        <StackPanel Name="loginPanel" Margin="20" IsEnabled="True" Visibility="Visible" HorizontalAlignment="Right">
+        <StackPanel Name="loginPanel" Margin="20" IsEnabled="True" Visibility="Visible" HorizontalAlignment="Right" FocusManager.FocusedElement="{Binding ElementName=loginUsernameBox}">
             <TextBlock Text="Company Name"/>
             <TextBox Name="loginUsernameBox"/>
             <TextBlock Text="Company Password"/>
             <PasswordBox Name="loginPasswordBox"/>
-            <Button Name="loginSubmit" Height="30" Width="100" Content="Log in" Margin="0,10,0,0" Click="loginSubmit_Click"/>
+            <Button Name="loginSubmit" Height="30" Width="100" Content="Log in" Margin="0,10,0,0" Click="loginSubmit_Click" IsDefault="True"/>
             <TextBlock Text="" Name="loginFeedbackText"/>
             
         </StackPanel>
