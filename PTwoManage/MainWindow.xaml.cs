@@ -26,17 +26,17 @@ namespace PTwoManage
         public MainWindow()
         {
             InitializeComponent();
-            /*Core.Instance.Run();
+            InitializeLoginPanel();
+            //Core.Instance.Run();
 
-            shiftDataBindingMonday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Monday, 2);
+            /*shiftDataBindingMonday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Monday, 2);
             shiftDataBindingTuesday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Tuesday, 2);
             shiftDataBindingWednesday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Wednesday, 2);
             shiftDataBindingThursday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Thursday, 2);
             shiftDataBindingFriday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Friday, 2);
             shiftDataBindingSaturday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Saturday, 2);
             shiftDataBindingSunday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Sunday, 2);
-             * 
-             * */
+           */
 
         }
 
@@ -69,6 +69,34 @@ namespace PTwoManage
         {
             userFreeTimeRequestWindow = new UserFreeTimeRequestWindow();
             userFreeTimeRequestWindow.Show();
+        }
+
+        private void loginSubmit_Click(object sender, RoutedEventArgs e)
+        {
+            loginFeedbackText.Text = "";
+            string loginString = loginUsernameBox.Text + "," + loginPasswordBox.Password;
+            System.Net.WebClient wc = new System.Net.WebClient();
+            string webData = wc.DownloadString("http://everflows.com/companies.txt");
+            string[] split = webData.Split(new Char[] { ';' });
+
+            foreach (string s in split)
+            {
+                if(s == loginString)
+                    loginPanel.Visibility = System.Windows.Visibility.Collapsed;
+            }
+            loginFeedbackText.Foreground = Brushes.Red;
+            loginFeedbackText.Text = "Invalid Company name or password, please retry";
+        }
+
+        private void InitializeLoginPanel()
+        {
+            loginPanel.Width = (System.Windows.SystemParameters.PrimaryScreenWidth - (loginPanel.Margin.Left + loginPanel.Margin.Right));
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            loginPanel.Width = this.Width - (loginPanel.Margin.Left + loginPanel.Margin.Right);
+            Console.WriteLine(this.Width.ToString());
         }
     }
 }
