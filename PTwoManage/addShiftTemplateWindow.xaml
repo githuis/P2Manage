@@ -48,7 +48,5 @@
         </ListView>
         <Label Name="Error_message" HorizontalAlignment="Left" Margin="375,66,0,0" VerticalAlignment="Top"/>
         <Button Content="Generate " HorizontalAlignment="Left" Margin="431,346,0,0" VerticalAlignment="Top" Width="161" Height="35" Click="Button_Click"/>
-
-
     </Grid>
 </Window>

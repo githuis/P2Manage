@@ -78,7 +78,7 @@ namespace PTwoManage
             _phone = phone;
             _email = email;
             UserCategories = tag;
-             _points = points;
+            _points = points;
         }
 
         public static User GetUserByName(string userName)

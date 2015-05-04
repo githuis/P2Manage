@@ -324,8 +324,6 @@ namespace PTwoManage
         public bool RepetingWorker(User repeat)
         {
             return false;
-        }
-    
-
+        }   
     }
 }

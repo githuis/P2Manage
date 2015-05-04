@@ -25,7 +25,9 @@ namespace PTwoManage
     {
         public AddUserWindow()
         { 
-            InitializeComponent();
+			InitializeComponent();
+
+            Tag_ListBox.ItemsSource = Core.Instance.GetAllTags();
         }
         
         private void Submit_AddUser()
@@ -35,6 +37,7 @@ namespace PTwoManage
                 && (Core.Instance.GetAllUsers().Find(x => x.UserName.Contains(CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text))) == null))
             {
                 User newUser = new User(1, CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text), Password_TextBox.Password, EditUser_FullName.Text, EditUser_CPR.Text, EditUser_Number.Text, EditUser_Email.Text, GetCheckedTags(), 100);
+
                 Core.Instance.AddUserToList(newUser);
                 AddUser_Confirmation.Content = EditUser_FullName.Text + " was added to the system";
                 AddUser_Confirmation.Foreground = Brushes.Green;
@@ -159,7 +162,7 @@ namespace PTwoManage
             Password_TextBox.Password = "";
             ConfirmPassword.Password = "";
             ConfirmPassword.IsEnabled = true;
-            Tag_ListBox.SelectedItems.Clear();
+            Tag_ListBox.SelectedItemsOverride = new List<string>();
         }
 
         private string CreateUserName(string FullName, string cpr)
