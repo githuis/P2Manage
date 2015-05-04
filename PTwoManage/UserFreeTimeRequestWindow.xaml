@@ -1,0 +1,16 @@
+﻿<Window x:Class="PTwoManage.UserFreeTimeRequestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        Title="UserFreeTimeRequest" Height="425" Width="670">
+    <Grid Margin="0,0,-295,-125">
+        <TextBox Name="User_Name" HorizontalAlignment="Left" Height="23" Margin="10,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Send Request" HorizontalAlignment="Left" Margin="432,258,0,0" VerticalAlignment="Top" Width="75" Click="Send_Request_Click"/>
+        <TextBox Name="Message_Box" MaxLength="500" HorizontalAlignment="Left" Height="156" Margin="405,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
+        <DatePicker Name="Start_Date" DisplayDate="{x:Static sys:DateTime.Now}" DisplayDateStart="{x:Static sys:DateTime.Now}" HorizontalAlignment="Left" Margin="10,81,0,0" VerticalAlignment="Top" FirstDayOfWeek="Monday"/>
+        <DatePicker Name="End_Date" DisplayDateStart="{x:Static sys:DateTime.Now}" HorizontalAlignment="Left" Margin="10,136,0,0" VerticalAlignment="Top" FirstDayOfWeek="Monday"/>
+        <Label Name="Error_message" HorizontalAlignment="Left" Margin="194,40,0,0" VerticalAlignment="Top" Width="418" Height="23"/>
+
+
+    </Grid>
+</Window>

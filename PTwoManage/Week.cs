@@ -17,6 +17,7 @@ namespace PTwoManage
         List<Shift> Sunday = new List<Shift>();
         int WeekNumber;
         int Year;
+
         public string[] ShiftTableColumns = new string[7] { "id", "date", "start", "end", "tag", "employeeId", "weekNumber" };
 
         public Week(int week, int year)
@@ -24,50 +25,45 @@ namespace PTwoManage
             WeekNumber = week;
             Year = year;
 
-            List<string> info = Database.Instance.readInfo;
+            List<string> info = new List<string>();
             string sql = "SELECT * FROM ShiftTable WHERE weekNumber=" + this.WeekNumber;
-            Database.Instance.Read(sql, this.ShiftTableColumns);
+            Database.Instance.Read(sql, ref info, Database.Instance.ShiftTableColumns);
             foreach (var item in info)
             {
                 string[] split = item.Split(new Char[] { ',' });
                 DateTime t1 = new DateTime();
                 DateTime t2 = new DateTime();
-                t1 = DateTime.Parse(split[2]);
-                t2 = DateTime.Parse(split[3]);
+				
+                t1 = DateTime.Parse(split[1]);
+                t2 = DateTime.Parse(split[2]);
 
                 switch (t1.DayOfWeek)
                 {
-                    case DayOfWeek.Friday:
-                        Monday.Add(new Shift(split[1], t1, t2, split[4], int.Parse(split[5]), int.Parse(split[6])));
-                        break;
                     case DayOfWeek.Monday:
-                        Tuesday.Add(new Shift(split[1], t1, t2, split[4], int.Parse(split[5]), int.Parse(split[6])));
-                        break;
-                    case DayOfWeek.Saturday:
-                        Wednesday.Add(new Shift(split[1], t1, t2, split[4], int.Parse(split[5]), int.Parse(split[6])));
-                        break;
-                    case DayOfWeek.Sunday:
-                        Thursday.Add(new Shift(split[1], t1, t2, split[4], int.Parse(split[5]), int.Parse(split[6])));
-                        break;
-                    case DayOfWeek.Thursday:
-                        Friday.Add(new Shift(split[1], t1, t2, split[4], int.Parse(split[5]), int.Parse(split[6])));
+                        Monday.Add(new Shift(t1, t2, split[3], split[4], int.Parse(split[5])));
                         break;
                     case DayOfWeek.Tuesday:
-                        Saturday.Add(new Shift(split[1], t1, t2, split[4], int.Parse(split[5]), int.Parse(split[6])));
+                        Tuesday.Add(new Shift(t1, t2, split[3], split[4], int.Parse(split[5])));
                         break;
                     case DayOfWeek.Wednesday:
-                        Sunday.Add(new Shift(split[1], t1, t2, split[4], int.Parse(split[5]), int.Parse(split[6])));
+                        Wednesday.Add(new Shift(t1, t2, split[3], split[4], int.Parse(split[5])));
+                        break;
+                    case DayOfWeek.Thursday:
+                        Thursday.Add(new Shift(t1, t2, split[3], split[4], int.Parse(split[5])));
+                        break;
+                    case DayOfWeek.Friday:
+                        Friday.Add(new Shift(t1, t2, split[3], split[4], int.Parse(split[5])));
+                        break;
+                    case DayOfWeek.Saturday:
+                        Saturday.Add(new Shift(t1, t2, split[3], split[4], int.Parse(split[5])));
+                        break;
+                    case DayOfWeek.Sunday:
+                        Sunday.Add(new Shift(t1, t2, split[3], split[4], int.Parse(split[5])));
                         break;
                     default:
                         break;
                 }
-            } 
+            }
         }
-
-        public void ScheduleGenerator(int weeknumber)
-        {
-
-        }
-
     }
 }

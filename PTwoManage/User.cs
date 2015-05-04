@@ -90,8 +90,19 @@ namespace PTwoManage
                     return u;
                 }
             }
-            // Todo: Skal kaste error
-            return new User(999999, "User not found", "User not found", "User not found", "564455648", "88888888", "User not found", Database.Instance.stringToList("User not found"), 999);
+            throw new UserNotFoundException();
+        }
+
+        public static bool CheckUserExists(string userName)
+        {
+            foreach (User u in Core.Instance.GetAllUsers())
+            {
+                if (u.UserName == userName)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void SaveUserInfoToDatabase()

@@ -23,6 +23,8 @@ namespace PTwoManage
         public AddShiftTemplateWindow()
         {
             InitializeComponent();
+            Shift_Template_List.Items.Clear();
+            Shift_Template_List.ItemsSource = Core.Instance.GetAllTemplates();
         }
 
         private void EditTime_NumberValidation(object sender, TextCompositionEventArgs e)
@@ -107,13 +109,11 @@ namespace PTwoManage
                 }
 
                 List<string> TemplateTags = new List<string>();
-                foreach (object item in Tag_List.SelectedItems)
+                foreach (ListBoxItem item in Tag_List.SelectedItems)
                 {
-                    string tag = item as string;
+                    string tag = item.Content.ToString();
                     TemplateTags.Add(tag);
                 }
-
-
                 ShiftTemplate shiftTemplate = new ShiftTemplate(SelectedDay.Content.ToString(), Start, End, Database.Instance.listToString(TemplateTags));
                 shiftTemplate.SaveInfoShiftTemplate();
                 Core.Instance.AddShiftTemplateToList(shiftTemplate);
@@ -122,6 +122,8 @@ namespace PTwoManage
                 Populate_ShiftTemplateList();
                 Error_message.Content = "";
             }
+
+            Shift_Template_List.Items.Refresh();
         }
 
         private bool Check_If_Valid_Time(string s)
@@ -225,7 +227,11 @@ namespace PTwoManage
                 item.Content = text;
                 Shift_Template_List.Items.Add(item);
             }
+        }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Core.Instance.ScheduleGenerator(19, 2015);
         }
     }
 }
