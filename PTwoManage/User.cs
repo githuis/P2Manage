@@ -108,10 +108,16 @@ namespace PTwoManage
         public void SaveUserInfoToDatabase()
         {
             User user = this;
-            string sql;
-            sql = "DELETE FROM userTable WHERE username IN (SELECT username FROM userTable WHERE username ='" + user.UserName +"')";
+            string sql = "DELETE FROM userTable WHERE username IN (SELECT username FROM userTable WHERE username ='" + user.UserName +"')";
             Database.Instance.Execute(sql);
             sql = "INSERT OR REPLACE INTO userTable  (username, password, name, cprNumber, phone, email, tag, points) values ('" + user.UserName + "', '" + user.Password + "', '" + user.Name + "' , " + user.CprNumber + " , " + user.Phone + ", '" + user.Email + "', '" + Database.Instance.listToString(user.UserCategories) +"', " + user.Points + ")";
+            Database.Instance.Execute(sql);
+        }
+
+        public void UpdateUserInfoDatabase()
+        {
+            User user = this;
+            string sql = "UPDATE userTable SET password='" + user.Password + "', name='" + user.Name + "', cprNumber='" + user.CprNumber + "', phone='" + user.Phone + "', email='" + user.Email + "', tag='" + Database.Instance.listToString(user.UserCategories) + "', points='" + user.Points + "'  WHERE username='" + user.UserName + "'";
             Database.Instance.Execute(sql);
         }
 
@@ -120,6 +126,15 @@ namespace PTwoManage
             User user = this;
             string sql;
             sql = "DELETE FROM userTable WHERE username IN (SELECT username FROM userTable WHERE username ='" + user.UserName + "')";
+            Database.Instance.Execute(sql);
+        }
+
+        public void UpdateUserPointBalance(int points)
+        {
+            User user = this;
+            user.Points += points;
+            string sql;
+            sql = "UPDATE userTable SET points='" + user.Points + "'  WHERE username='" + user.UserName + "'";
             Database.Instance.Execute(sql);
         }
 

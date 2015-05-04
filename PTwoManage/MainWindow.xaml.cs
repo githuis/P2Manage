@@ -23,6 +23,8 @@ namespace PTwoManage
         AddUserWindow addUserWindow;
         AddShiftTemplateWindow addShiftTemplateWindow;
         UserFreeTimeRequestWindow userFreeTimeRequestWindow;
+        AddHolidayWindow addHolidayWindow;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -97,6 +99,13 @@ namespace PTwoManage
         {
             loginPanel.Width = this.Width - (loginPanel.Margin.Left + loginPanel.Margin.Right);
             Console.WriteLine(this.Width.ToString());
+        }
+
+        private void MakeHoliday_Click(object sender, RoutedEventArgs e)
+        {
+            addHolidayWindow = new AddHolidayWindow();
+            addHolidayWindow.Load_Holidays();
+            addHolidayWindow.Show();
         }
     }
 }

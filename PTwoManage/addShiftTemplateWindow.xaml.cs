@@ -117,6 +117,8 @@ namespace PTwoManage
                 ShiftTemplate test2 = new ShiftTemplate(Start, End, Database.Instance.listToString(TemplateTags));
                 test2.SaveInfoShiftTemplate();
                 Error_message.Content = "";
+                Core.Instance.AddTemplateToList(test2);
+                Populate_ShiftTemplateList();
             }
         }
 
@@ -177,6 +179,7 @@ namespace PTwoManage
         public void LoadShift()
         {
             Populate_TagList();
+            Populate_ShiftTemplateList();
         }
 
         public void DeleteTag(string s)
@@ -209,14 +212,22 @@ namespace PTwoManage
             return !ShiftTags.Except(UserTags).Any();
         }
 
-        private void Populate_ShiftTemplateList()
-        {
-            Shift_Template_List.Items.Clear();
-        }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Core.Instance.ScheduleGenerator(19, 2015);
+        }
+
+        private void Populate_ShiftTemplateList()
+        {
+            Shift_Template_List.Items.Clear();
+            foreach (ShiftTemplate shift in Core.Instance.GetAllTemplates())
+            {
+                ListBoxItem item = new ListBoxItem();
+                TextBlock text = new TextBlock();
+                text.Text = shift._startTime.DayOfWeek.ToString();
+                item.Content = text;
+                Shift_Template_List.Items.Add(item);
+            }
         }
     }
 }

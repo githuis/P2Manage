@@ -33,6 +33,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -60,12 +64,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddHolidayWindow.xaml.cs">
+      <DependentUpon>AddHolidayWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="addShiftTemplateWindow.xaml.cs">
       <DependentUpon>addShiftTemplateWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="AddUserWindow.xaml.cs">
       <DependentUpon>AddUserWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Holiday.cs" />
     <Compile Include="Shift.cs" />
     <Compile Include="ShiftTemplate.cs" />
     <Compile Include="User.cs" />
@@ -76,6 +84,10 @@
     <Compile Include="Week.cs" />
     <Compile Include="UserNotFoundException.cs" />
     <Compile Include="Workschedule.cs" />
+    <Page Include="AddHolidayWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="addShiftTemplateWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -129,6 +141,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="fire_eye_alien.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
