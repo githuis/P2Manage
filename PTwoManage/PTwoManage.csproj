@@ -75,6 +75,9 @@
     </Compile>
     <Compile Include="Week.cs" />
     <Compile Include="UserNotFoundException.cs" />
+    <Compile Include="ShiftWindow.xaml.cs">
+      <DependentUpon>ShiftWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Workschedule.cs" />
     <Page Include="addShiftTemplateWindow.xaml">
       <SubType>Designer</SubType>
@@ -99,6 +102,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UserFreeTimeRequestWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ShiftWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -23,6 +23,7 @@ namespace PTwoManage
         AddUserWindow addUserWindow;
         AddShiftTemplateWindow addShiftTemplateWindow;
         UserFreeTimeRequestWindow userFreeTimeRequestWindow;
+        ShiftWindow shiftWindow;
         public MainWindow()
         {
             InitializeComponent();
@@ -52,7 +53,7 @@ namespace PTwoManage
         {
             addShiftTemplateWindow = new AddShiftTemplateWindow();
             addShiftTemplateWindow.Show();
-            addShiftTemplateWindow.LoadShift();
+            addShiftTemplateWindow.LoadShiftTemplate();
         }
 
         private void LoadSchedule_Click(object sender, RoutedEventArgs e)
@@ -69,6 +70,13 @@ namespace PTwoManage
         {
             userFreeTimeRequestWindow = new UserFreeTimeRequestWindow();
             userFreeTimeRequestWindow.Show();
+        }
+
+        private void Shift_Click(object sender, RoutedEventArgs e)
+        {
+            shiftWindow = new ShiftWindow();
+            shiftWindow.Show();
+            shiftWindow.LoadShift();
         }
     }
 }

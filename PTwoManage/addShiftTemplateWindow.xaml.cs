@@ -110,7 +110,6 @@ namespace PTwoManage
                 foreach (ListBoxItem item in Tag_List.SelectedItems)
                 {
                     string tag = item.Content.ToString();
-                    Console.WriteLine(tag);
                     TemplateTags.Add(tag);
                 }
 
@@ -178,7 +177,7 @@ namespace PTwoManage
             Database.Instance.Execute(sql);
         }
 
-        public void LoadShift()
+        public void LoadShiftTemplate()
         {
             Populate_TagList();
             Populate_ShiftTemplateList();
