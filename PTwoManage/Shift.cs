@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 
 namespace PTwoManage
 {
-    class Shift
+    public class Shift : ShiftTemplate
     {
         private DateTime _startTime;
         private DateTime _endTime;
-        private int _breakTime;
-        public User Employee;
+        private int _weeknumber;
+
+        public string EmployeeName { get; set; }
+        public DayOfWeek Day { get; set; }
+        public int Week { get; set; }
+        public string PrintableStartTime { get; set; }
+        public string PrintableEndTime { get; set; }
 
         public DateTime StartTime
         {
@@ -25,11 +30,17 @@ namespace PTwoManage
             set { _endTime = value; }
         }
 
-        public Shift(User user, DateTime start, DateTime end)
+        public Shift(DateTime starttime, DateTime endtime, string tag, string userName, int weeknumber)
+            : base(starttime, endtime, tag)
         {
-            Employee = user;
-            _startTime = start;
-            _endTime = end;
+            EmployeeName = userName;
+            _weeknumber = weeknumber;
+            _startTime = starttime;
+            _endTime = endtime;
+            Day = _startTime.DayOfWeek;
+            Week = 2;
+            PrintableStartTime = _startTime.Hour.ToString() + ":" + _startTime.Minute.ToString();
+            PrintableEndTime = _endTime.Hour.ToString() + ":" + _endTime.Minute.ToString();
         }
 
         private void CalculateBreakTime(String hours, String breakTime)
@@ -37,10 +48,11 @@ namespace PTwoManage
 
         }
 
-        public override string ToString()
+        public void SaveShift()
         {
-            return (Employee.UserName + " " + StartTime + " " + EndTime);
+            Shift shift = this;
+            string sql = "INSERT INTO ShiftTable (start, end, tag, employeeName, weekNumber) values ('" + shift._startTime.ToString() + "', '" + shift._endTime.ToString() + "', '" + Database.Instance.listToString(shift.Tag) + "', '" + shift.EmployeeName + "', " + shift._weeknumber + ")";
+            Database.Instance.Execute(sql);
         }
-        
     }
 }

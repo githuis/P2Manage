@@ -9,31 +9,6 @@ namespace PTwoManage
 {
     class Workschedule
     {
-        
-        public static void NewCalendar()
-        {
-            DateTime dt = new DateTime(2015, 05, 25, new GregorianCalendar());
-            Calendar cal = CultureInfo.InvariantCulture.Calendar;
-            dt = cal.AddYears(dt, 2);
-            Console.WriteLine(cal.GetYear(dt));
-        }
 
-        enum Weekdays 
-        {
-            Monday,
-            Tuesday,
-            Wednesday,
-            Thursday,
-            Friday,
-            Saturday,
-            Sunday
-        }
-
-        
-        public void isHoliday(int dayInYear)
-        {
-
-        }
     }
-    
 }
