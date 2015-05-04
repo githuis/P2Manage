@@ -49,7 +49,7 @@ namespace PTwoManage
                 TextBlock text = new TextBlock();
                 text.Text = h.Date.ToLongDateString();
                 item.Content = text;
-                 Current_Holidays.Items.Add(item);
+                Current_Holidays.Items.Add(item);
             }
         }
 
@@ -67,6 +67,21 @@ namespace PTwoManage
                     return true;
             }
             return false;
+        }
+
+        private void RemoveOffDay_Click(object sender, RoutedEventArgs e)
+        {
+            ListBoxItem item = Current_Holidays.SelectedItem as ListBoxItem;
+
+            foreach (Holiday h in Core.Instance.GetAllHolidays())
+            {
+                if (item.Name.ToString() == h.Date.ToLongDateString())
+                {
+                    h.RemoveHoliday();
+                    break;
+                }
+            }
+            Populate_HolidayList();
         }
 
 

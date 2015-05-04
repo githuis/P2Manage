@@ -28,6 +28,13 @@ namespace PTwoManage
             Database.Instance.Execute(sql);
         }
 
+        public void RemoveHoliday()
+        {
+            Holiday holiday = this;
+            string sql = "DELETE FROM HolidayTable WHERE day='" + holiday._date.ToString() + "'";
+            Database.Instance.Execute(sql);
+        }
+
         
     }
 }

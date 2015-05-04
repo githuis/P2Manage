@@ -44,6 +44,7 @@ namespace PTwoManage
                 isValidated = false;
                 Error_message.Content = "End time is not a valid minute format";
             }
+
             else if (Day_List.SelectedItem == null)
             {
                 isValidated = false;
@@ -104,6 +105,11 @@ namespace PTwoManage
                 else
                 {
                     Console.WriteLine("Damn");
+                }
+
+                if (Start < End)
+                {
+
                 }
 
                 List<string> TemplateTags = new List<string>();

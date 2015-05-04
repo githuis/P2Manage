@@ -167,6 +167,7 @@ namespace PTwoManage
             _allHolidays = _allHolidays.OrderBy(holiday => holiday.Date).ToList();
             return _allHolidays;
         }
+         
 
         public void AddToHolidayList(Holiday NewHoliday)
         {
@@ -309,7 +310,7 @@ namespace PTwoManage
             {
                 foreach(User u in UserList)
                 {
-                    if (q.UserName == u.UserName && (u.Points >= NegativeDayweight) && (Date != q.StartTime))
+                    if (q.UserName == u.UserName && (Date != q.StartTime))
                     {
                         UnAvalibleUsers.Add(u);
                         break;
@@ -326,8 +327,16 @@ namespace PTwoManage
                 {
                     if (UnAvalibleUsers.Count > 1)
                     {
-                        u.UpdateUserPointBalance(-NegativeDayweight);
-                        UserList.Remove(u);
+                        if (u.Points >= NegativeDayweight)
+                        {
+                            u.UpdateUserPointBalance(-NegativeDayweight);
+                            UserList.Remove(u);
+                        }
+                        else
+                        {
+                            u.Points = 0;
+                            UserList.Remove(u);
+                        }
                     }
                 }
             }
@@ -335,8 +344,16 @@ namespace PTwoManage
             {
                 foreach (User u in UnAvalibleUsers)
                 {
-                    u.UpdateUserPointBalance(-NegativeDayweight);
-                    UserList.Remove(u);
+                    if (u.Points >= NegativeDayweight)
+                    {
+                        u.UpdateUserPointBalance(-NegativeDayweight);
+                        UserList.Remove(u);
+                    }
+                    else
+                    {
+                        u.Points = 0;
+                        UserList.Remove(u);
+                    }
                 }
             }
             // Skal derefter sorterer efter personen med færrest point
@@ -344,7 +361,7 @@ namespace PTwoManage
             UserList = SortedList.ToList();
 
             // Til sidst tjekkes det om det er samme person som sidste år som arbejede på denne dato
-            /*if (RepetingWorker(UserList.First()))
+            /*if (RepetingWorker(UserList.First(), UserList))
             {
                 UserList.Remove(UserList.First());
             }
@@ -362,14 +379,18 @@ namespace PTwoManage
             return !ShiftTags.Except(UserTags).Any();
         }
 
-        public bool RepetingWorker(User repeat)
+        public bool RepetingWorker(User repeat, List<Shift> shifts)
         {
+            foreach (Shift s in shifts)
+            {
+                
+            }
             return false;
         }
 
         public void CalculateDayPrice(int day, ref int PossitiveDayPrice, ref int NegativeDayPrice, bool isHoliday = false)
         {
-            if (isHoliday)
+            if (!isHoliday)
             {
                 switch (day)
                 {
