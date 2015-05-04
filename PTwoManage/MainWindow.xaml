@@ -39,7 +39,12 @@
             <!-- Week display -->
             <StackPanel Orientation="Horizontal">
                 
-                <ListView Margin="10" Name="shiftDataBindingMonday" Width="auto">    
+                <!-- Test to see if this works with datatemplates -->
+                <ContentControl  Name="shiftDataBindingMonday" ContentTemplate="{StaticResource DayDisplay}">
+                    
+                </ContentControl>
+                <ListView Margin="10"  Width="auto" > <!-- Name="shiftDataBindingMonday" -->
+
                     <!-- <ListView.ItemTemplate
                         <DataTemplate DataType="x:Type ListView">
                             <WrapPanel>
