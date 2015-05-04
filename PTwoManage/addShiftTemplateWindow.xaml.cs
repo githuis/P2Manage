@@ -23,6 +23,8 @@ namespace PTwoManage
         public AddShiftTemplateWindow()
         {
             InitializeComponent();
+            Shift_Template_List.Items.Clear();
+            Shift_Template_List.ItemsSource = Core.Instance.GetAllTemplates();
         }
 
         private void EditTime_NumberValidation(object sender, TextCompositionEventArgs e)
@@ -118,6 +120,7 @@ namespace PTwoManage
                 test2.SaveInfoShiftTemplate();
                 Error_message.Content = "";
             }
+            Shift_Template_List.Items.Refresh();
         }
 
         private bool Check_If_Valid_Time(string s)

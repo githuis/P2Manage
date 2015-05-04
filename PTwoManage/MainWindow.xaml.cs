@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Globalization;
 
 namespace PTwoManage
 {
@@ -23,10 +24,38 @@ namespace PTwoManage
         AddUserWindow addUserWindow;
         AddShiftTemplateWindow addShiftTemplateWindow;
         UserFreeTimeRequestWindow userFreeTimeRequestWindow;
+
+        private int _year = 2015;
+        private int _week = 1;
+        public int SelectedWeek
+        {
+            get { return _week; }
+            set
+            {
+                if (value < GetWeeksInYear(_year) && value > 0)
+                {
+                    _week = value;
+                }
+                else if (value > GetWeeksInYear(_year))
+                {
+                    _year++;
+                    _week = 1;
+                }
+                else
+                {
+                    _year--;
+                    _week = GetWeeksInYear(_year);
+                }
+                    
+                    
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
-            InitializeLoginPanel();
+            Authentication.Instance.Prompt();
+            UpdateWeekNumberDisplay();
             //Core.Instance.Run();
 
             /*shiftDataBindingMonday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Monday, 2);
@@ -62,43 +91,40 @@ namespace PTwoManage
             
         }
 
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-		
         private void UserFreeRequest_Click(object sender, RoutedEventArgs e)
         {
             userFreeTimeRequestWindow = new UserFreeTimeRequestWindow();
             userFreeTimeRequestWindow.Show();
         }
 
-        private void loginSubmit_Click(object sender, RoutedEventArgs e)
+        private void DecrementWeekButton_Click(object sender, RoutedEventArgs e)
         {
-            loginFeedbackText.Text = "";
-            string loginString = loginUsernameBox.Text + "," + loginPasswordBox.Password;
-            System.Net.WebClient wc = new System.Net.WebClient();
-            string webData = wc.DownloadString("http://everflows.com/companies.txt");
-            string[] split = webData.Split(new Char[] { ';' });
-
-            foreach (string s in split)
-            {
-                if(s == loginString)
-                    loginPanel.Visibility = System.Windows.Visibility.Collapsed;
-            }
-            loginFeedbackText.Foreground = Brushes.Red;
-            loginFeedbackText.Text = "Invalid Company name or password, please retry";
+            SelectedWeek--;
+            UpdateWeekNumberDisplay();
         }
 
-        private void InitializeLoginPanel()
+        private void IncrementWeekButton_Click(object sender, RoutedEventArgs e)
         {
-            loginPanel.Width = (System.Windows.SystemParameters.PrimaryScreenWidth - (loginPanel.Margin.Left + loginPanel.Margin.Right));
+            SelectedWeek++;
+            UpdateWeekNumberDisplay();
         }
 
-        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        private int GetWeeksInYear(int year)
         {
-            loginPanel.Width = this.Width - (loginPanel.Margin.Left + loginPanel.Margin.Right);
-            Console.WriteLine(this.Width.ToString());
+            DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+            DateTime dt = new DateTime(year, 12, 31);
+            System.Globalization.Calendar cal = dfi.Calendar;
+            return cal.GetWeekOfYear(dt, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+        }
+
+        private void UpdateWeekNumberDisplay()
+        {
+            WeekDisplayNumTextBlock.Text = "Week: " + SelectedWeek;
+        }
+
+        private void UpdateShiftsDisplay()
+        {
+
         }
     }
 }

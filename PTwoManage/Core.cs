@@ -43,10 +43,14 @@ namespace PTwoManage
             
             string sql2 = "SELECT * FROM ShiftTemplate";
             Database.Instance.Read(sql2, ref _info, Database.Instance.ShiftTemplateTableColumns);
+            ShiftTemplate t;
             foreach (var item in _info)
             {
                 string[] split2 = item.Split(new Char[] {','});
-                _allTemplates.Add(new ShiftTemplate(DateTime.Parse(split2[1]), DateTime.Parse(split2[2]), split2[3]));
+                t = new ShiftTemplate(DateTime.Parse(split2[1]), DateTime.Parse(split2[2]), split2[3]);
+                t.GeneratePrintableInfo();
+                _allTemplates.Add(t);
+
             }
 
             Console.WriteLine("Test2");
