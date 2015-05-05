@@ -24,6 +24,7 @@ namespace PTwoManage
         AddUserWindow addUserWindow;
         AddShiftTemplateWindow addShiftTemplateWindow;
         UserFreeTimeRequestWindow userFreeTimeRequestWindow;
+        AddHolidayWindow addHolidayWindow;
 
         private int _year = 2015;
         private int _week = 1;
@@ -125,6 +126,13 @@ namespace PTwoManage
         private void UpdateShiftsDisplay()
         {
 
+        }
+
+        private void MakeHoliday_Click(object sender, RoutedEventArgs e)
+        {
+            addHolidayWindow = new AddHolidayWindow();
+            addHolidayWindow.Load_Holidays();
+            addHolidayWindow.Show();
         }
     }
 }

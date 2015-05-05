@@ -32,6 +32,7 @@
                 <MenuItem Header="_Add Shift Template" Click="AddTemplate_Click"></MenuItem>
                 <MenuItem Header="_Load Schedule" Click="LoadSchedule_Click"></MenuItem>
                 <MenuItem Header="_Free request" Click="UserFreeRequest_Click"></MenuItem>
+                <MenuItem Header="_Make a holiday" Click="MakeHoliday_Click"></MenuItem>
             </MenuItem>
         </Menu>
 
@@ -40,9 +41,9 @@
             <StackPanel Orientation="Horizontal">
                 
                 <!-- Test to see if this works with datatemplates -->
-                <ContentControl  Name="shiftDataBindingMonday" ContentTemplate="{StaticResource DayDisplay}">
+                <!-- <ContentControl  Name="shiftDataBindingMonday" ContentTemplate="{StaticResource DayDisplay}">
                     
-                </ContentControl>
+                </ContentControl> -->
                 <ListView Margin="10"  Width="auto" > <!-- Name="shiftDataBindingMonday" -->
 
                     <!-- <ListView.ItemTemplate
