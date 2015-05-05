@@ -24,6 +24,8 @@ namespace PTwoManage
         AddUserWindow addUserWindow;
         AddShiftTemplateWindow addShiftTemplateWindow;
         UserFreeTimeRequestWindow userFreeTimeRequestWindow;
+        AddHolidayWindow addHolidayWindow;
+        ShiftWindow shiftWindow;
 
         private int _year = 2015;
         private int _week = 1;
@@ -32,30 +34,31 @@ namespace PTwoManage
             get { return _week; }
             set
             {
-                if (value < GetWeeksInYear(_year) && value > 0)
+                _week = value;
+                Console.WriteLine(GetWeeksInYear(_year));
+                if(_week > GetWeeksInYear(_year))
                 {
-                    _week = value;
-                }
-                else if (value > GetWeeksInYear(_year))
-                {
-                    _year++;
                     _week = 1;
+                    _year++;
                 }
-                else
+                else if (_week < 1)
                 {
                     _year--;
                     _week = GetWeeksInYear(_year);
                 }
-                    
+
+                this.Title = "P2Manage  -  Week " + _week + "  " + _year;
                     
             }
         }
 
         public MainWindow()
         {
-            InitializeComponent();
-            Authentication.Instance.Prompt();
+            if (!Authentication.Instance.Prompt())
+                Application.Current.Shutdown();
+            InitializeComponent();          
             UpdateWeekNumberDisplay();
+
             //Core.Instance.Run();
 
             /*shiftDataBindingMonday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Monday, 2);
@@ -74,7 +77,7 @@ namespace PTwoManage
             if(Authentication.Instance.Prompt())
             {
                 addUserWindow = new AddUserWindow();
-                addUserWindow.Show();
+                addUserWindow.ShowDialog();
                 addUserWindow.EditUser_Load();
             }
         }
@@ -82,7 +85,7 @@ namespace PTwoManage
         private void AddTemplate_Click(object sender, RoutedEventArgs e)
         {
             addShiftTemplateWindow = new AddShiftTemplateWindow();
-            addShiftTemplateWindow.Show();
+            addShiftTemplateWindow.ShowDialog();
             addShiftTemplateWindow.LoadShift();
         }
 
@@ -94,7 +97,7 @@ namespace PTwoManage
         private void UserFreeRequest_Click(object sender, RoutedEventArgs e)
         {
             userFreeTimeRequestWindow = new UserFreeTimeRequestWindow();
-            userFreeTimeRequestWindow.Show();
+            userFreeTimeRequestWindow.ShowDialog();
         }
 
         private void DecrementWeekButton_Click(object sender, RoutedEventArgs e)
@@ -125,6 +128,19 @@ namespace PTwoManage
         private void UpdateShiftsDisplay()
         {
 
+        }
+
+        private void MakeHoliday_Click(object sender, RoutedEventArgs e)
+        {
+            addHolidayWindow = new AddHolidayWindow();
+            addHolidayWindow.Load_Holidays();
+            addHolidayWindow.ShowDialog();
+        }
+
+        private void CreateShift_Click(object sender, RoutedEventArgs e)
+        {
+            shiftWindow = new ShiftWindow();
+            shiftWindow.ShowDialog();
         }
     }
 }

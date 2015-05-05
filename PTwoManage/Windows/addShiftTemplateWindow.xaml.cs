@@ -46,6 +46,7 @@ namespace PTwoManage
                 isValidated = false;
                 Error_message.Content = "End time is not a valid minute format";
             }
+
             else if (Day_List.SelectedItem == null)
             {
                 isValidated = false;
@@ -108,6 +109,11 @@ namespace PTwoManage
                     Console.WriteLine("Damn");
                 }
 
+                if (Start < End)
+                {
+
+                }
+
                 List<string> TemplateTags = new List<string>();
                 foreach (ListBoxItem item in Tag_List.SelectedItems)
                 {
@@ -116,10 +122,9 @@ namespace PTwoManage
                 }
                 ShiftTemplate shiftTemplate = new ShiftTemplate(Start, End, Database.Instance.listToString(TemplateTags));
                 shiftTemplate.SaveInfoShiftTemplate();
-                
+                Core.Instance.AddTemplateToList(shiftTemplate);
                 Start_Time.Clear();
                 End_Time.Clear();
-                Populate_ShiftTemplateList();
                 Error_message.Content = "";
             }
 
@@ -183,7 +188,6 @@ namespace PTwoManage
         public void LoadShift()
         {
             Populate_TagList();
-            Populate_ShiftTemplateList();
         }
 
         public void DeleteTag(string s)
@@ -216,8 +220,9 @@ namespace PTwoManage
             return !ShiftTags.Except(UserTags).Any();
         }
 
-        private void Populate_ShiftTemplateList()
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
+            Core.Instance.ScheduleGenerator(19, 2015);
             Shift_Template_List.Items.Clear();
             foreach (ShiftTemplate shift in Core.Instance.GetAllTemplates())
             {
@@ -227,11 +232,6 @@ namespace PTwoManage
                 item.Content = text;
                 Shift_Template_List.Items.Add(item);
             }
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Core.Instance.ScheduleGenerator(19, 2015);
         }
     }
 }

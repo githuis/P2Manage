@@ -16,6 +16,7 @@ namespace PTwoManage
         public string[] TagTableColumns = new string[1] { "tag" };
         public string[] ShiftTableColumns = new string[6] { "id", "start", "end", "tag", "employeeName", "weekNumber" };
         public string[] FreeTimeRequestColumns = new string[4] { "start", "end", "text", "userID" };
+        public string[] HolidayTableColumns = new string[1] { "day" };
         SQLiteConnection m_dbConnection;
         public List<string> readInfo = new List<string>();
 
@@ -42,6 +43,7 @@ namespace PTwoManage
             Execute("CREATE TABLE IF NOT EXISTS ShiftTemplate (id INTEGER PRIMARY KEY AUTOINCREMENT, start VARCHAR(50), end VARCHAR(50), tag VARCHAR(1000))");
             Execute("CREATE TABLE IF NOT EXISTS TagTable (tag VARCHAR(1000))");
             Execute("CREATE TABLE IF NOT EXISTS FreeRequestTable (start VARCHAR(50), end VARCHAR(50), text VARCHAR(300), userID varchar(50))");
+            Execute("CREATE TABLE IF NOT EXISTS HolidayTable (day VARCHAR(50))");
 
         }
 

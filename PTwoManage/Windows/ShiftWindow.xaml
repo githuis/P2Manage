@@ -1,0 +1,28 @@
+﻿<Window x:Class="PTwoManage.ShiftWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        ResizeMode="NoResize"
+        Title="Add Shifts" Height="550" Width="504.256">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="21*"/>
+            <RowDefinition Height="241*"/>
+            <RowDefinition Height="213*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="7*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.ColumnSpan="2" Grid.RowSpan="4">Start of shift</TextBlock>
+        <wpfTool:DateTimePicker Name="Startime_Shift_Box" Format="FullDateTime" Margin="0,1,10,0" Height="30" VerticalAlignment="Top" Grid.Column="0" Grid.Row="1"/>
+        <TextBlock Margin="0,220,0,0" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2">End of shift</TextBlock>
+        <wpfTool:DateTimePicker Name="Endtime_Shift_Box" Format="FullDateTime" Margin="0,0,10,0" VerticalAlignment="Top" Height="30" Grid.Column="0" Grid.Row="2"/>
+        <TextBlock Grid.Column="1" Margin="0,0,-4,0">Tags for shift</TextBlock>
+        <ListBox Name="Shift_TagList" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" SelectionMode="Multiple"/>
+        <TextBlock Grid.Column="1" Margin="0,220,-4,0" Grid.Row="1">User for shift</TextBlock>
+        <ListBox Name="Shift_UserList" Grid.Column="1" Grid.Row="2" VerticalAlignment="Top"></ListBox>
+        <Button Grid.Row="3" Grid.ColumnSpan="2" Margin="200,10" Click="Save_Shift_Button_Click">Save Shift</Button>
+    </Grid>
+</Window>
