@@ -19,7 +19,7 @@
         <TextBlock Grid.Column="0" Grid.Row="1" Text="Password: " Margin="5" />
         <PasswordBox Grid.Column="1" Grid.Row="1" Name="AuthPasswordBox" Margin="5" Grid.ColumnSpan="2"/>
 
-        <Button Grid.Column="1" Grid.Row="2" Name="AuthLogin" Margin="5" Content="Login" Grid.ColumnSpan="1" Click="AuthLogin_Click"/>
+        <Button Grid.Column="1" Grid.Row="2" Name="AuthLogin" Margin="5" Content="Login" Grid.ColumnSpan="1" Click="AuthLogin_Click" IsDefault="True"/>
         <Button Grid.Column="2" Grid.Row="2" Name="AuthCancel" Margin="5" Content="Cancel" Grid.ColumnSpan="1" Click="AuthCancel_Click" IsCancel="True"/>
     </Grid>
 

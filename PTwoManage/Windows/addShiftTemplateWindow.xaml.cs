@@ -126,7 +126,6 @@ namespace PTwoManage
                 Start_Time.Clear();
                 End_Time.Clear();
                 Error_message.Content = "";
-                Populate_ShiftTemplateList();
             }
 
             Shift_Template_List.Items.Refresh();
@@ -189,7 +188,6 @@ namespace PTwoManage
         public void LoadShift()
         {
             Populate_TagList();
-            Populate_ShiftTemplateList();
         }
 
         public void DeleteTag(string s)
@@ -231,20 +229,6 @@ namespace PTwoManage
                 ListBoxItem item = new ListBoxItem();
                 TextBlock text = new TextBlock();
                 text.Text = shift.Date.ToString();
-                item.Content = text;
-                Shift_Template_List.Items.Add(item);
-            }
-        }
-
-        private void Populate_ShiftTemplateList()
-        {
-            if(Shift_Template_List.Items.Count>0)
-                Shift_Template_List.Items.Clear();
-            foreach (ShiftTemplate shift in Core.Instance.GetAllTemplates())
-            {
-                ListBoxItem item = new ListBoxItem();
-                TextBlock text = new TextBlock();
-                text.Text = shift._startTime.DayOfWeek.ToString();
                 item.Content = text;
                 Shift_Template_List.Items.Add(item);
             }
