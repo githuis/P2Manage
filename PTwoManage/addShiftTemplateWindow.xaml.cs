@@ -114,9 +114,9 @@ namespace PTwoManage
                     string tag = item.Content.ToString();
                     TemplateTags.Add(tag);
                 }
-                ShiftTemplate shiftTemplate = new ShiftTemplate(SelectedDay.Content.ToString(), Start, End, Database.Instance.listToString(TemplateTags));
+                ShiftTemplate shiftTemplate = new ShiftTemplate(Start, End, Database.Instance.listToString(TemplateTags));
                 shiftTemplate.SaveInfoShiftTemplate();
-                Core.Instance.AddShiftTemplateToList(shiftTemplate);
+                
                 Start_Time.Clear();
                 End_Time.Clear();
                 Populate_ShiftTemplateList();
