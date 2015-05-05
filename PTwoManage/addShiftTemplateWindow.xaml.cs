@@ -23,6 +23,8 @@ namespace PTwoManage
         public AddShiftTemplateWindow()
         {
             InitializeComponent();
+            Shift_Template_List.Items.Clear();
+            Shift_Template_List.ItemsSource = Core.Instance.GetAllTemplates();
         }
 
         private void EditTime_NumberValidation(object sender, TextCompositionEventArgs e)
@@ -118,14 +120,16 @@ namespace PTwoManage
                     string tag = item.Content.ToString();
                     TemplateTags.Add(tag);
                 }
-
-
-                ShiftTemplate test2 = new ShiftTemplate(Start, End, Database.Instance.listToString(TemplateTags));
-                test2.SaveInfoShiftTemplate();
+                ShiftTemplate shiftTemplate = new ShiftTemplate(Start, End, Database.Instance.listToString(TemplateTags));
+                shiftTemplate.SaveInfoShiftTemplate();
+                Core.Instance.AddTemplateToList(shiftTemplate);
+                Start_Time.Clear();
+                End_Time.Clear();
                 Error_message.Content = "";
-                Core.Instance.AddTemplateToList(test2);
                 Populate_ShiftTemplateList();
             }
+
+            Shift_Template_List.Items.Refresh();
         }
 
         private bool Check_If_Valid_Time(string s)
@@ -221,11 +225,21 @@ namespace PTwoManage
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Core.Instance.ScheduleGenerator(19, 2015);
+            Shift_Template_List.Items.Clear();
+            foreach (ShiftTemplate shift in Core.Instance.GetAllTemplates())
+            {
+                ListBoxItem item = new ListBoxItem();
+                TextBlock text = new TextBlock();
+                text.Text = shift.Date.ToString();
+                item.Content = text;
+                Shift_Template_List.Items.Add(item);
+            }
         }
 
         private void Populate_ShiftTemplateList()
         {
-            Shift_Template_List.Items.Clear();
+            if(Shift_Template_List.Items.Count>0)
+                Shift_Template_List.Items.Clear();
             foreach (ShiftTemplate shift in Core.Instance.GetAllTemplates())
             {
                 ListBoxItem item = new ListBoxItem();

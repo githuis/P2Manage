@@ -18,6 +18,8 @@ namespace PTwoManage
         int WeekNumber;
         int Year;
 
+        public string[] ShiftTableColumns = new string[7] { "id", "date", "start", "end", "tag", "employeeId", "weekNumber" };
+
         public Week(int week, int year)
         {
             WeekNumber = week;
@@ -31,6 +33,7 @@ namespace PTwoManage
                 string[] split = item.Split(new Char[] { ',' });
                 DateTime t1 = new DateTime();
                 DateTime t2 = new DateTime();
+				
                 t1 = DateTime.Parse(split[1]);
                 t2 = DateTime.Parse(split[2]);
 

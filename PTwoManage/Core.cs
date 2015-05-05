@@ -30,8 +30,6 @@ namespace PTwoManage
             _allTemplates = new List<ShiftTemplate>();
             _allRequests = new List<UserFreeRequest>();
             _allHolidays = new List<Holiday>();
-             _info = new List<string>();
-
             _info = new List<string>();
             _allShifts = new List<Shift>();
             
@@ -47,10 +45,14 @@ namespace PTwoManage
             
             string sql2 = "SELECT * FROM ShiftTemplate";
             Database.Instance.Read(sql2, ref _info, Database.Instance.ShiftTemplateTableColumns);
+            ShiftTemplate t;
             foreach (var item in _info)
             {
                 string[] split2 = item.Split(new Char[] {','});
-                _allTemplates.Add(new ShiftTemplate(DateTime.Parse(split2[1]), DateTime.Parse(split2[2]), split2[3]));
+                t = new ShiftTemplate(DateTime.Parse(split2[1]), DateTime.Parse(split2[2]), split2[3]);
+                t.GeneratePrintableInfo();
+                _allTemplates.Add(t);
+
             }
 
             Console.WriteLine("Test2");
@@ -99,7 +101,6 @@ namespace PTwoManage
             _allShifts.Add(new Shift(new DateTime(2015, 04, 26, 15, 30, 00), new DateTime(2015, 04, 26, 16, 30, 00), "Åbner", "10", 2));
             _allShifts.Add(new Shift(new DateTime(2015, 04, 27, 15, 30, 00), new DateTime(2015, 04, 27, 16, 30, 00), "Åbner", "10", 2));
         }
-            
         
         public List<User> GetAllUsers()
         {
@@ -427,6 +428,6 @@ namespace PTwoManage
             }
 
             return true;
-        }
+        } 
     }
 }
