@@ -155,7 +155,35 @@
   textsize=scriptsize, %size of the text in the todonotes
   ]{todonotes}
 
+\definecolor{mymauve}{rgb}{0,0,0}
+
 \usepackage{lastpage}
+\usepackage{listings}
+\lstset{language=csh,
+stringstyle=\color{mymauve}}
+
+%Til code snippets
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{oranje}{rgb}{0.83,0.61,0.52}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{oranje},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Hyperlinks
