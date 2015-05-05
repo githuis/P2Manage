@@ -89,6 +89,14 @@ namespace PTwoManage
                 _allHolidays.Add(new Holiday(DateTime.Parse(split[0])));
             }
 
+            sql = "SELECT * FROM ShiftTable";
+            Database.Instance.Read(sql, ref _info, Database.Instance.ShiftTableColumns);
+            foreach (var item in _info)
+            {
+                string[] split = item.Split(new Char[] { ',' });
+                _allShifts.Add(new Shift(DateTime.Parse(split[1]),DateTime.Parse(split[2]),split[3],split[4],int.Parse(split[5])));
+            }
+
         }
        
        public void Run()
@@ -135,6 +143,11 @@ namespace PTwoManage
         public List<Shift> GetAllShifts()
         {
             return _allShifts;
+        }
+
+        public void AddShiftToList(Shift shift)
+        {
+            _allShifts.Add(shift);
         }
 
         public void AddTemplateToList(ShiftTemplate template)
@@ -261,6 +274,7 @@ namespace PTwoManage
 
                     Shift resultShift = new Shift(start, end, Database.Instance.listToString(AllShiftTemplates[i].Tag), UserName, weeknumber);
                     resultShift.SaveShift();
+                    Core._instance.AddShiftToList(resultShift);
                 }
             }
         }

@@ -223,7 +223,7 @@ namespace PTwoManage
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Core.Instance.ScheduleGenerator(19, 2015);
-            Shift_Template_List.Items.Clear();
+            /*Shift_Template_List.Items.Clear();
             foreach (ShiftTemplate shift in Core.Instance.GetAllTemplates())
             {
                 ListBoxItem item = new ListBoxItem();
@@ -231,7 +231,7 @@ namespace PTwoManage
                 text.Text = shift.Date.ToString();
                 item.Content = text;
                 Shift_Template_List.Items.Add(item);
-            }
+            }*/
         }
     }
 }
