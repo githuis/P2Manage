@@ -1,0 +1,30 @@
+\chapter{Implementation}\label{ch:implem}
+
+\section{Implementation}
+I dette afsnit, beskrives det hvordan systemet er blevet lavet og hvordan koden hænger sammen. Ved hjælp af flowcharts, vil der blive visualiseret hvordan noget af koden fungerer, for at give et overblik af hele systemet. Kode der er essensen af softwaren, vil afsnittet beskrive lidt mere i dybden, da der af læseren, forventes en basal viden indenfor programmering og sproget C\#. 
+
+\subsection{User management}
+I systemet er der muligheden for at tilføje, ændre og slette medarbejdere. Denne kan gøres i et vindue, hvor en medarbejders informationer kan indsættes eller ændres.
+
+\subsection{Template}
+
+\subsection{Database}
+Til implementering af databasen, benyttes der singleton pattern. Singleton pattern, er en klasse, hvor der kun bliver lavet en enkelt instans af sig selv. Dette sikre at den samme information er tilgængeligt, i helle programmet. \citep{SinPat, singleton} Før man anvender singleton, er der nogen kriterier der helst skal være opfyldt (taget direkte fra \citep{singleton}):
+
+\begin{itemize}
+\item 1. Der er ingen direkte ejerskab af klassen
+\item 2. Man vil gerne have så sen en initialisering som muligt (lazy initialization) og til sidst
+\item 3. Global tilgang er ellers ikke muligt
+\end{itemize}
+
+Medhensyn til implementering af databasen, er singleton altså relevant. Lazy initialization bliver ofte brugt til at forøge ydeevnen i et program, ved at udskyde de mere krævende objekter i programmet. Når objekter har brug for en forbindelse til en database, før de kan blive initialiseret kræver det en smule mere kræft og hvis det derfor kan undgåes, når databasen ikke er nødvendig, kan der spares nogle ressourcer. \citep{Lazy} Alt data der bliver benyttet er i databasen, det derfor nødvendigt for programmet at det er globalt tilgængeligt. Det data der er tilgængeligt, er ikke forutroligt, der er derfor ikke behov for direkte ejerskab af klassen (alle kan arbejde med den). 
+
+Denne klasse, laver en SQL server med SQLite sproget. I databasen bliver input fra lederen/medarbejderene lageret. Det første klassen gør, er at skabe forbindelse til SQL databasen, herefter tjekker den om der allerede eksistere end database, hvis ikke bliver der lavet en ny "MyDatabase.sqlite". Herefter bliver der lavet en tabel, hvor alt information om brugeren bliver lageret. 
+
+\subsection{Add Holiday}
+
+\subsection{Vagtplans generering}
+
+\subsection{Visning af vagtplanen}
+
+\subsection{}
