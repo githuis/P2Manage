@@ -59,21 +59,22 @@ namespace PTwoManage
             InitializeComponent();          
             UpdateWeekNumberDisplay();
 
-            //Core.Instance.Run();
+            //Temp Shifts
+            Core.Instance.Run();
+            //Should be called with current week
+            LoadDaysToView(1);
 
-            /*shiftDataBindingMonday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Monday, 2);
-            shiftDataBindingTuesday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Tuesday, 2);*/
-            foreach (Shift s in Core.Instance.GetAllShifts())
-            {
-                Console.WriteLine(s._startTime.ToString());
-            }
-            shiftDataBindingWednesday.ItemsSource = Core.Instance.GetAllShifts();/*
-            shiftDataBindingThursday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Thursday, 2);
-            shiftDataBindingFriday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Friday, 2);
-            shiftDataBindingSaturday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Saturday, 2);
-            shiftDataBindingSunday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Sunday, 2);
-           */
+        }
 
+        private void LoadDaysToView(int week)
+        {
+            shiftDataBindingMonday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Monday, week);
+            shiftDataBindingTuesday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Tuesday, week);
+            shiftDataBindingWednesday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Wednesday, week);
+            shiftDataBindingThursday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Thursday, week);
+            shiftDataBindingFriday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Friday, week);
+            shiftDataBindingSaturday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Saturday, week);
+            shiftDataBindingSunday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Sunday, week);
         }
 
         private void AddUser_Click(object sender, RoutedEventArgs e)
@@ -81,8 +82,9 @@ namespace PTwoManage
             if(Authentication.Instance.Prompt())
             {
                 addUserWindow = new AddUserWindow();
-                addUserWindow.ShowDialog();
                 addUserWindow.EditUser_Load();
+                addUserWindow.ShowDialog();
+                
             }
         }
 
@@ -108,12 +110,14 @@ namespace PTwoManage
         {
             SelectedWeek--;
             UpdateWeekNumberDisplay();
+            UpdateShiftsDisplay();
         }
 
         private void IncrementWeekButton_Click(object sender, RoutedEventArgs e)
         {
             SelectedWeek++;
             UpdateWeekNumberDisplay();
+            UpdateShiftsDisplay();
         }
 
         private int GetWeeksInYear(int year)
@@ -131,7 +135,7 @@ namespace PTwoManage
 
         private void UpdateShiftsDisplay()
         {
-
+            LoadDaysToView(SelectedWeek);
         }
 
         private void MakeHoliday_Click(object sender, RoutedEventArgs e)

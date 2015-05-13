@@ -101,13 +101,30 @@ namespace PTwoManage
        
        public void Run()
         {
-            _allShifts.Add(new Shift(new DateTime(2015, 04, 21, 15, 30, 00), new DateTime(2015, 04, 21, 16, 30, 00), "Åbner", "10", 2));
-            _allShifts.Add(new Shift(new DateTime(2015, 04, 22, 15, 30, 00), new DateTime(2015, 04, 22, 16, 30, 00), "Åbner", "10", 2));
-            _allShifts.Add(new Shift(new DateTime(2015, 04, 23, 15, 30, 00), new DateTime(2015, 04, 23, 16, 30, 00), "Åbner", "10", 2));
-            _allShifts.Add(new Shift(new DateTime(2015, 04, 24, 15, 30, 00), new DateTime(2015, 04, 24, 16, 30, 00), "Åbner", "10", 2));
-            _allShifts.Add(new Shift(new DateTime(2015, 04, 25, 15, 30, 00), new DateTime(2015, 04, 25, 16, 30, 00), "Åbner", "10", 2));
-            _allShifts.Add(new Shift(new DateTime(2015, 04, 26, 15, 30, 00), new DateTime(2015, 04, 26, 16, 30, 00), "Åbner", "10", 2));
-            _allShifts.Add(new Shift(new DateTime(2015, 04, 27, 15, 30, 00), new DateTime(2015, 04, 27, 16, 30, 00), "Åbner", "10", 2));
+           //Midlertidig funktion til at se om shifts kan vises
+            _allShifts.Add(new Shift(new DateTime(2015, 04, 21, 15, 30, 00), new DateTime(2015, 04, 21, 17, 30, 00), "Åbner", "Jens", 1));
+            _allShifts.Add(new Shift(new DateTime(2015, 04, 22, 15, 30, 00), new DateTime(2015, 04, 22, 17, 30, 00), "Åbner", "Jens", 1));
+            _allShifts.Add(new Shift(new DateTime(2015, 04, 23, 15, 30, 00), new DateTime(2015, 04, 23, 17, 30, 00), "Åbner", "Jens", 1));
+            _allShifts.Add(new Shift(new DateTime(2015, 04, 24, 15, 30, 00), new DateTime(2015, 04, 24, 17, 30, 00), "Åbner", "Jens", 1));
+            _allShifts.Add(new Shift(new DateTime(2015, 04, 25, 15, 30, 00), new DateTime(2015, 04, 25, 17, 30, 00), "Åbner", "Jens", 1));
+            _allShifts.Add(new Shift(new DateTime(2015, 04, 26, 15, 30, 00), new DateTime(2015, 04, 26, 17, 30, 00), "Åbner", "Jens", 1));
+            _allShifts.Add(new Shift(new DateTime(2015, 04, 27, 15, 30, 00), new DateTime(2015, 04, 27, 17, 30, 00), "Åbner", "Jens", 1));
+
+            _allShifts.Add(new Shift(new DateTime(2015, 04, 28, 15, 30, 00), new DateTime(2015, 04,28, 18, 20, 00), "Åbner", "Peter", 2));
+            _allShifts.Add(new Shift(new DateTime(2015, 04, 29, 15, 30, 00), new DateTime(2015, 04,29, 18, 20, 00), "Åbner", "Peter", 2));
+            _allShifts.Add(new Shift(new DateTime(2015, 04, 30, 15, 30, 00), new DateTime(2015, 04,30, 18, 20, 00), "Åbner", "Peter", 2));
+            _allShifts.Add(new Shift(new DateTime(2015, 05, 1 , 15, 30, 00), new DateTime(2015, 04, 1, 18, 20, 00), "Åbner", "Peter", 2));
+            _allShifts.Add(new Shift(new DateTime(2015, 05, 2 , 15, 30, 00), new DateTime(2015, 04, 2, 18, 20, 00), "Åbner", "Peter", 2));
+            _allShifts.Add(new Shift(new DateTime(2015, 05, 3 , 15, 30, 00), new DateTime(2015, 04, 3, 18, 20, 00), "Åbner", "Peter", 2));
+            _allShifts.Add(new Shift(new DateTime(2015, 05, 4 , 15, 30, 00), new DateTime(2015, 04, 4, 18, 20, 00), "Åbner", "Peter", 2));
+
+            _allShifts.Add(new Shift(new DateTime(2015, 05, 5 , 15, 30, 00), new DateTime(2015, 04, 5 , 19, 30, 00), "Åbner", "Ole", 3));
+            _allShifts.Add(new Shift(new DateTime(2015, 05, 6 , 15, 30, 00), new DateTime(2015, 04, 6 , 19, 30, 00), "Åbner", "Ole", 3));
+            _allShifts.Add(new Shift(new DateTime(2015, 05, 7 , 15, 30, 00), new DateTime(2015, 04, 7 , 19, 30, 00), "Åbner", "Ole", 3));
+            _allShifts.Add(new Shift(new DateTime(2015, 05, 8 , 15, 30, 00), new DateTime(2015, 04, 8 , 19, 30, 00), "Åbner", "Ole", 3));
+            _allShifts.Add(new Shift(new DateTime(2015, 05, 9 , 15, 30, 00), new DateTime(2015, 04, 9 , 19, 30, 00), "Åbner", "Ole", 3));
+            _allShifts.Add(new Shift(new DateTime(2015, 05, 10, 15, 30, 00), new DateTime(2015, 04, 10, 19, 30, 00), "Åbner", "Ole", 3));
+            _allShifts.Add(new Shift(new DateTime(2015, 05, 11, 15, 30, 00), new DateTime(2015, 04, 11, 19, 30, 00), "Åbner", "Ole", 3));
         }
         
         public List<User> GetAllUsers()

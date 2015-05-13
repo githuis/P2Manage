@@ -15,11 +15,15 @@ namespace PTwoManage
         private int _weeknumber;
 
         public string EmployeeName { get; set; }
-        public DayOfWeek Day { get; set; }
-        public int Week { get; set; }
+        public DayOfWeek Day { get; set; }        
         public string PrintableStartTime { get; set; }
         public string PrintableEndTime { get; set; }
-		
+
+        public int Week 
+        { 
+            get { return _weeknumber; } 
+        }
+
         public DateTime StartTime
         {
             get { return _startTime; }
@@ -40,7 +44,6 @@ namespace PTwoManage
             _startTime = starttime;
             _endTime = endtime;
             Day = _startTime.DayOfWeek;
-            Week = 2;
             PrintableStartTime = _startTime.Hour.ToString() + ":" + _startTime.Minute.ToString();
             PrintableEndTime = _endTime.Hour.ToString() + ":" + _endTime.Minute.ToString();
 		}
