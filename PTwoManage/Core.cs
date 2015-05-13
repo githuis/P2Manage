@@ -198,11 +198,15 @@ namespace PTwoManage
             _allHolidays = _allHolidays.OrderBy(holiday => holiday.Date).ToList();
             return _allHolidays;
         }
-         
 
         public void AddToHolidayList(Holiday NewHoliday)
         {
             _allHolidays.Add(NewHoliday);
+        }
+
+        public void RemoveHolidayFromList(Holiday toRemove)
+        {
+            _allHolidays.Remove(toRemove);
         }
 
         public void CoreInit()

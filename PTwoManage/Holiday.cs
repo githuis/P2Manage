@@ -23,15 +23,14 @@ namespace PTwoManage
 
         public void SaveHoliday()
         {
-            Holiday holiday = this;
-            string sql = "INSERT INTO HolidayTable (day) values ('" + holiday._date.ToString() + "')";
+            string sql = "INSERT INTO HolidayTable (day) values ('" + this._date.ToString() + "')";
             Database.Instance.Execute(sql);
         }
 
         public void RemoveHoliday()
         {
-            Holiday holiday = this;
-            string sql = "DELETE FROM HolidayTable WHERE day='" + holiday._date.ToString() + "'";
+            Core.Instance.RemoveHolidayFromList(this);
+            string sql = "DELETE FROM HolidayTable WHERE day='" + this._date.ToString() + "'";
             Database.Instance.Execute(sql);
         }
 
