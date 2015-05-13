@@ -209,11 +209,6 @@ namespace PTwoManage
             _allHolidays.Remove(toRemove);
         }
 
-        public void CoreInit()
-        {
-            Console.WriteLine("Core activated");
-        }
-
         public void ScheduleGenerator(int weeknumber, int year)
         {
             Console.WriteLine("Test0");
