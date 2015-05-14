@@ -32,16 +32,16 @@ namespace PTwoManage
             _allHolidays = new List<Holiday>();
             _info = new List<string>();
             _allShifts = new List<Shift>();
-            
+
             string sql = "SELECT * FROM userTable";
+            
             Database.Instance.Read(sql, ref _info, Database.Instance.userTableColumns);
             foreach (var item in _info)
             {
                 string[] split = item.Split(new Char[]{','});
-                _allUsers.Add(new User(int.Parse(split[0]), split[1], split[2], split[3], split[4], split[5], split[6], Database.Instance.stringToList(split[7]), int.Parse(split[8])));
+                _allUsers.Add(new User(int.Parse(split[0]), split[1], split[2], split[3], split[4], split[5], split[6], Database.Instance.StringToList(split[7]), int.Parse(split[8])));
+                //_allUsers.Add(new User(int.Parse(split[0]), split[1], split[2], split[3], split[4], split[5], split[6], Database.Instance.stringToList(split[7]), 400));
             }
-
-            Console.WriteLine("Test1");
             
             string sql2 = "SELECT * FROM ShiftTemplate";
             Database.Instance.Read(sql2, ref _info, Database.Instance.ShiftTemplateTableColumns);
@@ -102,6 +102,8 @@ namespace PTwoManage
        public void Run()
         {
            //Midlertidig funktion til at se om shifts kan vises
+            _allShifts.Add(new Shift(new DateTime(2015, 04, 20, 12, 30, 00), new DateTime(2015, 04, 20, 12, 45, 00), "Åbner", "Hansi", 1));
+           
             _allShifts.Add(new Shift(new DateTime(2015, 04, 21, 15, 30, 00), new DateTime(2015, 04, 21, 17, 30, 00), "Åbner", "Jens", 1));
             _allShifts.Add(new Shift(new DateTime(2015, 04, 22, 15, 30, 00), new DateTime(2015, 04, 22, 17, 30, 00), "Åbner", "Jens", 1));
             _allShifts.Add(new Shift(new DateTime(2015, 04, 23, 15, 30, 00), new DateTime(2015, 04, 23, 17, 30, 00), "Åbner", "Jens", 1));
@@ -125,6 +127,7 @@ namespace PTwoManage
             _allShifts.Add(new Shift(new DateTime(2015, 05, 9 , 15, 30, 00), new DateTime(2015, 04, 9 , 19, 30, 00), "Åbner", "Ole", 3));
             _allShifts.Add(new Shift(new DateTime(2015, 05, 10, 15, 30, 00), new DateTime(2015, 04, 10, 19, 30, 00), "Åbner", "Ole", 3));
             _allShifts.Add(new Shift(new DateTime(2015, 05, 11, 15, 30, 00), new DateTime(2015, 04, 11, 19, 30, 00), "Åbner", "Ole", 3));
+            
         }
         
         public List<User> GetAllUsers()
@@ -288,7 +291,8 @@ namespace PTwoManage
                     CalculateDayPrice(AllShiftTemplates[i]._startTime.Day, ref PossitiveDayCost, ref NegativeDayCost, false);
                     string UserName = SortUserList(CompatibleUsers, PossitiveDayCost, NegativeDayCost, start);
 
-                    Shift resultShift = new Shift(start, end, Database.Instance.listToString(AllShiftTemplates[i].Tag), UserName, weeknumber);
+                    Shift resultShift = new Shift(start, end, Database.Instance.ListToString(AllShiftTemplates[i].Tag), UserName, weeknumber);
+
                     resultShift.SaveShift();
                     Core._instance.AddShiftToList(resultShift);
                 }

@@ -36,7 +36,7 @@ namespace PTwoManage
             m_dbConnection = new SQLiteConnection("Data Source=MyDatabase.sqlite;Version=3;");
             m_dbConnection.Open();
 
-            Execute("CREATE TABLE IF NOT EXISTS userTable (id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR(50), password VARCHAR(50), name VARCHAR(50),cprNumber VARCHAR(50), phone VARCHAR(50), email VARCHAR(50), tag VARCHAR(1000), points VARCHAR(1000))");
+            Execute("CREATE TABLE IF NOT EXISTS userTable (id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR(50), password VARCHAR(50), name VARCHAR(50), cprNumber VARCHAR(50), phone VARCHAR(50), email VARCHAR(50), tag VARCHAR(1000), points VARCHAR(1000))");
            // Execute("CREATE TABLE IF NOT EXISTS Shifts (id int NOT NULL, employeeId INT, weekNumber INT");
 		   
             Execute("CREATE TABLE IF NOT EXISTS ShiftTable (id INTEGER PRIMARY KEY AUTOINCREMENT, start VARCHAR(50), end VARCHAR(50), tag VARCHAR(1000), employeeName VARCHAR(50), weekNumber INT)");
@@ -69,15 +69,16 @@ namespace PTwoManage
             }
         }
 
-        public string listToString(List<string> inputList)
+        public string ListToString(List<string> inputList)
         {
-            string returnString = string.Join(",", inputList.ToArray());
+            string returnString = string.Join("-", inputList.ToArray());
+            Console.WriteLine(returnString);
             return (returnString);
         }
 
-        public List<string> stringToList(string inputString)
+        public List<string> StringToList(string inputString)
         {
-            List<string> outputList = inputString.Split(',').ToList();
+            List<string> outputList = inputString.Split('-').ToList();
             return (outputList);
         }
 

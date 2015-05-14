@@ -20,14 +20,27 @@ namespace PTwoManage
         {
             _startTime = starttime;
             _endTime = endtime;
-            Tag = Database.Instance.stringToList(tag);
+            Tag = Database.Instance.StringToList(tag);
+            GeneratePrintableInfo();
         }
 
         public void SaveInfoShiftTemplate()
         {
             ShiftTemplate template = this;
-            string sql = "INSERT INTO ShiftTemplate (start, end, tag) values ('" + template._startTime.ToString() + "', '" + template._endTime.ToString() + "', '" + Database.Instance.listToString(template.Tag) + "')";
+            string sql = "INSERT INTO ShiftTemplate (start, end, tag) values ('" + template._startTime.ToString() + "', '" + template._endTime.ToString() + "', '" + Database.Instance.ListToString(template.Tag) + "')";
             Database.Instance.Execute(sql);
+        }
+
+        public void DeleteShiftTemplate()
+        {
+            string sql = "DELETE FROM ShiftTemplate WHERE (start = '" + this._startTime.ToString() + "') AND (end = '" + this._endTime.ToString() + "') AND (tag = '" + Database.Instance.ListToString(this.Tag) + "')";
+            Database.Instance.Execute(sql);
+            Core.Instance.GetAllTemplates().Remove(this);
+        }
+
+        public override string ToString()
+        {
+            return PrintableDay + " " + PrintableTime;
         }
 
         public void GeneratePrintableInfo()

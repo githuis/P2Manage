@@ -72,7 +72,7 @@ namespace PTwoManage
         public void SaveShift()
         {
             Shift shift = this;
-            string sql = "INSERT INTO ShiftTable (start, end, tag, employeeName, weekNumber) values ('" + shift._startTime.ToString() + "', '" + shift._endTime.ToString() + "', '" + Database.Instance.listToString(shift.Tag) + "', '" + shift.EmployeeName + "', " + shift._weeknumber + ")";
+            string sql = "INSERT INTO ShiftTable (start, end, tag, employeeName, weekNumber) values ('" + shift._startTime.ToString() + "', '" + shift._endTime.ToString() + "', '" + Database.Instance.ListToString(shift.Tag) + "', '" + shift.EmployeeName + "', " + shift._weeknumber + ")";
             Database.Instance.Execute(sql);
         }
 

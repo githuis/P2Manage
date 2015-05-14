@@ -23,9 +23,10 @@ namespace PTwoManage
         public ShiftWindow()
         {
             InitializeComponent();
+            LoadShift();
         }
 
-        public void LoadShift()
+        private void LoadShift()
         {
             Populate_TagList();
             Populate_UserList();
@@ -33,34 +34,57 @@ namespace PTwoManage
 
         private void Populate_TagList()
         {
-            Shift_TagList.Items.Clear();
+            TagList.Items.Clear();
             foreach (string tag in Core.Instance.GetAllTags())
             {
                 ListBoxItem item = new ListBoxItem();
                 item.Content = tag as string;
-                Shift_TagList.Items.Add(item);
+                TagList.Items.Add(item);
             }
         }
 
         private void Populate_UserList()
         {
-            Shift_UserList.Items.Clear();
+            UserList.Items.Clear();
             foreach (User u in Core.Instance.GetAllUsers())
             {
-                ListBoxItem item = new ListBoxItem();
-                item.Content = u.UserName;
-                Shift_UserList.Items.Add(item);
+                if(TagList.SelectedItems.Count > 0 /*&& u.UserCategories.Contains( ((ListBoxItem) TagList.SelectedItem).Content)*/)
+                {
+                    ListBoxItem item = new ListBoxItem();
+                    item.Content = u.UserName;
+                    UserList.Items.Add(item);
+                }
+                else
+                {
+                    //ListBoxItem item = new ListBoxItem();
+                    //item.Content = u.UserName;
+                    //UserList.Items.Add(item);
+                    u.UserCategories.ForEach(Console.WriteLine);
+                }
             }
         }
 
-        private void Save_Shift_Button_Click(object sender, RoutedEventArgs e)
+        private void SaveShift_Click(object sender, RoutedEventArgs e)
         {
-            DateTime start = new DateTime();
-            DateTime end = new DateTime();
-            string tag = Shift_TagList.SelectedItems.ToString();
-            start = DateTime.Parse(Startime_Shift_Box.Text);
-            end = DateTime.Parse(Endtime_Shift_Box.Text);
+            if( Startime_Shift_Box.Text != null && Endtime_Shift_Box.Text != null)
+            {
+                DateTime start = DateTime.Parse(Startime_Shift_Box.Text);
+                DateTime end = DateTime.Parse(Endtime_Shift_Box.Text);
+            }
+            
+            string tag = TagList.SelectedItems.ToString();
+            
 
+            if(TagList.SelectedItems.Count > 0)
+            {
+                Console.WriteLine( ((ListBoxItem) TagList.SelectedItem).Content);
+            }
+        }
+
+        private void TagList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Populate_UserList();
+            Console.WriteLine("IT WERKS");
         }
     }
 }
