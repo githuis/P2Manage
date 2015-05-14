@@ -14,7 +14,7 @@ namespace PTwoManage
         private List<string> _allTags;
         private List<Shift> _allShifts;
         private List<ShiftTemplate> _allTemplates;
-		    private List<UserFreeRequest> _allRequests;
+		private List<UserFreeRequest> _allRequests;
         private List<Holiday> _allHolidays;
         private List<string> _info;
 
@@ -463,5 +463,10 @@ namespace PTwoManage
 
             return true;
         } 
+
+        public List<UserFreeRequest> GetAllFreeRequests()
+        {
+            return _allRequests;
+        }
     }
 }

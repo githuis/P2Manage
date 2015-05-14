@@ -22,31 +22,37 @@ namespace PTwoManage
         public UserFreeTimeRequestWindow()
         {
             InitializeComponent();
+            PopulateRequestList();
         }
 
-        private void Send_Request_Click(object sender, RoutedEventArgs e)
+        private void SendRequest_Click(object sender, RoutedEventArgs e)
         {
             if (Start_Date.SelectedDate.HasValue && End_Date.SelectedDate.HasValue)
             {
-                if (Request_Valitation(Start_Date.SelectedDate.Value, End_Date.SelectedDate.Value, User_Name.Text))
+                if (RequestValitation(Start_Date.SelectedDate.Value, End_Date.SelectedDate.Value, UsernameBox.Text))
                 {
-                    Error_message.Content = "";
-                    UserFreeRequest ResultRequest = new UserFreeRequest(Start_Date.SelectedDate.Value, End_Date.SelectedDate.Value, Message_Box.Text, User_Name.Text);
+                    ErrorMessage.Content = "";
+                    UserFreeRequest ResultRequest = new UserFreeRequest(Start_Date.SelectedDate.Value, End_Date.SelectedDate.Value, Message_Box.Text, UsernameBox.Text);
                     ResultRequest.SaveUserRequest();
                     Message_Box.Clear();
+                    UsernameBox.Clear();
                 }
                 else
-                    Error_message.Content = "The selected start date is after the end date";
+                    ErrorMessage.Content = "The selected start date is after the end date or user is not found";
             }
         }
 
-        private bool Request_Valitation(DateTime start, DateTime end, string userName)
+        private bool RequestValitation(DateTime start, DateTime end, string userName)
         {
-            if (start <= end && (User.GetUserByName(userName).UserName == userName))
+            if (start <= end && User.CheckUserExists(userName))
                 return true;
             else
                 return false;
         }
 
+        private void PopulateRequestList()
+        {
+            RequestList.ItemsSource = Core.Instance.GetAllFreeRequests();
+        }
     }
 }
