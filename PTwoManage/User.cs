@@ -124,7 +124,7 @@ namespace PTwoManage
         {
             User user = this;
             string sql = "DELETE FROM userTable WHERE username IN (SELECT username FROM userTable WHERE username ='" + user.UserName +"')";
-            //Database.Instance.Execute(sql);
+            Database.Instance.Execute(sql);
             sql = "INSERT OR REPLACE INTO userTable  (username, password, name, cprNumber, phone, email, tag, points) values ('" + user.UserName + "', '" + user.Password + "', '" + user.Name + "' , " + user.CprNumber + " , " + user.Phone + ", '" + user.Email + "', '" + Database.Instance.ListToString(user.UserCategories) +"', " + user.Points + ")";
             Database.Instance.Execute(sql);
         }
