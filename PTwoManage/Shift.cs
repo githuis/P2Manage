@@ -8,9 +8,6 @@ namespace PTwoManage
 {
     public class Shift : ShiftTemplate
     {
-        private DateTime _startTime;
-        private DateTime _endTime;
-        private int _breakTime;
         public int Employee;
         private int _weeknumber;
 

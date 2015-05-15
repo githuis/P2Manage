@@ -26,8 +26,9 @@ namespace PTwoManage
         public AddUserWindow()
         { 
 			InitializeComponent();
-
+            
             Tag_ListBox.ItemsSource = Core.Instance.GetAllTags();
+
         }
         
         private void Submit_AddUser()

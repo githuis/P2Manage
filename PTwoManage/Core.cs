@@ -214,12 +214,9 @@ namespace PTwoManage
 
         public void ScheduleGenerator(int weeknumber, int year)
         {
-            Console.WriteLine("Test0");
-
             List<User> AllUsers = Core.Instance.GetAllUsers();
             List<ShiftTemplate> AllShiftTemplates = Core.Instance.GetAllTemplates();
             List<Holiday> AllHolidays = Core.Instance.GetAllHolidays();
-            Console.WriteLine("Test1");
 
             int PossitiveDayCost = 0;
             int NegativeDayCost = 0;

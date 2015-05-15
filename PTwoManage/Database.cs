@@ -71,14 +71,14 @@ namespace PTwoManage
 
         public string ListToString(List<string> inputList)
         {
-            string returnString = string.Join("-", inputList.ToArray());
+            string returnString = string.Join(":", inputList.ToArray());
             Console.WriteLine(returnString);
             return (returnString);
         }
 
         public List<string> StringToList(string inputString)
         {
-            List<string> outputList = inputString.Split('-').ToList();
+            List<string> outputList = inputString.Split(':').ToList();
             return (outputList);
         }
 

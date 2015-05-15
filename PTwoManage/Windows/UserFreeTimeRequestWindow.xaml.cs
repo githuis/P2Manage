@@ -23,22 +23,22 @@ namespace PTwoManage
         {
             InitializeComponent();
             PopulateRequestList();
+            PopulateSelectUserComboBox();
         }
 
         private void SendRequest_Click(object sender, RoutedEventArgs e)
         {
-            if (Start_Date.SelectedDate.HasValue && End_Date.SelectedDate.HasValue)
+            if (Start_Date.SelectedDate.HasValue && End_Date.SelectedDate.HasValue && SelectUserComboBox.SelectedItem != null)
             {
-                if (RequestValitation(Start_Date.SelectedDate.Value, End_Date.SelectedDate.Value, UsernameBox.Text))
+                if (RequestValitation(Start_Date.SelectedDate.Value, End_Date.SelectedDate.Value, SelectUserComboBox.SelectedItem.ToString()))
                 {
                     ErrorMessage.Content = "";
-                    UserFreeRequest ResultRequest = new UserFreeRequest(Start_Date.SelectedDate.Value, End_Date.SelectedDate.Value, Message_Box.Text, UsernameBox.Text);
+                    UserFreeRequest ResultRequest = new UserFreeRequest(Start_Date.SelectedDate.Value, End_Date.SelectedDate.Value, Message_Box.Text, SelectUserComboBox.SelectedItem.ToString());
                     ResultRequest.SaveUserRequest();
                     Message_Box.Clear();
-                    UsernameBox.Clear();
                 }
                 else
-                    ErrorMessage.Content = "The selected start date is after the end date or user is not found";
+                    ErrorMessage.Content = "The selected start date is after the end date";
             }
         }
 
@@ -53,6 +53,11 @@ namespace PTwoManage
         private void PopulateRequestList()
         {
             RequestList.ItemsSource = Core.Instance.GetAllFreeRequests();
+        }
+
+        private void PopulateSelectUserComboBox()
+        {
+            SelectUserComboBox.ItemsSource = Core.Instance.GetAllUsers();
         }
     }
 }
