@@ -3,11 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         ResizeMode="NoResize"
-        Title="Add Holiday" Height="300" Width="320">
+        Title="Manage Holidays" Height="300" Width="320">
     <Grid>
         <DatePicker Name="FreeDate" DisplayDateStart="{x:Static sys:DateTime.Now}" HorizontalAlignment="Left" Margin="42,10,0,0" VerticalAlignment="Top"/>
         <Button Name="SubmitOffDay" Content="Submit holiday" HorizontalAlignment="Left" Margin="42,193,0,0" VerticalAlignment="Top" Width="102" Click="Submit_OffDay_Click"/>
-        <Label Name="ConfirmationMessage" Content="" HorizontalAlignment="Left" Margin="10,182,0,0" VerticalAlignment="Top"/>
+        <Label Name="ConfirmationMessage" Content="" HorizontalAlignment="Left" Margin="0,115,0,0" VerticalAlignment="Top" Width="204" Height="52"/>
         <ListBox Name="Current_Holidays" ItemsSource="{Binding Date}" HorizontalAlignment="Left" Height="256" Margin="204,5,0,5" VerticalAlignment="Top" Width="100"></ListBox>
         <Button Name="RemoveOffDay" Content="Remove holiday" HorizontalAlignment="Left" Margin="42,218,0,0" VerticalAlignment="Top" Width="102" Click="RemoveOffDay_Click"/>
 

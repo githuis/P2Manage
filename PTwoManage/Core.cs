@@ -14,7 +14,7 @@ namespace PTwoManage
         private List<string> _allTags;
         private List<Shift> _allShifts;
         private List<ShiftTemplate> _allTemplates;
-		    private List<UserFreeRequest> _allRequests;
+		private List<UserFreeRequest> _allRequests;
         private List<Holiday> _allHolidays;
         private List<string> _info;
 
@@ -25,13 +25,7 @@ namespace PTwoManage
 
         Core()
         {
-            _allTags = new List<string>();
-            _allUsers = new List<User>();
-            _allTemplates = new List<ShiftTemplate>();
-            _allRequests = new List<UserFreeRequest>();
-            _allHolidays = new List<Holiday>();
-            _info = new List<string>();
-            _allShifts = new List<Shift>();
+            SetupLists();
             
             string sql = "SELECT * FROM userTable";
             Database.Instance.Read(sql, ref _info, Database.Instance.userTableColumns);
@@ -41,8 +35,6 @@ namespace PTwoManage
                 _allUsers.Add(new User(int.Parse(split[0]), split[1], split[2], split[3], split[4], split[5], split[6], Database.Instance.stringToList(split[7]), int.Parse(split[8])));
             }
 
-            Console.WriteLine("Test1");
-            
             string sql2 = "SELECT * FROM ShiftTemplate";
             Database.Instance.Read(sql2, ref _info, Database.Instance.ShiftTemplateTableColumns);
             ShiftTemplate t;
@@ -55,8 +47,6 @@ namespace PTwoManage
 
             }
 
-            Console.WriteLine("Test2");
-
             string sql3 = "SELECT * FROM TagTable";
             Database.Instance.Read(sql3, ref _info, Database.Instance.TagTableColumns);
             foreach (var item in _info)
@@ -65,8 +55,6 @@ namespace PTwoManage
                 if(!(split3[0] == ""))
                     _allTags.Add(split3[0]);
             }
-
-            Console.WriteLine("Test3");
 
             sql = "SELECT * FROM FreeRequestTable";
             Database.Instance.Read(sql, ref _info, Database.Instance.FreeTimeRequestColumns);
@@ -97,6 +85,17 @@ namespace PTwoManage
                 _allShifts.Add(new Shift(DateTime.Parse(split[1]),DateTime.Parse(split[2]),split[3],split[4],int.Parse(split[5])));
             }
 
+        }
+
+        private void SetupLists()
+        {
+            _allTags = new List<string>();
+            _allUsers = new List<User>();
+            _allTemplates = new List<ShiftTemplate>();
+            _allRequests = new List<UserFreeRequest>();
+            _allHolidays = new List<Holiday>();
+            _info = new List<string>();
+            _allShifts = new List<Shift>();
         }
        
        public void Run()

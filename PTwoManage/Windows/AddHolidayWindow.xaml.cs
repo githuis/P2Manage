@@ -71,6 +71,8 @@ namespace PTwoManage
 
         private void RemoveOffDay_Click(object sender, RoutedEventArgs e)
         {
+            #region old
+            /*
             ListBoxItem item = Current_Holidays.SelectedItem as ListBoxItem;
 
             foreach (Holiday h in Core.Instance.GetAllHolidays())
@@ -82,6 +84,14 @@ namespace PTwoManage
                 }
             }
             Populate_HolidayList();
+             * */
+            #endregion
+            if (Current_Holidays.SelectedItems.Count > 0)
+            {
+                var selected = Current_Holidays.SelectedItem as ListBoxItem;
+                Console.WriteLine(selected.Content.ToString());
+            } 
+            //Core.Instance.GetAllHolidays().Where(x => x == selected.Name);
         }
 
 
