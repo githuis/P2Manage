@@ -115,6 +115,11 @@ namespace PTwoManage
             return false;
         }
 
+        public override string ToString()
+        {
+            return this.UserName;
+        }
+
         public void SaveUserInfoToDatabase()
         {
             User user = this;

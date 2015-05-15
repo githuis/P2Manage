@@ -28,23 +28,27 @@
                 <TextBlock HorizontalAlignment="Left" Margin="246,22,0,0" Grid.Row="1" TextWrapping="Wrap" Text="To" VerticalAlignment="Top" Height="16" Width="102" Grid.Column="1"/>
                 <TextBlock HorizontalAlignment="Left" Margin="0,10,0,0" TextWrapping="Wrap" Text="Username:" Width="79" RenderTransformOrigin="0.969,0.454" Grid.Column="1" Height="22" VerticalAlignment="Top"/>
                 <TextBlock HorizontalAlignment="Left" Margin="14,7,0,0" Grid.Row="2" TextWrapping="Wrap" Text="State a reason (optional):" VerticalAlignment="Top" Height="16" Width="349" Grid.Column="1"/>
+                <ComboBox  Name="SelectUserComboBox" Grid.Column="1" HorizontalAlignment="Left" Margin="78,10,0,0" VerticalAlignment="Top" Width="120"/>
             </Grid>
         </TabItem>
 
         <TabItem Header="Read">
-
-            <ListView Name="RequestList">
+            <ListView Name="RequestList" Height="390" Width="400" HorizontalAlignment="Stretch">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <WrapPanel>
+                        <WrapPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Username}"/>
+                                <TextBlock Text="{Binding UserName}"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding StartTime}"/>
                                 <TextBlock Text=" - "/>
                                 <TextBlock Text="{Binding EndTime}"/>
                             </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Message}" />
+                            </StackPanel>
+                            
                         </WrapPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
