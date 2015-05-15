@@ -52,6 +52,11 @@ namespace PTwoManage
                 isValidated = false;
                 Error_message.Content = "A day haven't been selected";
             }
+            else if (CompareTime(Start_Time.Text, End_Time.Text))
+            {
+                isValidated = false;
+                Error_message.Content = "Start time must be before end time";
+            }
             else
             {
                 isValidated = true;
@@ -156,6 +161,33 @@ namespace PTwoManage
 
             }
 
+            return false;
+        }
+
+        private bool CompareTime(string start, string end)
+        {
+            string[] splitS = null, splitE = null;
+            int startA, startB, endA, endB;
+
+            if (start.Contains(':') && end.Contains(':'))
+            {
+                splitS = start.Split(new Char[] { ':' });
+                splitE = end.Split(new char[] { ':' });
+            }
+            if (splitS != null &&
+                splitE != null &&
+                int.TryParse(splitS[0], out startA) &&
+                int.TryParse(splitS[1], out startB) &&
+                int.TryParse(splitE[0], out endA) &&
+                int.TryParse(splitE[1], out endB))
+            {
+                if (startA > endA)
+                    return true;
+                else if (startA == endA)
+                    return startB > endB;
+                else
+                    return false;
+            }
             return false;
         }
 

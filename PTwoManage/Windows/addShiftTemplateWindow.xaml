@@ -47,6 +47,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Label Name="Error_message" HorizontalAlignment="Left" Margin="375,358,0,0" VerticalAlignment="Top" Height="57" Width="260"/>
+        <Label Name="Error_message" HorizontalAlignment="Left" Margin="139,381,0,0" VerticalAlignment="Top" Height="34" Width="231"/>
     </Grid>
 </Window>
