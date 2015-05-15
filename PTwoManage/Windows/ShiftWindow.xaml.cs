@@ -49,20 +49,30 @@ namespace PTwoManage
             UserList.Items.Clear();
             foreach (User u in Core.Instance.GetAllUsers())
             {
-                if(TagList.SelectedItems.Count > 0 /*&& u.UserCategories.Contains( ((ListBoxItem) TagList.SelectedItem).Content)*/)
+                if (TagList.SelectedItems.Count > 0 && IsUserCompatibleWithTags(u)) /*&& u.UserCategories.Contains( ((ListBoxItem) TagList.SelectedItem).Content)*/
                 {
                     ListBoxItem item = new ListBoxItem();
                     item.Content = u.UserName;
                     UserList.Items.Add(item);
                 }
-                else
+                else if (TagList.SelectedItems.Count == 0)
                 {
-                    //ListBoxItem item = new ListBoxItem();
-                    //item.Content = u.UserName;
-                    //UserList.Items.Add(item);
-                    u.UserCategories.ForEach(Console.WriteLine);
+                    ListBoxItem item = new ListBoxItem();
+                    item.Content = u.UserName;
+                    UserList.Items.Add(item);
                 }
             }
+        }
+
+        private bool IsUserCompatibleWithTags(User u)
+        {
+            foreach (object obj in TagList.SelectedItems)
+            {
+                if(!u.UserCategories.Contains(((ListBoxItem) obj).Content))
+                    return false;
+            }
+
+            return true;
         }
 
         private void SaveShift_Click(object sender, RoutedEventArgs e)

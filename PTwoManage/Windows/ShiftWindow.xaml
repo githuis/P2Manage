@@ -22,8 +22,8 @@
         <wpfTool:DateTimePicker Name="Endtime_Shift_Box" Format="FullDateTime" Margin="0,0,10,0" VerticalAlignment="Top" Height="30" Grid.Column="0" Grid.Row="3"/>
         <TextBlock Grid.Column="1" Margin="0,0,-4,0">Tags for shift</TextBlock>
         <ListBox Name="TagList" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" SelectionMode="Multiple" SelectionChanged="TagList_SelectionChanged"/>
-        <TextBlock Grid.Column="1" Margin="0,220,-4,0" Grid.Row="1" Grid.RowSpan="2">User for shift</TextBlock>
-        <ListBox Name="UserList" Grid.Column="1" Grid.Row="3" VerticalAlignment="Top" SelectionMode="Single"></ListBox>
+        <TextBlock Grid.Column="1" Margin="0,0,-4,209" Grid.Row="2" Grid.RowSpan="2">User for shift</TextBlock>
+        <ListBox Name="UserList" Grid.Column="1" Grid.Row="3" VerticalAlignment="Top" SelectionMode="Single" Margin="0,2,0,0"></ListBox>
         <Button Grid.Row="4" Grid.ColumnSpan="2" Margin="200,10" Click="SaveShift_Click">Save Shift</Button>
     </Grid>
 </Window>
