@@ -56,8 +56,6 @@ namespace PTwoManage
 
             }
 
-            Console.WriteLine("Test2");
-
             string sql3 = "SELECT * FROM TagTable";
             Database.Instance.Read(sql3, ref _info, Database.Instance.TagTableColumns);
             foreach (var item in _info)
@@ -66,8 +64,6 @@ namespace PTwoManage
                 if(!(split3[0] == ""))
                     _allTags.Add(split3[0]);
             }
-
-            Console.WriteLine("Test3");
 
             sql = "SELECT * FROM FreeRequestTable";
             Database.Instance.Read(sql, ref _info, Database.Instance.FreeTimeRequestColumns);
@@ -227,34 +223,8 @@ namespace PTwoManage
             {
                 DateTime YearStartingDate = new DateTime(year, 1, 1);
                 int FirstDayInYear = 0;
-                switch (YearStartingDate.DayOfWeek)
-                {
-                    case DayOfWeek.Monday:
-                        FirstDayInYear = 7;
-                        break;
-                    case DayOfWeek.Tuesday:
-                        FirstDayInYear = 6;
-                        break;
-                    case DayOfWeek.Wednesday:
-                        FirstDayInYear = 5;
-                        break;
-                    case DayOfWeek.Thursday:
-                        FirstDayInYear = 4;
-                        break;
-                    case DayOfWeek.Friday:
-                        FirstDayInYear = 3;
-                        break;
-                    case DayOfWeek.Saturday:
-                        FirstDayInYear = 2;
-                        break;
-                    case DayOfWeek.Sunday:
-                        FirstDayInYear = 1;
-                        break;
-                    default:
-                        break;
-                }
+                FirstDayInYear = CalcFirstDayInYear(YearStartingDate, FirstDayInYear);
 
-                Console.WriteLine("Test1");
                 int DayInYear;
                 if (weeknumber == 1)
                     DayInYear = FirstDayInYear;
@@ -267,12 +237,6 @@ namespace PTwoManage
                 int md = 1;
                 TotalDayToDayInMonth(DayInYear, year, ref dayH, ref md);
 
-                Console.WriteLine(year);
-                Console.WriteLine(md);
-                Console.WriteLine(dayH);
-                Console.WriteLine(FirstDayInYear);
-                Console.WriteLine(DayInYear);
-
                 DateTime start = new DateTime(year, md, dayH, AllShiftTemplates[i]._startTime.Hour, AllShiftTemplates[i]._startTime.Minute, AllShiftTemplates[i]._startTime.Second);
                 DateTime end = new DateTime(year, md, dayH, AllShiftTemplates[i]._endTime.Hour, AllShiftTemplates[i]._endTime.Minute, AllShiftTemplates[i]._endTime.Second);
 
@@ -281,8 +245,6 @@ namespace PTwoManage
 
                     // Sortering af usere - Først findes de medarbejdere som kan arbejde på den type vagt
                     List<User> CompatibleUsers = new List<User>();
-
-                    int NumberOfUsers = AllUsers.Count;
 
                     foreach (User u in AllUsers)
                     {
@@ -301,6 +263,37 @@ namespace PTwoManage
                     Core._instance.AddShiftToList(resultShift);
                 }
             }
+        }
+
+        private int CalcFirstDayInYear(DateTime YearStartingDate, int FirstDayInYear)
+        {
+            switch (YearStartingDate.DayOfWeek)
+            {
+                case DayOfWeek.Monday:
+                    FirstDayInYear = 7;
+                    break;
+                case DayOfWeek.Tuesday:
+                    FirstDayInYear = 6;
+                    break;
+                case DayOfWeek.Wednesday:
+                    FirstDayInYear = 5;
+                    break;
+                case DayOfWeek.Thursday:
+                    FirstDayInYear = 4;
+                    break;
+                case DayOfWeek.Friday:
+                    FirstDayInYear = 3;
+                    break;
+                case DayOfWeek.Saturday:
+                    FirstDayInYear = 2;
+                    break;
+                case DayOfWeek.Sunday:
+                    FirstDayInYear = 1;
+                    break;
+                default:
+                    break;
+            }
+            return FirstDayInYear;
         }
 
         private void TotalDayToDayInMonth(int DayInYear, int year, ref int RemaindingDaysInCurrentMonth, ref int ResultMonth)
@@ -349,7 +342,7 @@ namespace PTwoManage
             {
                 foreach(User u in UserList)
                 {
-                    if (q.UserName == u.UserName && (Date != q.StartTime))
+                    if (q.User.Equals(u)  && (Date != q.StartTime))
                     {
                         UnAvalibleUsers.Add(u);
                         break;
@@ -407,8 +400,6 @@ namespace PTwoManage
             else*/
                 UserList.First().UpdateUserPointBalance(PossitiveDayWeight);
                 return UserList.First().UserName;
-
-            return "DunDUnDUN";
         }
 
         private bool CompareTags(List<string> UserTags, List<string> ShiftTags)

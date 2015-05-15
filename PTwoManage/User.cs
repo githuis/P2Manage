@@ -171,5 +171,38 @@ namespace PTwoManage
             return ((check > start) && (check < end));
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            User p = obj as User;
+            if ((System.Object)p == null)
+            {
+                return false;
+            }
+
+            return (Id == p.Id);
+        }
+
+        public bool Equals(User u)
+        {
+            // If parameter is null return false:
+            if ((object)u == null)
+            {
+                return false;
+            }
+
+            // Return true if the fields match:
+            return (Id == u.Id);
+        }
+
+        public override int GetHashCode()
+        {
+            return Id;
+        }
+
     }
 }
