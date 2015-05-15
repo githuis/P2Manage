@@ -34,12 +34,12 @@ namespace PTwoManage
             YearTextBox.Text = DateTime.Now.Year.ToString();
         }
 
-        private void SetWeekComboBoxes()
+        private bool SetWeekComboBoxes()
         {
-            int max = 0;       
- 
+            int max = 0;
 
-            if(int.TryParse(YearTextBox.Text, out max))
+
+            if (int.TryParse(YearTextBox.Text, out max))
             {
                 max = Core.Instance.GetWeeksInYear(max);
                 FromWeekComboBox.Items.Clear();
@@ -52,7 +52,10 @@ namespace PTwoManage
                 }
                 FromWeekComboBox.SelectedItem = 1;
                 ToWeekComboBox.SelectedItem = 1;
+                return true;
             }
+            else
+                return false;
         }
 
         private void GenerateSchedule_Click(object sender, RoutedEventArgs e)
@@ -77,6 +80,16 @@ namespace PTwoManage
                 System.Windows.Forms.MessageBox.Show(argE.Message, "Error");
             }
 
+        }
+
+        private void UpdateWeeksInYear(object sender, TextCompositionEventArgs e)
+        {
+            int a;
+            if(int.TryParse(YearTextBox.ToString(), out a))
+            {
+                SetWeekComboBoxes();
+                e.Handled = SetWeekComboBoxes();
+            }
         }
     }
 }
