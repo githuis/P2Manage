@@ -92,7 +92,7 @@ namespace PTwoManage
 
                 DateTime Start = new DateTime();
                 DateTime End = new DateTime();
-                string s = "01/" + DayInWeek +"/2007 ";
+                string s = DayInWeek + "/01/2007 ";
                 string t = s;
                 s += Start_Time.Text;
                 t += End_Time.Text;
