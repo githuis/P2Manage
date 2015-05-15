@@ -254,7 +254,13 @@ namespace PTwoManage
                 }
 
                 Console.WriteLine("Test1");
-                int DayInYear = FirstDayInYear + (weeknumber - 2) * 7 + AllShiftTemplates[i]._startTime.Day;
+                int DayInYear;
+                if (weeknumber == 1)
+                    DayInYear = FirstDayInYear;
+                else if (weeknumber == 2)
+                    DayInYear = FirstDayInYear + AllShiftTemplates[i]._startTime.Day;
+                else
+                    DayInYear = FirstDayInYear + (weeknumber - 2) * 7 + AllShiftTemplates[i]._startTime.Day;
 
                 int dayH = 0; //Skal sende en værdi med til funktionen så den returnerer remainder
                 int md = 0;
@@ -305,7 +311,7 @@ namespace PTwoManage
             for (int i = 1; i <= 12; i++)
             {
                 MonthLenght = DateTime.DaysInMonth(year, ResultMonth);
-                if ((DayInYear - RunningDays) < MonthLenght)
+                if ((DayInYear - RunningDays) <= MonthLenght)
                 {
                     RemaindingDaysInCurrentMonth = DayInYear - RunningDays;
                     break;
