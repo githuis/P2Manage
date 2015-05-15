@@ -305,7 +305,7 @@ namespace PTwoManage
             for (int i = 1; i <= 12; i++)
             {
                 MonthLenght = DateTime.DaysInMonth(year, ResultMonth);
-                if ((DayInYear - RunningDays) < ResultMonth)
+                if ((DayInYear - RunningDays) < MonthLenght)
                 {
                     RemaindingDaysInCurrentMonth = DayInYear - RunningDays;
                     break;
