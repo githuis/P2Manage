@@ -25,6 +25,7 @@
             <Setter Property="Margin" Value="10"/>
             <Setter Property="MinWidth" Value="80"/>
             <Setter Property="Width" Value="auto"/>
+            <Setter Property="MinHeight" Value="30"/>
         </Style>
     </Window.Resources>
     <DockPanel>
@@ -34,7 +35,7 @@
             </MenuItem>
             <MenuItem Header="_User" Click="AddUser_Click"></MenuItem>
             <MenuItem Header="_Schedule">
-                <MenuItem Header="_Add Shift Template" Click="AddTemplate_Click"></MenuItem>
+                <MenuItem Header="_Templates and Tags" Click="AddTemplate_Click"></MenuItem>
                 <MenuItem Header="_Load Schedule" Click="LoadSchedule_Click"></MenuItem>
                 <MenuItem Header="_Request Day Off" Click="UserFreeRequest_Click"></MenuItem>
                 <MenuItem Header="_Create Holiday" Click="MakeHoliday_Click"></MenuItem>
@@ -43,9 +44,15 @@
         </Menu>
 
         <StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Name="DecrementWeekButton" Content="Previous" Click="DecrementWeekButton_Click" Margin="5"/>
+                <TextBlock Name="WeekDisplayNumTextBlock" Text="Week: " Margin="5" Width="50"/>
+                <Button Name="IncrementWeekButton" Content="Next" Click="IncrementWeekButton_Click" Margin="5"/>
+            </StackPanel>
+
             <!-- Week display -->
             <StackPanel Orientation="Horizontal">
-               
+
                 <ListView Name="shiftDataBindingMonday">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -195,14 +202,9 @@
                 </ListView>
             </StackPanel>
             <StackPanel>
-                <TextBlock Text="Info here"/>
-                <StackPanel Orientation="Horizontal">
-                    <Button Name="DecrementWeekButton" Content="Previous" Click="DecrementWeekButton_Click" Margin="5"/>
-                    <TextBlock Name="WeekDisplayNumTextBlock" Text="Week: " Margin="5"/>
-                    <Button Name="IncrementWeekButton" Content="Next" Click="IncrementWeekButton_Click" Margin="5"/>
-                </StackPanel>
+                <TextBlock x:Name="ShiftInformationText" Text="Select a Shift for more information"/>
             </StackPanel>
+            
         </StackPanel>
     </DockPanel>
-    <!--<Grid/> Den var der til at starte med -->
 </Window>

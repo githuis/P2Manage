@@ -53,6 +53,7 @@ namespace PTwoManage
             UserFreeRequest request = this;
             string sql = "INSERT INTO FreeRequestTable (start, end, text, userID) values ('" + request._startTime.ToString() + "', '" + request._endTime.ToString() + "', '" + request._message + "', '" + request._userName + "')";
             Database.Instance.Execute(sql);
+            Core.Instance.GetAllFreeRequests().Add(this);
         }
         
     }

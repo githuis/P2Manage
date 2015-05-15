@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Xceed.Wpf.Toolkit;
+using System.Globalization;
 
 namespace PTwoManage
 {
@@ -23,9 +24,10 @@ namespace PTwoManage
         public ShiftWindow()
         {
             InitializeComponent();
+            LoadShift();
         }
 
-        public void LoadShift()
+        private void LoadShift()
         {
             Populate_TagList();
             Populate_UserList();
@@ -33,34 +35,72 @@ namespace PTwoManage
 
         private void Populate_TagList()
         {
-            Shift_TagList.Items.Clear();
+            TagList.Items.Clear();
             foreach (string tag in Core.Instance.GetAllTags())
             {
                 ListBoxItem item = new ListBoxItem();
                 item.Content = tag as string;
-                Shift_TagList.Items.Add(item);
+                TagList.Items.Add(item);
             }
         }
 
         private void Populate_UserList()
         {
-            Shift_UserList.Items.Clear();
+            UserList.Items.Clear();
             foreach (User u in Core.Instance.GetAllUsers())
             {
-                ListBoxItem item = new ListBoxItem();
-                item.Content = u.UserName;
-                Shift_UserList.Items.Add(item);
+                if(TagList.SelectedItems.Count > 0 /*&& u.UserCategories.Contains( ((ListBoxItem) TagList.SelectedItem).Content)*/)
+                {
+                    ListBoxItem item = new ListBoxItem();
+                    item.Content = u.UserName;
+                    UserList.Items.Add(item);
+                }
+                else
+                {
+                    //ListBoxItem item = new ListBoxItem();
+                    //item.Content = u.UserName;
+                    //UserList.Items.Add(item);
+                    u.UserCategories.ForEach(Console.WriteLine);
+                }
             }
         }
 
-        private void Save_Shift_Button_Click(object sender, RoutedEventArgs e)
+        private void SaveShift_Click(object sender, RoutedEventArgs e)
         {
-            DateTime start = new DateTime();
-            DateTime end = new DateTime();
-            string tag = Shift_TagList.SelectedItems.ToString();
-            start = DateTime.Parse(Startime_Shift_Box.Text);
-            end = DateTime.Parse(Endtime_Shift_Box.Text);
+            DateTime start = DateTime.Now;
+            DateTime end = DateTime.Now;
+            Shift toAdd = null;
+            User us = null;
 
+            DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+            var cal =  dfi.Calendar;
+
+
+            if( Startime_Shift_Box.Text != null && Endtime_Shift_Box.Text != null)
+            {
+                start = DateTime.Parse(Startime_Shift_Box.Text);
+                end = DateTime.Parse(Endtime_Shift_Box.Text);
+            }
+            
+            string tag = TagList.SelectedItems.ToString();
+            if(UserList.SelectedItems.Count == 1)
+                us = User.GetUserByName( (string)((ListBoxItem) UserList.SelectedItem).Content);
+
+            if(TagList.SelectedItems.Count > 0 && us != null && tag != null && start != null && end != null)
+            {
+                Console.WriteLine( ((ListBoxItem) TagList.SelectedItem).Content);
+
+                toAdd = new Shift(start, end, tag, us.UserName, cal.GetWeekOfYear(start, dfi.CalendarWeekRule, dfi.FirstDayOfWeek));
+            }
+
+            if (toAdd != null)
+                Core.Instance.GetAllShifts().Add(toAdd);
+        }
+
+        private void TagList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Populate_UserList();
+            Console.WriteLine("IT WERKS");
         }
     }
 }

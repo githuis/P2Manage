@@ -71,27 +71,20 @@ namespace PTwoManage
 
         private void RemoveOffDay_Click(object sender, RoutedEventArgs e)
         {
-            #region old
-            /*
-            ListBoxItem item = Current_Holidays.SelectedItem as ListBoxItem;
+            if(Current_Holidays.SelectedItems.Count > 0)
+            {
+                string date = ((TextBlock)((ListBoxItem)Current_Holidays.SelectedItem).Content).Text;
 
-            foreach (Holiday h in Core.Instance.GetAllHolidays())
-            {
-                if (item.Name.ToString() == h.Date.ToLongDateString())
+                foreach (Holiday h in Core.Instance.GetAllHolidays())
                 {
-                    h.RemoveHoliday();
-                    break;
+                    if (date == h.Date.ToLongDateString())
+                    {
+                        h.RemoveHoliday();
+                        break;
+                    }
                 }
-            }
-            Populate_HolidayList();
-             * */
-            #endregion
-            if (Current_Holidays.SelectedItems.Count > 0)
-            {
-                var selected = Current_Holidays.SelectedItem as ListBoxItem;
-                Console.WriteLine(selected.Content.ToString());
+                Populate_HolidayList();
             } 
-            //Core.Instance.GetAllHolidays().Where(x => x == selected.Name);
         }
 
 

@@ -35,7 +35,6 @@ namespace PTwoManage
             set
             {
                 _week = value;
-                Console.WriteLine(GetWeeksInYear(_year));
                 if(_week > GetWeeksInYear(_year))
                 {
                     _week = 1;
@@ -56,11 +55,13 @@ namespace PTwoManage
         {
             if (!Authentication.Instance.Prompt())
                 Application.Current.Shutdown();
+
             InitializeComponent();          
             UpdateWeekNumberDisplay();
 
             //Temp Shifts
             Core.Instance.Run();
+            
             //Should be called with current week
             LoadDaysToView(1);
 
@@ -84,7 +85,6 @@ namespace PTwoManage
                 addUserWindow = new AddUserWindow();
                 addUserWindow.EditUser_Load();
                 addUserWindow.ShowDialog();
-                
             }
         }
 
@@ -92,7 +92,19 @@ namespace PTwoManage
         {
             addShiftTemplateWindow = new AddShiftTemplateWindow();
             addShiftTemplateWindow.ShowDialog();
-            addShiftTemplateWindow.LoadShift();
+        }
+        
+        private void MakeHoliday_Click(object sender, RoutedEventArgs e)
+        {
+            addHolidayWindow = new AddHolidayWindow();
+            addHolidayWindow.Load_Holidays();
+            addHolidayWindow.ShowDialog();
+        }
+
+        private void CreateShift_Click(object sender, RoutedEventArgs e)
+        {
+            shiftWindow = new ShiftWindow();
+            shiftWindow.ShowDialog();
         }
 
         private void LoadSchedule_Click(object sender, RoutedEventArgs e)
@@ -138,17 +150,6 @@ namespace PTwoManage
             LoadDaysToView(SelectedWeek);
         }
 
-        private void MakeHoliday_Click(object sender, RoutedEventArgs e)
-        {
-            addHolidayWindow = new AddHolidayWindow();
-            addHolidayWindow.Load_Holidays();
-            addHolidayWindow.ShowDialog();
-        }
-
-        private void CreateShift_Click(object sender, RoutedEventArgs e)
-        {
-            shiftWindow = new ShiftWindow();
-            shiftWindow.ShowDialog();
-        }
+        
     }
 }

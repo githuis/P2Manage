@@ -3,12 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Templates and Tags" Height="453.732" Width="650.634" ResizeMode="NoResize">
     <Grid Margin="0,0,0,0">
-        <Label Margin="20,2,689,0" Height="28" VerticalAlignment="Top">Day</Label>
-        <Label Margin="139,2,345,0" Height="29" VerticalAlignment="Top">Start Time</Label>
-        <Label Margin="139,73,345,0" Height="25" VerticalAlignment="Top">End Time</Label>
-        <Label Margin="20,213,511,0" Height="25" VerticalAlignment="Top">Tags</Label>
-        <Label Margin="139,220,572,0" Height="25" VerticalAlignment="Top">Tag</Label>
-        <Label Margin="472,5,10,0" Height="25" VerticalAlignment="Top">Shift Templates</Label>
+        <Label Margin="20,2,511,0" Height="28" VerticalAlignment="Top">Day</Label>
+        <Label Margin="139,12,345,0" Height="29" VerticalAlignment="Top">Start Time</Label>
+        <Label Margin="139,81,345,0" Height="25" VerticalAlignment="Top">End Time</Label>
+        <Label Margin="20,218,511,0" Height="25" VerticalAlignment="Top">Tags</Label>
+        <Label Margin="139,231,345,0" Height="25" VerticalAlignment="Top">Tag</Label>
+        <Label Margin="375,5,10,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Center">Shift Templates</Label>
         <ListBox Name="Day_List" Margin="20,29,511,225">
             <ListBoxItem>Monday</ListBoxItem>
             <ListBoxItem>Tuesday</ListBoxItem>
@@ -18,16 +18,17 @@
             <ListBoxItem>Saturday</ListBoxItem>
             <ListBoxItem>Sunday</ListBoxItem>
         </ListBox>
-        <TextBox Name="Start_Time" PreviewTextInput="EditTime_NumberValidation" Margin="139,30,345,357" MaxLength="5" ToolTip="Enter  &quot;HH.MM&quot; Format" Height="35"></TextBox>
-        <TextBox Name="End_Time" PreviewTextInput="EditTime_NumberValidation" Margin="139,102,345,283" MaxLength="5" Height="35"></TextBox>
-        <Button Margin="139,165,345,0" Click="Save_ShiftTemplate" Height="35" VerticalAlignment="Top">Submit Template</Button>
+        <TextBox Name="Start_Time" PreviewTextInput="EditTime_NumberValidation" Height="35" Margin="139,41,345,349" MaxLength="5" ToolTip="Enter  &quot;HH.MM&quot; Format"/>
+        <TextBox Name="End_Time" PreviewTextInput="EditTime_NumberValidation" Height="35"  MaxLength="5" Margin="139,111,345,279"/>
+        <Button Margin="139,151,345,0" Click="Save_ShiftTemplate" Height="35" VerticalAlignment="Top">Submit Template</Button>
+        <Button Margin="139,191,345,0" Click="DeleteTemplate_Click"  Height="35" VerticalAlignment="Top">Delete Template</Button>
 
         <ListBox Name="Tag_List" HorizontalAlignment="Left" Height="164" Margin="20,243,0,0" VerticalAlignment="Top" Width="114" SelectionMode="Multiple"></ListBox>
-        <TextBox Name="Tag_Add_TextBox" HorizontalAlignment="Left" Height="35" Margin="139,243,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="161"/>
-        <Button Content="Save Tag" HorizontalAlignment="Left" Margin="139,286,0,0" Width="161" Click="Add_Tag_Click" VerticalAlignment="Top" Height="35"/>
-        <Button Content="Delete Tag" HorizontalAlignment="Left" Margin="139,326,0,0" VerticalAlignment="Top" Width="161" Click="Tag_Delete_From_Listbox_Click" Height="35"/>
+        <TextBox Name="Tag_Add_TextBox" HorizontalAlignment="Left" Height="35" Margin="139,261,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="161"/>
+        <Button Content="Save Tag" HorizontalAlignment="Left" Margin="139,301,0,0" Width="161" Click="Add_Tag_Click" VerticalAlignment="Top" Height="35"/>
+        <Button Content="Delete Tag" HorizontalAlignment="Left" Margin="139,341,0,0" VerticalAlignment="Top" Width="161" Click="DeleteTag_Click"  Height="35"/>
 
-        <ListView Name="Shift_Template_List" Margin="375,30,10,118">
+        <ListView Name="TemplateList" Margin="375,30,10,118">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>
@@ -46,7 +47,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Label Name="Error_message" HorizontalAlignment="Left" Margin="375,66,0,0" VerticalAlignment="Top"/>
-        <Button Content="Generate " HorizontalAlignment="Left" Margin="431,346,0,0" VerticalAlignment="Top" Width="161" Height="35" Click="Button_Click"/>
+        <Label Name="Error_message" HorizontalAlignment="Left" Margin="375,358,0,0" VerticalAlignment="Top" Height="57" Width="260"/>
+        <Button Content="Generate Template" HorizontalAlignment="Left" Margin="430,318,0,0" VerticalAlignment="Top" Width="161" Height="35" Click="GenerateTemplate_Click"/>
     </Grid>
 </Window>

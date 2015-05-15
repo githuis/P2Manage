@@ -23,8 +23,8 @@ namespace PTwoManage
         public AddShiftTemplateWindow()
         {
             InitializeComponent();
-            Shift_Template_List.Items.Clear();
-            Shift_Template_List.ItemsSource = Core.Instance.GetAllTemplates();
+           
+            LoadShift();
         }
 
         private void EditTime_NumberValidation(object sender, TextCompositionEventArgs e)
@@ -120,7 +120,8 @@ namespace PTwoManage
                     string tag = item.Content.ToString();
                     TemplateTags.Add(tag);
                 }
-                ShiftTemplate shiftTemplate = new ShiftTemplate(Start, End, Database.Instance.listToString(TemplateTags));
+                ShiftTemplate shiftTemplate = new ShiftTemplate(Start, End, Database.Instance.ListToString(TemplateTags));
+
                 shiftTemplate.SaveInfoShiftTemplate();
                 Core.Instance.AddTemplateToList(shiftTemplate);
                 Start_Time.Clear();
@@ -128,7 +129,7 @@ namespace PTwoManage
                 Error_message.Content = "";
             }
 
-            Shift_Template_List.Items.Refresh();
+            TemplateList.Items.Refresh();
         }
 
         private bool Check_If_Valid_Time(string s)
@@ -188,31 +189,8 @@ namespace PTwoManage
         public void LoadShift()
         {
             Populate_TagList();
-        }
-
-        public void DeleteTag(string s)
-        {
-            string tag = s;
-            foreach (ListBoxItem item in Tag_List.Items)
-            {
-                string itemTag = item.Name;
-                if (itemTag == tag)
-                {
-                    string sql;
-                    sql = "DELETE FROM TagTable WHERE tag IN (SELECT tag FROM TagTable WHERE tag ='" + item + "')";
-                    Database.Instance.Execute(sql);
-                }
-            }
-        }
-
-        private void Tag_Delete_From_Listbox_Click(object sender, RoutedEventArgs e)
-        {
-            object tag = Tag_List.SelectedItem;
-            string s = tag as string;
-            Console.WriteLine(s);
-            DeleteTag(s);
-            Core.Instance.DeleteTagFromList(s);
-            Populate_TagList();
+            TemplateList.ItemsSource = null;
+            TemplateList.ItemsSource = Core.Instance.GetAllTemplates();
         }
 
         public static bool CompareTags(List<string> UserTags, List<string> ShiftTags)
@@ -220,7 +198,7 @@ namespace PTwoManage
             return !ShiftTags.Except(UserTags).Any();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void GenerateTemplate_Click(object sender, RoutedEventArgs e)
         {
             Core.Instance.ScheduleGenerator(19, 2015);
             /*Shift_Template_List.Items.Clear();
@@ -233,5 +211,42 @@ namespace PTwoManage
                 Shift_Template_List.Items.Add(item);
             }*/
         }
+        
+        private void DeleteTemplate_Click(object sender, RoutedEventArgs e)
+        {
+            if(Core.Instance.GetAllTemplates().Count > 0 && TemplateList.SelectedItems.Count > 0)
+            {
+                ShiftTemplate toRemove = null;
+                toRemove = Core.Instance.GetAllTemplates().Find(x => x.ToString() == ((ShiftTemplate)TemplateList.SelectedItem).ToString());
+                
+                if (toRemove != null)
+                    toRemove.DeleteShiftTemplate();
+            }
+            LoadShift();
+        }
+
+        private void DeleteTag_Click(object sender, RoutedEventArgs e)
+        {
+            if(Tag_List.SelectedItems.Count > 0)
+            {
+                object tag = ((ListBoxItem) Tag_List.SelectedItem).Content;
+                string s = tag as string;
+                DeleteTag(s);
+                Core.Instance.DeleteTagFromList(s);
+                Populate_TagList();
+            }            
+        }
+        
+        private void DeleteTag(string s)
+        {
+            string sql;
+            sql = "DELETE FROM TagTable WHERE tag IN (SELECT tag FROM TagTable WHERE tag ='" + s + "')";
+            Database.Instance.Execute(sql);
+        }
+
+        
+
+        
+
     }
 }

@@ -7,22 +7,23 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="21*"/>
-            <RowDefinition Height="241*"/>
-            <RowDefinition Height="213*"/>
+            <RowDefinition Height="222*"/>
+            <RowDefinition Height="17*"/>
+            <RowDefinition Height="211*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.ColumnSpan="2" Grid.RowSpan="4">Start of shift</TextBlock>
+        <TextBlock Grid.ColumnSpan="2" Grid.RowSpan="5">Start of shift</TextBlock>
         <wpfTool:DateTimePicker Name="Startime_Shift_Box" Format="FullDateTime" Margin="0,1,10,0" Height="30" VerticalAlignment="Top" Grid.Column="0" Grid.Row="1"/>
-        <TextBlock Margin="0,220,0,0" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2">End of shift</TextBlock>
-        <wpfTool:DateTimePicker Name="Endtime_Shift_Box" Format="FullDateTime" Margin="0,0,10,0" VerticalAlignment="Top" Height="30" Grid.Column="0" Grid.Row="2"/>
+        <TextBlock Margin="0,220,0,0" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="3">End of shift</TextBlock>
+        <wpfTool:DateTimePicker Name="Endtime_Shift_Box" Format="FullDateTime" Margin="0,0,10,0" VerticalAlignment="Top" Height="30" Grid.Column="0" Grid.Row="3"/>
         <TextBlock Grid.Column="1" Margin="0,0,-4,0">Tags for shift</TextBlock>
-        <ListBox Name="Shift_TagList" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" SelectionMode="Multiple"/>
-        <TextBlock Grid.Column="1" Margin="0,220,-4,0" Grid.Row="1">User for shift</TextBlock>
-        <ListBox Name="Shift_UserList" Grid.Column="1" Grid.Row="2" VerticalAlignment="Top"></ListBox>
-        <Button Grid.Row="3" Grid.ColumnSpan="2" Margin="200,10" Click="Save_Shift_Button_Click">Save Shift</Button>
+        <ListBox Name="TagList" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" SelectionMode="Multiple" SelectionChanged="TagList_SelectionChanged"/>
+        <TextBlock Grid.Column="1" Margin="0,220,-4,0" Grid.Row="1" Grid.RowSpan="2">User for shift</TextBlock>
+        <ListBox Name="UserList" Grid.Column="1" Grid.Row="3" VerticalAlignment="Top" SelectionMode="Single"></ListBox>
+        <Button Grid.Row="4" Grid.ColumnSpan="2" Margin="200,10" Click="SaveShift_Click">Save Shift</Button>
     </Grid>
 </Window>
