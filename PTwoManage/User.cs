@@ -124,7 +124,7 @@ namespace PTwoManage
         {
             User user = this;
             string sql = "DELETE FROM userTable WHERE username IN (SELECT username FROM userTable WHERE username ='" + user.UserName +"')";
-            //Database.Instance.Execute(sql);
+            Database.Instance.Execute(sql);
             sql = "INSERT OR REPLACE INTO userTable  (username, password, name, cprNumber, phone, email, tag, points) values ('" + user.UserName + "', '" + user.Password + "', '" + user.Name + "' , " + user.CprNumber + " , " + user.Phone + ", '" + user.Email + "', '" + Database.Instance.ListToString(user.UserCategories) +"', " + user.Points + ")";
             Database.Instance.Execute(sql);
         }
@@ -153,6 +153,23 @@ namespace PTwoManage
             Database.Instance.Execute(sql);
         }
 
+        public bool HasShiftInTimeFrame(DateTime from, DateTime to)
+        {
+            User u = this;
+
+            foreach (Shift s in Core.Instance.GetAllShifts())
+            {
+                if (IsWithinTimespan(s.StartTime, s.EndTime, from) && IsWithinTimespan(s.StartTime, s.EndTime, to))
+                    return true;         
+            }
+
+            return false;
+        }
+
+        private bool IsWithinTimespan(DateTime start, DateTime end, DateTime check)
+        {
+            return ((check > start) && (check < end));
+        }
 
     }
 }

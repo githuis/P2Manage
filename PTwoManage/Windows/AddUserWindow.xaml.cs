@@ -34,8 +34,8 @@ namespace PTwoManage
         private void Submit_AddUser()
         {
 
-            if (Password_TextBox.Password != "" && Password_TextBox.Password == ConfirmPassword.Password && EditUser_FullName.Text != "" && EditUser_CPR.Text != "" && EditUser_Number.Text != "" && EditUser_Email.Text != ""
-                && (Core.Instance.GetAllUsers().Find(x => x.UserName.Contains(CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text))) == null))
+            if (Password_TextBox.Password != "" && Password_TextBox.Password == ConfirmPassword.Password && EditUser_FullName.Text != "" && EditUser_CPR.Text != "" && EditUser_Number.Text != ""
+                && EditUser_Email.Text != "" && !User.CheckUserExists(CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text)))
             {
                 User newUser = new User(1, CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text), Password_TextBox.Password, EditUser_FullName.Text, EditUser_CPR.Text, EditUser_Number.Text, EditUser_Email.Text, GetCheckedTags(), 100);
 
@@ -85,7 +85,6 @@ namespace PTwoManage
 
             foreach (string s in Core.Instance.GetAllTags())
             {
-                Console.WriteLine("User has tag: " + s);
                 if (!tags.Contains(s))
                     Tag_ListBox.SelectedItems.Remove(s);
             }      
@@ -115,7 +114,6 @@ namespace PTwoManage
                 ConfirmPassword.Password = User.GetUserByName(userName).Password;
                 ConfirmPassword.IsEnabled = false;
                 Tag_ListBox.SelectedItemsOverride = User.GetUserByName(item.Content.ToString()).UserCategories;
-                Console.WriteLine(User.GetUserByName(item.Content.ToString()).Points);
             }
             Tag_ListBox.Items.Refresh();
         }
@@ -143,11 +141,13 @@ namespace PTwoManage
         private void SaveUser_Click(object sender, RoutedEventArgs e)
         {
             string userName = EditUser_UserNameBox.Text;
+            Console.WriteLine(User.CheckUserExists(userName));
             if (User.CheckUserExists(userName))
             {
+
                 SaveToCurrentUser(User.GetUserByName(userName));
                 EmptyForm();
-                Console.WriteLine("Saved");
+                Console.WriteLine("Saved User");
             }
             else
                 Submit_AddUser();
@@ -185,11 +185,18 @@ namespace PTwoManage
         
         private void Remove_User_Click(object sender, RoutedEventArgs e)
         {
-            User u = User.GetUserByName(EditUser_UserNameBox.Text);
-            if (EditUser_UserNameBox.Text != "")
+            User u = null;
+
+            if (EditUser_UserNameBox.Text == "")
+                System.Windows.Forms.MessageBox.Show("You must load the user you want to delete");
+            else if(User.CheckUserExists(EditUser_UserNameBox.Text))
+                u = User.GetUserByName(EditUser_UserNameBox.Text);
+
+            if (u != null)
                 u.DeleteUser();
-            EmptyForm();
+                    
             Core.Instance.RemoveUserFromList(u);
+            EmptyForm();
             Populate_UserList();
         }
 

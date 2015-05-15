@@ -49,6 +49,11 @@ namespace PTwoManage
 
         public void Execute(string sql)
         {
+            if(sql.Contains(";"))
+            {
+                System.Windows.Forms.MessageBox.Show("Cannot execute database request, please do not use semicolon ';' anywhere");
+                return;
+            }
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
             command.ExecuteNonQuery();
         }

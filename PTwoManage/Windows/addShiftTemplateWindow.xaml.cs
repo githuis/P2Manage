@@ -141,12 +141,22 @@ namespace PTwoManage
             else if (s.Contains(':'))
                 split = s.Split(new Char[] { ':' });
             else return false;
-            
-            if (int.Parse(split[0].ToString()) <= 23 && int.Parse(split[1].ToString()) <= 59)
-                return true;
-            else
+
+            if (split.Length != 2)
                 return false;
 
+
+            try
+            {
+                if (int.Parse(split[0]) <= 23 && int.Parse(split[1]) <= 59)
+                    return true;
+            }
+            catch
+            {
+
+            }
+
+            return false;
         }
 
         private void Tag_Add_To_ListBox_Click(object sender, RoutedEventArgs e)
@@ -196,20 +206,6 @@ namespace PTwoManage
         public static bool CompareTags(List<string> UserTags, List<string> ShiftTags)
         {
             return !ShiftTags.Except(UserTags).Any();
-        }
-
-        private void GenerateTemplate_Click(object sender, RoutedEventArgs e)
-        {
-            Core.Instance.ScheduleGenerator(19, 2015);
-            /*Shift_Template_List.Items.Clear();
-            foreach (ShiftTemplate shift in Core.Instance.GetAllTemplates())
-            {
-                ListBoxItem item = new ListBoxItem();
-                TextBlock text = new TextBlock();
-                text.Text = shift.Date.ToString();
-                item.Content = text;
-                Shift_Template_List.Items.Add(item);
-            }*/
         }
         
         private void DeleteTemplate_Click(object sender, RoutedEventArgs e)
