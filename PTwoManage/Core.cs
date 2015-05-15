@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace PTwoManage
 {
     public sealed class Core
@@ -160,27 +161,27 @@ namespace PTwoManage
             return _allTags;
         }
 
-        public List<Shift> GetAllShifts()
+        public void AddTemplateToList(ShiftTemplate template)
         {
-            return _allShifts;
+            _allTemplates.Add(template);
         }
 
         public void AddShiftToList(Shift shift)
         {
             _allShifts.Add(shift);
         }
-
-        public void AddTemplateToList(ShiftTemplate template)
+        public List<Shift> GetAllShifts()
         {
-            _allTemplates.Add(template);
+            return _allShifts;
         }
 
-        public List<Shift> GetAllShifts(DayOfWeek day, int weekNum)
+        public List<Shift> GetAllShifts(DayOfWeek day, int weekNum, int year)
         {
             List<Shift> dShifts = new List<Shift>();
            foreach(Shift s in _allShifts)
            {
-               if (s.Day == day && s.Week == weekNum)
+
+               if (s.Day == day && s.Week == weekNum && s.GetYear() == year)
                    dShifts.Add(s);
            }
            return dShifts;
@@ -256,8 +257,8 @@ namespace PTwoManage
                 Console.WriteLine("Test1");
                 int DayInYear = FirstDayInYear + (weeknumber - 2) * 7 + AllShiftTemplates[i]._startTime.Day;
 
-                int dayH = 0; //Skal sende en værdi med til funktionen så den returnerer remainder
-                int md = 0;
+                int dayH = 15; //Skal sende en værdi med til funktionen så den returnerer remainder
+                int md = 1;
                 TotalDayToDayInMonth(DayInYear, year, ref dayH, ref md);
 
                 Console.WriteLine(year);
@@ -464,6 +465,19 @@ namespace PTwoManage
         public List<UserFreeRequest> GetAllFreeRequests()
         {
             return _allRequests;
+        }
+
+        public void WarningError(string msg)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetWeeksInYear(int year)
+        {
+            System.Globalization.DateTimeFormatInfo dfi = System.Globalization.DateTimeFormatInfo.CurrentInfo;
+            DateTime dt = new DateTime(year, 12, 31);
+            System.Globalization.Calendar cal = dfi.Calendar;
+            return cal.GetWeekOfYear(dt, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
         }
     }
 }

@@ -26,6 +26,7 @@ namespace PTwoManage
         UserFreeTimeRequestWindow userFreeTimeRequestWindow;
         AddHolidayWindow addHolidayWindow;
         ShiftWindow shiftWindow;
+        GenerateWindow generatorWindow;
 
         private int _year = 2015;
         private int _week = 1;
@@ -35,7 +36,7 @@ namespace PTwoManage
             set
             {
                 _week = value;
-                if(_week > GetWeeksInYear(_year))
+                if(_week > Core.Instance.GetWeeksInYear(_year))
                 {
                     _week = 1;
                     _year++;
@@ -43,7 +44,7 @@ namespace PTwoManage
                 else if (_week < 1)
                 {
                     _year--;
-                    _week = GetWeeksInYear(_year);
+                    _week = Core.Instance.GetWeeksInYear(_year);
                 }
 
                 this.Title = "P2Manage  -  Week " + _week + "  " + _year;
@@ -69,13 +70,13 @@ namespace PTwoManage
 
         private void LoadDaysToView(int week)
         {
-            shiftDataBindingMonday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Monday, week);
-            shiftDataBindingTuesday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Tuesday, week);
-            shiftDataBindingWednesday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Wednesday, week);
-            shiftDataBindingThursday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Thursday, week);
-            shiftDataBindingFriday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Friday, week);
-            shiftDataBindingSaturday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Saturday, week);
-            shiftDataBindingSunday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Sunday, week);
+            shiftDataBindingMonday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Monday, week, _year);
+            shiftDataBindingTuesday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Tuesday, week, _year);
+            shiftDataBindingWednesday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Wednesday, week, _year);
+            shiftDataBindingThursday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Thursday, week, _year);
+            shiftDataBindingFriday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Friday, week, _year);
+            shiftDataBindingSaturday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Saturday, week, _year);
+            shiftDataBindingSunday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Sunday, week, _year);
         }
 
         private void AddUser_Click(object sender, RoutedEventArgs e)
@@ -107,9 +108,11 @@ namespace PTwoManage
             shiftWindow.ShowDialog();
         }
 
-        private void LoadSchedule_Click(object sender, RoutedEventArgs e)
+        //Opens GeneratoWindow
+        private void ScheduleGenerator_Click(object sender, RoutedEventArgs e)
         {
-            
+            generatorWindow = new GenerateWindow();
+            generatorWindow.ShowDialog();
         }
 
         private void UserFreeRequest_Click(object sender, RoutedEventArgs e)
@@ -130,14 +133,6 @@ namespace PTwoManage
             SelectedWeek++;
             UpdateWeekNumberDisplay();
             UpdateShiftsDisplay();
-        }
-
-        private int GetWeeksInYear(int year)
-        {
-            DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
-            DateTime dt = new DateTime(year, 12, 31);
-            System.Globalization.Calendar cal = dfi.Calendar;
-            return cal.GetWeekOfYear(dt, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
         }
 
         private void UpdateWeekNumberDisplay()

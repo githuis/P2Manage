@@ -28,7 +28,7 @@
         <Button Content="Save Tag" HorizontalAlignment="Left" Margin="139,301,0,0" Width="161" Click="Add_Tag_Click" VerticalAlignment="Top" Height="35"/>
         <Button Content="Delete Tag" HorizontalAlignment="Left" Margin="139,341,0,0" VerticalAlignment="Top" Width="161" Click="DeleteTag_Click"  Height="35"/>
 
-        <ListView Name="TemplateList" Margin="375,30,10,118">
+        <ListView Name="TemplateList" Margin="375,30,10,10">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>
@@ -48,6 +48,5 @@
             </ListView.ItemTemplate>
         </ListView>
         <Label Name="Error_message" HorizontalAlignment="Left" Margin="375,358,0,0" VerticalAlignment="Top" Height="57" Width="260"/>
-        <Button Content="Generate Template" HorizontalAlignment="Left" Margin="430,318,0,0" VerticalAlignment="Top" Width="161" Height="35" Click="GenerateTemplate_Click"/>
     </Grid>
 </Window>

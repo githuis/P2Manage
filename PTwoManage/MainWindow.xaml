@@ -36,7 +36,7 @@
             <MenuItem Header="_User" Click="AddUser_Click"></MenuItem>
             <MenuItem Header="_Schedule">
                 <MenuItem Header="_Templates and Tags" Click="AddTemplate_Click"></MenuItem>
-                <MenuItem Header="_Load Schedule" Click="LoadSchedule_Click"></MenuItem>
+                <MenuItem Header="_Schedule Generator" Click="ScheduleGenerator_Click"></MenuItem>
                 <MenuItem Header="_Request Day Off" Click="UserFreeRequest_Click"></MenuItem>
                 <MenuItem Header="_Create Holiday" Click="MakeHoliday_Click"></MenuItem>
                 <MenuItem Header="_Create Shift" Click="CreateShift_Click"></MenuItem>

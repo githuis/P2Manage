@@ -153,6 +153,23 @@ namespace PTwoManage
             Database.Instance.Execute(sql);
         }
 
+        public bool HasShiftInTimeFrame(DateTime from, DateTime to)
+        {
+            User u = this;
+
+            foreach (Shift s in Core.Instance.GetAllShifts())
+            {
+                if (IsWithinTimespan(s.StartTime, s.EndTime, from) && IsWithinTimespan(s.StartTime, s.EndTime, to))
+                    return true;         
+            }
+
+            return false;
+        }
+
+        private bool IsWithinTimespan(DateTime start, DateTime end, DateTime check)
+        {
+            return ((check > start) && (check < end));
+        }
 
     }
 }
