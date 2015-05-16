@@ -18,6 +18,7 @@ namespace PTwoManage
         private string _phone;
         private string _email;
         private int _points;
+        private int _workInWeek;
 
         public int Id
         {
@@ -68,6 +69,12 @@ namespace PTwoManage
             set { _points = value; }
         }
 
+        public int WorkInWeek
+        {
+            get { return _workInWeek; }
+            set { _workInWeek = value; }
+        }
+
         public User(int id, string userName, string password, string name, string cprNummer, string phone, string email, List<string> tag, int points)
         {
             _id = id;
@@ -79,6 +86,7 @@ namespace PTwoManage
             _email = email;
             UserCategories = tag;
             _points = points;
+            _workInWeek = 0;
         }
 
         public static User GetUserByName(string userName)

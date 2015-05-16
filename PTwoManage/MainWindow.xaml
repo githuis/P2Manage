@@ -40,6 +40,7 @@
                 <MenuItem Header="_Request Day Off" Click="UserFreeRequest_Click"></MenuItem>
                 <MenuItem Header="_Create Holiday" Click="MakeHoliday_Click"></MenuItem>
                 <MenuItem Header="_Create Shift" Click="CreateShift_Click"></MenuItem>
+                <MenuItem Header="_Swap shift" Click="ShiftSwap_Click" ></MenuItem>
             </MenuItem>
         </Menu>
 
