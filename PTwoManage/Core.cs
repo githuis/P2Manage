@@ -99,7 +99,7 @@ namespace PTwoManage
        public void Run()
         {
            //Midlertidig funktion til at se om shifts kan vises
-            _allShifts.Add(new Shift(new DateTime(2015, 04, 20, 12, 30, 00), new DateTime(2015, 04, 20, 12, 45, 00), "Åbner", "Hansi", 1));
+            /*_allShifts.Add(new Shift(new DateTime(2015, 04, 20, 12, 30, 00), new DateTime(2015, 04, 20, 12, 45, 00), "Åbner", "Hansi", 1));
            
             _allShifts.Add(new Shift(new DateTime(2015, 04, 21, 15, 30, 00), new DateTime(2015, 04, 21, 17, 30, 00), "Åbner", "Jens", 1));
             _allShifts.Add(new Shift(new DateTime(2015, 04, 22, 15, 30, 00), new DateTime(2015, 04, 22, 17, 30, 00), "Åbner", "Jens", 1));
@@ -124,7 +124,7 @@ namespace PTwoManage
             _allShifts.Add(new Shift(new DateTime(2015, 05, 9 , 15, 30, 00), new DateTime(2015, 04, 9 , 19, 30, 00), "Åbner", "Ole", 3));
             _allShifts.Add(new Shift(new DateTime(2015, 05, 10, 15, 30, 00), new DateTime(2015, 04, 10, 19, 30, 00), "Åbner", "Ole", 3));
             _allShifts.Add(new Shift(new DateTime(2015, 05, 11, 15, 30, 00), new DateTime(2015, 04, 11, 19, 30, 00), "Åbner", "Ole", 3));
-            
+            */
         }
         
         public List<User> GetAllUsers()

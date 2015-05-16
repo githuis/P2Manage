@@ -209,7 +209,9 @@ namespace PTwoManage
 
         public override int GetHashCode()
         {
-            return Id;
+            //45358 is an arbitrary number, but it is the same for all users
+            //It ensures a spread of the hash values
+            return Id * 45358;
         }
 
     }
