@@ -74,6 +74,13 @@
                             </WrapPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem>
+                                
+                            </MenuItem>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
                 </ListView>
                 <ListView Name="shiftDataBindingTuesday">
                     <ListView.ItemTemplate>
