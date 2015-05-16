@@ -66,6 +66,8 @@ namespace PTwoManage.Windows
                 shift.EmployeeName = swapee.UserName;
                 PopulateSwapperShiftCombobox();
             }
+            else
+                System.Media.SystemSounds.Beep.Play();
         }
     }
 }
