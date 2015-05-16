@@ -88,10 +88,7 @@ namespace PTwoManage
         {
             Shift shift = this;
             string sql = "UPDATE ShiftTable SET employeeName='" + newUser + "'  WHERE employeeName='" + shift.EmployeeName + "' AND start='" + shift._startTime.ToString() + "' AND end='" + shift._endTime.ToString() + "'";
-            Database.Instance.Execute("CREATE TABLE IF NOT EXISTS ShiftTable (id INTEGER PRIMARY KEY AUTOINCREMENT, start VARCHAR(50), end VARCHAR(50), tag VARCHAR(1000), employeeName VARCHAR(50), weekNumber INT)");
-
             Database.Instance.Execute(sql);
         }
-
     }
 }

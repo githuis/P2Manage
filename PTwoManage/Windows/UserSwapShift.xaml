@@ -9,8 +9,9 @@
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text=" - "></TextBlock>
-                        <TextBlock Text="{Binding EndTime, StringFormat=dddd-dd-MMM-HH.mm}"></TextBlock>
+                        <TextBlock Text="{Binding StartTime, StringFormat=ddd-dd-MMM\ HH:mm}"></TextBlock>
+                        <TextBlock Text="    To    "></TextBlock>
+                        <TextBlock Text="{Binding EndTime, StringFormat=ddd-dd-MMM\ HH:mm}"></TextBlock>
 
                     </StackPanel>
                 </DataTemplate>
