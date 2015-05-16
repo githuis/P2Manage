@@ -67,7 +67,7 @@ namespace PTwoManage
 
         private void PreventSqlInjection()
         {
-            string toTrim = ";'\:";
+            string toTrim = ";'\\:";
             EditUser_FullName.Text = EditUser_FullName.Text.Trim(toTrim.ToCharArray());
             EditUser_Password.Password = EditUser_Password.Password.Trim(toTrim.ToCharArray());
             EditUser_ConfirmPassword.Password = EditUser_ConfirmPassword.Password.Trim(toTrim.ToCharArray());
