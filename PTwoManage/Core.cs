@@ -85,7 +85,7 @@ namespace PTwoManage
                 string[] split = item.Split(new Char[] { ',' });
                 _allHolidays.Add(new Holiday(DateTime.Parse(split[0])));
             }
-
+            
             sql = "SELECT * FROM ShiftTable";
             Database.Instance.Read(sql, ref _info, Database.Instance.ShiftTableColumns);
             foreach (var item in _info)

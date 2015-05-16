@@ -43,9 +43,9 @@ namespace PTwoManage
             Day = _startTime.DayOfWeek;
             PrintableStartTime = _startTime.Hour.ToString() + ":" + _startTime.Minute.ToString();
             PrintableEndTime = _endTime.Hour.ToString() + ":" + _endTime.Minute.ToString();
-            //if (User.CheckUserExists(userName))
-             //   if (User.GetUserByName(userName).HasShiftInTimeFrame(starttime, endtime))
-             //       throw new ArgumentException("In class 'Shift' -- User already has a shift at this time");
+            if (User.CheckUserExists(userName))
+               if (User.GetUserByName(userName).HasShiftInTimeFrame(starttime, endtime))
+                    throw new ArgumentException("In class 'Shift' -- User already has a shift at this time");
 
 		}
 

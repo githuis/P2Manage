@@ -151,7 +151,6 @@ namespace PTwoManage
             userSwapWindow = new Windows.UserSwapShift();
             userSwapWindow.ShowDialog();
         }
-
         
     }
 }
