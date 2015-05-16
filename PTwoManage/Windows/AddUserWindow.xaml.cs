@@ -33,28 +33,47 @@ namespace PTwoManage
         
         private void Submit_AddUser()
         {
-
-            if (Password_TextBox.Password != "" && Password_TextBox.Password == ConfirmPassword.Password && EditUser_FullName.Text != "" && EditUser_CPR.Text != "" && EditUser_Number.Text != ""
+            try
+            {
+                if (EditUser_Password.Password != "" && EditUser_Password.Password == EditUser_ConfirmPassword.Password && EditUser_FullName.Text != "" && EditUser_CPR.Text != "" && EditUser_Number.Text != ""
                 && EditUser_Email.Text != "" && !User.CheckUserExists(CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text)))
-            {
-                User newUser = new User(1, CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text), Password_TextBox.Password, EditUser_FullName.Text, EditUser_CPR.Text, EditUser_Number.Text, EditUser_Email.Text, GetCheckedTags(), 100);
+                {
+                    PreventSqlInjection();
 
-                Core.Instance.AddUserToList(newUser);
-                AddUser_Confirmation.Content = EditUser_FullName.Text + " was added to the system";
-                AddUser_Confirmation.Foreground = Brushes.Green;
-                newUser.SaveUserInfoToDatabase();
-                EmptyForm();
-               
+                    User newUser = new User(1, CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text), EditUser_Password.Password, EditUser_FullName.Text, EditUser_CPR.Text, EditUser_Number.Text, EditUser_Email.Text, GetCheckedTags(), 100);
+
+                    Core.Instance.AddUserToList(newUser);
+                    AddUser_Confirmation.Content = EditUser_FullName.Text + " was added to the system";
+                    AddUser_Confirmation.Foreground = Brushes.Green;
+                    newUser.SaveUserInfoToDatabase();
+                    EmptyForm();
+
+                }
+                else
+                {
+                    string tempName = EditUser_FullName.Text;
+                    AddUser_Confirmation.Content = "ERROR: Could not add '" + (tempName == "" ? "<No Name Found>" : tempName) + "' to the system";
+                    AddUser_Confirmation.Foreground = Brushes.Red;
+                }
+                EditUser_Password.Password = "";
+                EditUser_ConfirmPassword.Password = "";
+                Populate_UserList();
             }
-            else
+            catch (ArgumentException e)
             {
-                string tempName = EditUser_FullName.Text;
-                AddUser_Confirmation.Content = "ERROR: Could not add '" + (tempName == "" ? "<No Name Found>" : tempName) + "' to the system";
-                AddUser_Confirmation.Foreground = Brushes.Red;
-            }
-            Password_TextBox.Password = "";
-            ConfirmPassword.Password = "";
-            Populate_UserList();
+                System.Windows.Forms.MessageBox.Show(e.Message, "Error");
+            }            
+        }
+
+        private void PreventSqlInjection()
+        {
+            string toTrim = ";'";
+            EditUser_FullName.Text = EditUser_FullName.Text.Trim(toTrim.ToCharArray());
+            EditUser_Password.Password = EditUser_Password.Password.Trim(toTrim.ToCharArray());
+            EditUser_ConfirmPassword.Password = EditUser_ConfirmPassword.Password.Trim(toTrim.ToCharArray());
+            EditUser_CPR.Text = EditUser_CPR.Text.Trim(toTrim.ToCharArray());
+            EditUser_Number.Text = EditUser_Number.Text.Trim(toTrim.ToCharArray());
+            EditUser_Email.Text = EditUser_Email.Text.Trim(toTrim.ToCharArray());
         }
 
         private void Populate_UserList()
@@ -106,13 +125,13 @@ namespace PTwoManage
                 string userName = item.Content.ToString();
                 //TODO Create a user and use it's properties instead of calling getuser 9999 times
                 EditUser_UserNameBox.Text = User.GetUserByName(userName).UserName;
-                Password_TextBox.Password = User.GetUserByName(userName).Password;
+                EditUser_Password.Password = User.GetUserByName(userName).Password;
                 EditUser_FullName.Text = User.GetUserByName(userName).Name;
                 EditUser_CPR.Text = User.GetUserByName(userName).CprNumber;
                 EditUser_Number.Text = User.GetUserByName(userName).Phone;
                 EditUser_Email.Text = User.GetUserByName(userName).Email;
-                ConfirmPassword.Password = User.GetUserByName(userName).Password;
-                ConfirmPassword.IsEnabled = false;
+                EditUser_ConfirmPassword.Password = User.GetUserByName(userName).Password;
+                EditUser_ConfirmPassword.IsEnabled = false;
                 Tag_ListBox.SelectedItemsOverride = User.GetUserByName(item.Content.ToString()).UserCategories;
             }
             Tag_ListBox.Items.Refresh();
@@ -132,7 +151,7 @@ namespace PTwoManage
             u.Email = EditUser_Email.Text;
             u.Phone = EditUser_Number.Text;
             u.UserName = EditUser_UserNameBox.Text;
-            u.Password = Password_TextBox.Password;
+            u.Password = EditUser_Password.Password;
             u.UserCategories = GetCheckedTags();
             u.SaveUserInfoToDatabase();
             Populate_UserList();
@@ -160,9 +179,9 @@ namespace PTwoManage
             EditUser_CPR.Text = "";
             EditUser_Number.Text = "";
             EditUser_Email.Text = "";
-            Password_TextBox.Password = "";
-            ConfirmPassword.Password = "";
-            ConfirmPassword.IsEnabled = true;
+            EditUser_Password.Password = "";
+            EditUser_ConfirmPassword.Password = "";
+            EditUser_ConfirmPassword.IsEnabled = true;
             Tag_ListBox.SelectedItemsOverride = new List<string>();
         }
 
@@ -170,13 +189,18 @@ namespace PTwoManage
         {
             string userName;
             string[] split;
-            long n = long.Parse(cpr), sum = 0;
+            long n = 0, sum = 0;
+            if(!long.TryParse(cpr, out n))
+            {
+                throw new ArgumentException("CPR number must only be numbers");
+            }
 
             while (n != 0)
             {
                 sum += n % 10;
                 n /= 10;
             }
+
             split = FullName.Split(new Char[] { ' ' });
             userName = split[0] + sum;
 
