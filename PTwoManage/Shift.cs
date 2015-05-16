@@ -84,5 +84,11 @@ namespace PTwoManage
             Database.Instance.Execute(sql);
         }
 
+        public void UpdateShift(string newUser)
+        {
+            Shift shift = this;
+            string sql = "UPDATE ShiftTable SET employeeName='" + newUser + "'  WHERE employeeName='" + shift.EmployeeName + "' AND start='" + shift._startTime.ToString() + "' AND end='" + shift._endTime.ToString() + "'";
+            Database.Instance.Execute(sql);
+        }
     }
 }

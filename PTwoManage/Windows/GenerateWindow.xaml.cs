@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -62,6 +63,10 @@ namespace PTwoManage
         {
             toWeek = (int)ToWeekComboBox.SelectedItem;
             fromWeek = (int)FromWeekComboBox.SelectedItem;
+
+            ProgressBarStatus.Minimum = fromWeek;
+            ProgressBarStatus.Maximum = toWeek;
+
             if (fromWeek > toWeek)
                 return;
 
@@ -72,6 +77,8 @@ namespace PTwoManage
                 {
                     Core.Instance.ScheduleGenerator(i, yr);
                     Console.WriteLine("Generated days for week: " + i);
+                    ProgressBarStatus.Value++;
+                    Thread.Sleep(100);
                 }
                 this.Close();
             }
@@ -90,6 +97,6 @@ namespace PTwoManage
                 SetWeekComboBoxes();
                 e.Handled = SetWeekComboBoxes();
             }
-        }
+        }        
     }
 }

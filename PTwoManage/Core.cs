@@ -215,6 +215,12 @@ namespace PTwoManage
             List<ShiftTemplate> AllShiftTemplates = Core.Instance.GetAllTemplates();
             List<Holiday> AllHolidays = Core.Instance.GetAllHolidays();
 
+            var SortedShiftTemplates = AllShiftTemplates.OrderBy(template => template._startTime);
+            AllShiftTemplates = SortedShiftTemplates.ToList();
+
+            foreach (User u in AllUsers)
+                u.WorkInWeek = 0;
+
             int PossitiveDayCost = 0;
             int NegativeDayCost = 0;
 
@@ -254,6 +260,7 @@ namespace PTwoManage
                         else if (CompareTags(u.UserCategories, AllShiftTemplates[i].Tag))
                             CompatibleUsers.Add(u);
                     }
+
                     CalculateDayPrice(AllShiftTemplates[i]._startTime.Day, ref PossitiveDayCost, ref NegativeDayCost, false);
                     string UserName = SortUserList(CompatibleUsers, PossitiveDayCost, NegativeDayCost, start);
 
@@ -389,7 +396,7 @@ namespace PTwoManage
                 }
             }
             // Skal derefter sorterer efter personen med færrest point
-            var SortedList = UserList.OrderBy(user => user.Points);
+            var SortedList = UserList.OrderBy(user => user.Points).ThenBy(user => user.WorkInWeek);
             UserList = SortedList.ToList();
 
             // Til sidst tjekkes det om det er samme person som sidste år som arbejede på denne dato
@@ -398,8 +405,9 @@ namespace PTwoManage
                 UserList.Remove(UserList.First());
             }
             else*/
-                UserList.First().UpdateUserPointBalance(PossitiveDayWeight);
-                return UserList.First().UserName;
+            UserList.First().WorkInWeek++;
+            UserList.First().UpdateUserPointBalance(PossitiveDayWeight);
+            return UserList.First().UserName;
         }
 
         private bool CompareTags(List<string> UserTags, List<string> ShiftTags)

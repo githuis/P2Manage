@@ -86,7 +86,5 @@ namespace PTwoManage
                 Populate_HolidayList();
             } 
         }
-
-
     }
 }

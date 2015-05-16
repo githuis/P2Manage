@@ -27,6 +27,7 @@ namespace PTwoManage
         AddHolidayWindow addHolidayWindow;
         ShiftWindow shiftWindow;
         GenerateWindow generatorWindow;
+        Windows.UserSwapShift userSwapWindow;
 
         private int _year = 2015;
         private int _week = 1;
@@ -143,6 +144,12 @@ namespace PTwoManage
         private void UpdateShiftsDisplay()
         {
             LoadDaysToView(SelectedWeek);
+        }
+
+        private void ShiftSwap_Click(object sender, RoutedEventArgs e)
+        {
+            userSwapWindow = new Windows.UserSwapShift();
+            userSwapWindow.ShowDialog();
         }
 
         
