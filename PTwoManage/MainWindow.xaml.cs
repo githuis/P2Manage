@@ -82,7 +82,7 @@ namespace PTwoManage
 
         private void AddUser_Click(object sender, RoutedEventArgs e)
         {
-            if(Authentication.Instance.Prompt())
+            if(Authentication.Instance.Prompt(Database.Instance.CompanyName))
             {
                 addUserWindow = new AddUserWindow();
                 addUserWindow.EditUser_Load();

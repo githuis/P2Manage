@@ -19,6 +19,8 @@ namespace PTwoManage
     /// </summary>
     public partial class AuthenticationWindow : Window
     {
+        private string _companyName = "";
+
         public AuthenticationWindow()
         {
             InitializeComponent();
@@ -26,7 +28,12 @@ namespace PTwoManage
 
         private void AuthLogin_Click(object sender, RoutedEventArgs e)
         {
-            string loginString = AuthUsernameBox.Text + "," + AuthPasswordBox.Password;
+            Authenticate(AuthUsernameBox.Text, AuthPasswordBox.Password);
+        }
+
+        private void Authenticate(string AuthUsername, string AuthPassword)
+        {
+            string loginString = AuthUsername + "," + AuthPassword;
 
             System.Net.WebClient wc = new System.Net.WebClient();
             string webData = wc.DownloadString("http://everflows.com/companies.txt");
@@ -34,14 +41,22 @@ namespace PTwoManage
 
             foreach (string s in split)
             {
-                if (s == loginString)
+                if (loginString == s && loginString.Contains(_companyName))
+                {
                     this.DialogResult = true;
+                    Database.Instance.CompanyName = AuthUsername;
+                }
             }
         }
 
         private void AuthCancel_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        public void UseCompanyName(string companyName)
+        {
+            _companyName = companyName;
         }
     }
 }

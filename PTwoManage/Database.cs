@@ -10,6 +10,7 @@ namespace PTwoManage
 {
     public sealed class Database
     {
+        private string _companyName;
         static readonly Database _instance = new Database();
         public string[] userTableColumns = new string[9]{"id", "username", "password", "name", "cprNumber", "phone", "email", "tag", "points"};
         public string[] ShiftTemplateTableColumns = new string[4] { "id", "start", "end", "tag" };
@@ -20,6 +21,19 @@ namespace PTwoManage
         SQLiteConnection m_dbConnection;
         public List<string> readInfo = new List<string>();
 
+        public string CompanyName
+        {
+            get { return _companyName; }
+            set
+            {
+                if (value != "" && value != null)
+                {
+                    _companyName = value;
+                    InitDatabase();
+                }
+            }
+        }
+
         public static Database Instance
         {
             get { return _instance; }
@@ -29,15 +43,20 @@ namespace PTwoManage
         {
             readInfo = new List<string>();
 
-            string file = AppDomain.CurrentDomain.BaseDirectory + "MyDatabase.sqlite";
+            //InitDatabase();
+
+        }
+
+        private void InitDatabase()
+        {
+            string file = AppDomain.CurrentDomain.BaseDirectory + CompanyName + ".sqlite";
             if (!File.Exists(file))
-                SQLiteConnection.CreateFile("MyDatabase.sqlite");
-            
-            m_dbConnection = new SQLiteConnection("Data Source=MyDatabase.sqlite;Version=3;");
+                SQLiteConnection.CreateFile(CompanyName + ".sqlite");
+
+            m_dbConnection = new SQLiteConnection("Data Source=" + CompanyName + ".sqlite;Version=3;");
             m_dbConnection.Open();
 
             CreateTables();
-
         }
 
         private void CreateTables()

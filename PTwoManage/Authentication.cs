@@ -22,9 +22,10 @@ namespace PTwoManage
             
         }
 
-        public bool Prompt()
+        public bool Prompt(string companyName = "")
         {
             AuthWindow = new AuthenticationWindow();
+            AuthWindow.UseCompanyName(companyName);
             Nullable<bool> dialogResult = AuthWindow.ShowDialog();
             AuthWindow.Topmost = true; 
 
