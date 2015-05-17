@@ -72,6 +72,8 @@ namespace PTwoManage
 
             try
             {
+                GeneratorProgressbar bar = new GeneratorProgressbar();
+                bar.Show();
                 int.TryParse(YearTextBox.Text, out yr);
                 for (int i = fromWeek; i < toWeek; i++)
                 {
@@ -80,6 +82,7 @@ namespace PTwoManage
                     ProgressBarStatus.Value++;
                     Thread.Sleep(100);
                 }
+                bar.Close();
                 this.Close();
             }
             catch (ArgumentException argE)
