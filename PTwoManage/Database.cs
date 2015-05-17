@@ -78,7 +78,6 @@ namespace PTwoManage
         public string ListToString(List<string> inputList)
         {
             string returnString = string.Join(":", inputList.ToArray());
-            Console.WriteLine(returnString);
             return (returnString);
         }
 
@@ -87,10 +86,5 @@ namespace PTwoManage
             List<string> outputList = inputString.Split(':').ToList();
             return (outputList);
         }
-
-        public void DatabaseInit()
-        {
-            Console.WriteLine("Database activated");
-		}
     }
 }
