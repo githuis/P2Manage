@@ -92,11 +92,14 @@ namespace PTwoManage
                 end = DateTime.Parse(Endtime_Shift_Box.Text);
             }
             
-            string tag = TagList.SelectedItems.ToString();
+            string tag = "";
+            if(TagList.SelectedItems != null)
+                tag = TagList.SelectedItems.ToString();
+
             if(UserList.SelectedItems.Count == 1)
                 us = User.GetUserByName( (string)((ListBoxItem) UserList.SelectedItem).Content);
 
-            if(TagList.SelectedItems.Count > 0 && us != null && tag != null && start != null && end != null)
+            if( us != null && start != null && end != null)
             {
                 Console.WriteLine( ((ListBoxItem) TagList.SelectedItem).Content);
 

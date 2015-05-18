@@ -28,14 +28,14 @@ namespace PTwoManage
         {
             if (CheckIfHolidayExsists(FreeDate.SelectedDate.Value))
             {
-                ConfirmationMessage.Content = "Holiday: " + FreeDate.SelectedDate.Value.ToLongDateString() + " already exsists";
+                ConfirmationMessage.Content = FreeDate.SelectedDate.Value.ToLongDateString() + " \nalready exsists";
             }
             else
             {
                 Holiday resultHoliday = new Holiday(FreeDate.SelectedDate.Value);
                 resultHoliday.SaveHoliday();
                 Core.Instance.AddToHolidayList(resultHoliday);
-                ConfirmationMessage.Content = "Holiday: " + FreeDate.SelectedDate.Value.ToLongDateString() +" is now a holiday :)";
+                ConfirmationMessage.Content =  FreeDate.SelectedDate.Value.ToLongDateString() +" \nis now a holiday :)";
                 Populate_HolidayList();
             }
         }

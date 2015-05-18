@@ -15,7 +15,7 @@ namespace PTwoManage
         private List<string> _allTags;
         private List<Shift> _allShifts;
         private List<ShiftTemplate> _allTemplates;
-		private List<UserFreeRequest> _allRequests;
+		    private List<UserFreeRequest> _allRequests;
         private List<Holiday> _allHolidays;
         private List<string> _info;
 
@@ -31,11 +31,10 @@ namespace PTwoManage
             _allTemplates = new List<ShiftTemplate>();
             _allRequests = new List<UserFreeRequest>();
             _allHolidays = new List<Holiday>();
-            _info = new List<string>();
             _allShifts = new List<Shift>();
+            _info = new List<string>();
 
             string sql = "SELECT * FROM userTable";
-            
             Database.Instance.Read(sql, ref _info, Database.Instance.userTableColumns);
             foreach (var item in _info)
             {
@@ -53,7 +52,6 @@ namespace PTwoManage
                 t = new ShiftTemplate(DateTime.Parse(split2[1]), DateTime.Parse(split2[2]), split2[3]);
                 t.GeneratePrintableInfo();
                 _allTemplates.Add(t);
-
             }
 
             string sql3 = "SELECT * FROM TagTable";
@@ -85,15 +83,17 @@ namespace PTwoManage
                 string[] split = item.Split(new Char[] { ',' });
                 _allHolidays.Add(new Holiday(DateTime.Parse(split[0])));
             }
-            
-            sql = "SELECT * FROM ShiftTable";
+        }
+
+        public void LoadShiftsFromDatabase()
+        {
+            string sql = "SELECT * FROM ShiftTable";
             Database.Instance.Read(sql, ref _info, Database.Instance.ShiftTableColumns);
             foreach (var item in _info)
             {
                 string[] split = item.Split(new Char[] { ',' });
-                _allShifts.Add(new Shift(DateTime.Parse(split[1]),DateTime.Parse(split[2]),split[3],split[4],int.Parse(split[5])));
+                _allShifts.Add(new Shift(DateTime.Parse(split[1]), DateTime.Parse(split[2]), split[3], split[4], int.Parse(split[5])));
             }
-
         }
        
        public void Run()
@@ -349,7 +349,7 @@ namespace PTwoManage
             {
                 foreach(User u in UserList)
                 {
-                    if (q.User.Equals(u)  && (Date != q.StartTime))
+                    if (q.User.Equals(u)  && (Date.DayOfYear >= q.StartTime.DayOfYear) && (Date.DayOfYear <= q.Endtime.DayOfYear))
                     {
                         UnAvalibleUsers.Add(u);
                         break;

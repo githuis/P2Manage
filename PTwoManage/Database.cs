@@ -18,7 +18,7 @@ namespace PTwoManage
         public string[] ShiftTableColumns = new string[6] { "id", "start", "end", "tag", "employeeName", "weekNumber" };
         public string[] FreeTimeRequestColumns = new string[4] { "start", "end", "text", "userID" };
         public string[] HolidayTableColumns = new string[1] { "day" };
-        SQLiteConnection m_dbConnection;
+        public SQLiteConnection m_dbConnection;
         public List<string> readInfo = new List<string>();
 
         public string CompanyName

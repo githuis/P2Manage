@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Globalization;
+using System.ComponentModel;
 
 namespace PTwoManage
 {
@@ -55,17 +56,27 @@ namespace PTwoManage
 
         public MainWindow()
         {
-            if (!Authentication.Instance.Prompt())
-                Application.Current.Shutdown();
+            try
+            {
+                if (!Authentication.Instance.Prompt())
+                    Application.Current.Shutdown();
 
-            InitializeComponent();          
-            UpdateWeekNumberDisplay();
+                Core.Instance.LoadShiftsFromDatabase();
+                InitializeComponent();
+                UpdateWeekNumberDisplay();
 
-            //Temp Shifts
-            Core.Instance.Run();
-            
-            //Should be called with current week
-            LoadDaysToView(1);
+                //Temp Shifts
+
+                Core.Instance.Run();
+
+                //Should be called with current week
+
+                LoadDaysToView(1);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.InnerException.Message);
+            }
 
         }
 
@@ -150,6 +161,12 @@ namespace PTwoManage
         {
             userSwapWindow = new Windows.UserSwapShift();
             userSwapWindow.ShowDialog();
+        }
+
+        void MainWindow_Closing(object sender, CancelEventArgs e)
+        {
+            MessageBox.Show("Closing program");
+            Database.Instance.m_dbConnection.Close();
         }
         
     }

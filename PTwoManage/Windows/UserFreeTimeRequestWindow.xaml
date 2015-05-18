@@ -40,9 +40,9 @@
                                 <TextBlock Text="{Binding UserName}"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding StartTime}"/>
+                                <TextBlock Text="{Binding StartTime, StringFormat=ddd-dd-MMM}"/>
                                 <TextBlock Text=" - "/>
-                                <TextBlock Text="{Binding EndTime}"/>
+                                <TextBlock Text="{Binding EndTime, StringFormat=ddd-dd-MMM}"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding Message}" />

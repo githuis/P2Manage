@@ -82,7 +82,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="GeneratorProgressbar.xaml.cs">
+    <Compile Include="Windows\GeneratorProgressbar.xaml.cs">
       <DependentUpon>GeneratorProgressbar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\GenerateWindow.xaml.cs">
@@ -118,7 +118,7 @@
       <DependentUpon>UserSwapShift.xaml</DependentUpon>
     </Compile>
     <Compile Include="Workschedule.cs" />
-    <Page Include="GeneratorProgressbar.xaml">
+    <Page Include="Windows\GeneratorProgressbar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -186,6 +186,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
