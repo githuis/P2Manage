@@ -210,10 +210,11 @@ namespace PTwoManage
 
         private void Add_Tag_Click(object sender, RoutedEventArgs e)
         {
+            string toTrim = ";'\\:";
+            string newTag = Tag_Add_TextBox.Text.Trim(toTrim.ToCharArray());
 
-            if (Tag_Add_TextBox.Text != "")
+            if (newTag != "")
             {
-                string newTag = Tag_Add_TextBox.Text;
                 Core.Instance.AddTagToList(newTag);
                 SaveTagToDatabase(newTag);
                 Populate_TagList();
@@ -271,10 +272,5 @@ namespace PTwoManage
             sql = "DELETE FROM TagTable WHERE tag IN (SELECT tag FROM TagTable WHERE tag ='" + s + "')";
             Database.Instance.Execute(sql);
         }
-
-        
-
-        
-
     }
 }
