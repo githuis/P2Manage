@@ -64,9 +64,6 @@ namespace PTwoManage
             toWeek = (int)ToWeekComboBox.SelectedItem;
             fromWeek = (int)FromWeekComboBox.SelectedItem;
 
-            ProgressBarStatus.Minimum = fromWeek;
-            ProgressBarStatus.Maximum = toWeek;
-
             if (fromWeek > toWeek)
                 return;
 
@@ -79,8 +76,6 @@ namespace PTwoManage
                 {
                     Core.Instance.ScheduleGenerator(i, yr);
                     Console.WriteLine("Generated days for week: " + i);
-                    ProgressBarStatus.Value++;
-                    Thread.Sleep(100);
                 }
                 bar.Close();
                 this.Close();
