@@ -150,6 +150,10 @@ namespace PTwoManage
             string sql;
             sql = "DELETE FROM userTable WHERE username IN (SELECT username FROM userTable WHERE username ='" + user.UserName + "')";
             Database.Instance.Execute(sql);
+            sql = "DELETE FROM FreeRequestTable WHERE username IN (SELECT username FROM FreeRequestTable WHERE username ='" + user.UserName + "')";
+            Database.Instance.Execute(sql);
+            sql = "DELETE FROM ShiftTable WHERE employeeName IN (SELECT employeeName FROM ShiftTable WHERE EmployeeName ='" + user.UserName + "')";
+            Database.Instance.Execute(sql);
         }
 
         public void UpdateUserPointBalance(int points)
@@ -192,7 +196,7 @@ namespace PTwoManage
                 return false;
             }
 
-            return (Id == p.Id);
+            return (UserName == p.UserName);
         }
 
         public bool Equals(User u)
@@ -204,7 +208,7 @@ namespace PTwoManage
             }
 
             // Return true if the fields match:
-            return (Id == u.Id);
+            return (UserName == u.UserName);
         }
 
         public override int GetHashCode()

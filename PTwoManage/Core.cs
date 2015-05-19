@@ -63,19 +63,6 @@ namespace PTwoManage
                     _allTags.Add(split3[0]);
             }
 
-            sql = "SELECT * FROM FreeRequestTable";
-            Database.Instance.Read(sql, ref _info, Database.Instance.FreeTimeRequestColumns);
-            string holder;
-            foreach (var item in _info)
-            {
-                string[] split4 = item.Split(new Char[] { ',' });
-                if (split4[2] == null)
-                    holder = "empty";
-                else
-                    holder = split4[2];
-                _allRequests.Add(new UserFreeRequest(DateTime.Parse(split4[0]), DateTime.Parse(split4[1]), holder, split4[3]));
-            }
-
             sql = "SELECT * FROM HolidayTable";
             Database.Instance.Read(sql, ref _info, Database.Instance.HolidayTableColumns);
             foreach (var item in _info)
@@ -93,6 +80,22 @@ namespace PTwoManage
             {
                 string[] split = item.Split(new Char[] { ',' });
                 _allShifts.Add(new Shift(DateTime.Parse(split[1]), DateTime.Parse(split[2]), split[3], split[4], int.Parse(split[5])));
+            }
+        }
+
+        public void LoadUserFreeRequestsFromDatabase()
+        {
+            string sql = "SELECT * FROM FreeRequestTable";
+            Database.Instance.Read(sql, ref _info, Database.Instance.FreeTimeRequestColumns);
+            string holder = "";
+            foreach (var item in _info)
+            {
+                string[] split4 = item.Split(new Char[] { ',' });
+                if (split4[2] == "")
+                    holder = "No message was entered";
+                else
+                    holder = split4[2];
+                _allRequests.Add(new UserFreeRequest(DateTime.Parse(split4[0]), DateTime.Parse(split4[1]), holder, split4[3]));
             }
         }
        
@@ -349,7 +352,7 @@ namespace PTwoManage
             {
                 foreach(User u in UserList)
                 {
-                    if (q.User.Equals(u)  && (Date.DayOfYear >= q.StartTime.DayOfYear) && (Date.DayOfYear <= q.Endtime.DayOfYear))
+                    if (q.User.Equals(u)  && (Date.DayOfYear >= q.StartTime.DayOfYear) && (Date.DayOfYear <= q.EndTime.DayOfYear))
                     {
                         UnAvalibleUsers.Add(u);
                         break;
@@ -364,7 +367,7 @@ namespace PTwoManage
             {
                 foreach (User u in UnAvalibleUsers)
                 {
-                    if (UnAvalibleUsers.Count > 1)
+                    if (UserList.Count > 1)
                     {
                         if (u.Points >= NegativeDayweight)
                         {
@@ -376,6 +379,12 @@ namespace PTwoManage
                             u.Points = 0;
                             UserList.Remove(u);
                         }
+                    }
+                    else
+                    {
+                        UserList.First().WorkInWeek++;
+                        UserList.First().UpdateUserPointBalance(PossitiveDayWeight);
+                        return UserList.First().UserName;
                     }
                 }
             }
@@ -396,7 +405,7 @@ namespace PTwoManage
                 }
             }
             // Skal derefter sorterer efter personen med færrest point
-            var SortedList = UserList.OrderBy(user => user.Points).ThenBy(user => user.WorkInWeek);
+            var SortedList = UserList.OrderBy(user => user.WorkInWeek).ThenBy(user => user.Points);
             UserList = SortedList.ToList();
 
             // Til sidst tjekkes det om det er samme person som sidste år som arbejede på denne dato

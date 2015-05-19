@@ -32,12 +32,12 @@
         </TabItem>
 
         <TabItem Header="Read">
-            <ListView Name="RequestList" Height="384" Width="400" HorizontalAlignment="Stretch">
+            <ListView Name="RequestList" Height="384" Width="400" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <WrapPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal">                                
-                                <TextBlock Text="{Binding UserName}"/>
+                                <TextBlock Text="{Binding User.UserName}" FontWeight="Bold"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding StartTime, StringFormat=ddd-dd-MMM}"/>

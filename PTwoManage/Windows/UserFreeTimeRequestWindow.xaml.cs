@@ -33,7 +33,9 @@ namespace PTwoManage
                 if (RequestValitation(Start_Date.SelectedDate.Value, End_Date.SelectedDate.Value, SelectUserComboBox.SelectedItem.ToString()))
                 {
                     ErrorMessage.Content = "";
-                    UserFreeRequest ResultRequest = new UserFreeRequest(Start_Date.SelectedDate.Value, End_Date.SelectedDate.Value, Message_Box.Text, SelectUserComboBox.SelectedItem.ToString());
+                    User user = SelectUserComboBox.SelectedItem as User;
+                    string message = Message_Box.Text.Replace(",","");
+                    UserFreeRequest ResultRequest = new UserFreeRequest(Start_Date.SelectedDate.Value, End_Date.SelectedDate.Value, message, user.UserName);
                     ResultRequest.SaveUserRequest();
                     Message_Box.Clear();
                 }

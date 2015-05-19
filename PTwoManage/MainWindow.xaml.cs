@@ -62,6 +62,7 @@ namespace PTwoManage
                     Application.Current.Shutdown();
 
                 Core.Instance.LoadShiftsFromDatabase();
+                Core.Instance.LoadUserFreeRequestsFromDatabase();
                 InitializeComponent();
                 UpdateWeekNumberDisplay();
 
@@ -165,7 +166,6 @@ namespace PTwoManage
 
         void MainWindow_Closing(object sender, CancelEventArgs e)
         {
-            MessageBox.Show("Closing program");
             Database.Instance.m_dbConnection.Close();
         }
         

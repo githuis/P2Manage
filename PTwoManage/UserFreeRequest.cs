@@ -25,7 +25,7 @@ namespace PTwoManage
             set { _message = value; }
         }
         
-        public DateTime Endtime
+        public DateTime EndTime
         {
             get { return _endTime; }
             set { _endTime = value; }
@@ -48,7 +48,7 @@ namespace PTwoManage
         public void SaveUserRequest()
         {
             UserFreeRequest request = this;
-            string sql = "INSERT INTO FreeRequestTable (start, end, text, userID) values ('" + request._startTime.ToString() + "', '" + request._endTime.ToString() + "', '" + request._message + "', '" + request.User.Id + "')";
+            string sql = "INSERT INTO FreeRequestTable (start, end, text, username) values ('" + request._startTime.ToString() + "', '" + request._endTime.ToString() + "', '" + request._message + "', '" + request.User.UserName + "')";
             Database.Instance.Execute(sql);
             Core.Instance.GetAllFreeRequests().Add(this);
         }

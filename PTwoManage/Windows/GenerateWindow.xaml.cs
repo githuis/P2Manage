@@ -72,7 +72,7 @@ namespace PTwoManage
                 GeneratorProgressbar bar = new GeneratorProgressbar();
                 bar.Show();
                 int.TryParse(YearTextBox.Text, out yr);
-                for (int i = fromWeek; i < toWeek; i++)
+                for (int i = fromWeek; i <= toWeek; i++)
                 {
                     Core.Instance.ScheduleGenerator(i, yr);
                     Console.WriteLine("Generated days for week: " + i);

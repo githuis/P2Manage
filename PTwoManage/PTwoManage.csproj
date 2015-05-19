@@ -94,8 +94,8 @@
     <Compile Include="Windows\AddHolidayWindow.xaml.cs">
       <DependentUpon>AddHolidayWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\addShiftTemplateWindow.xaml.cs">
-      <DependentUpon>addShiftTemplateWindow.xaml</DependentUpon>
+    <Compile Include="Windows\AddShiftTemplateWindow.xaml.cs">
+      <DependentUpon>AddShiftTemplateWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\AddUserWindow.xaml.cs">
       <DependentUpon>AddUserWindow.xaml</DependentUpon>
@@ -134,7 +134,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\addShiftTemplateWindow.xaml">
+    <Page Include="Windows\AddShiftTemplateWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
