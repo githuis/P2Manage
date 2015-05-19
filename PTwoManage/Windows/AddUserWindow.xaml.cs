@@ -35,8 +35,7 @@ namespace PTwoManage
         {
             try
             {
-                if (EditUser_Password.Password != "" && EditUser_Password.Password == EditUser_ConfirmPassword.Password && EditUser_FullName.Text != "" && EditUser_CPR.Text != "" && EditUser_Number.Text != ""
-                && EditUser_Email.Text != "" && !User.CheckUserExists(CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text)))
+                if (CheckBoxesForContent())
                 {
                     PreventSqlInjection();
 
@@ -63,6 +62,15 @@ namespace PTwoManage
             {
                 System.Windows.Forms.MessageBox.Show(e.Message, "Error");
             }            
+        }
+
+        private bool CheckBoxesForContent()
+        {
+            if (EditUser_Password.Password != "" && EditUser_Password.Password == EditUser_ConfirmPassword.Password && EditUser_FullName.Text != "" && EditUser_CPR.Text != "" && EditUser_Number.Text != ""
+                && EditUser_Email.Text != "")
+                return true;
+            else
+                return false;
         }
 
         private void PreventSqlInjection()
@@ -133,6 +141,7 @@ namespace PTwoManage
                 EditUser_ConfirmPassword.Password = User.GetUserByName(userName).Password;
                 EditUser_ConfirmPassword.IsEnabled = false;
                 Tag_ListBox.SelectedItemsOverride = User.GetUserByName(item.Content.ToString()).UserCategories;
+                AddUser_Confirmation.Content = "";
             }
             Tag_ListBox.Items.Refresh();
         }
@@ -160,13 +169,19 @@ namespace PTwoManage
         private void SaveUser_Click(object sender, RoutedEventArgs e)
         {
             string userName = EditUser_UserNameBox.Text;
-            Console.WriteLine(User.CheckUserExists(userName));
             if (User.CheckUserExists(userName))
             {
-
-                SaveToCurrentUser(User.GetUserByName(userName));
-                EmptyForm();
-                Console.WriteLine("Saved User");
+                if (CheckBoxesForContent())
+                {
+                    SaveToCurrentUser(User.GetUserByName(userName));
+                    EmptyForm();
+                    Console.WriteLine("Saved User");
+                }
+                else
+                {
+                    AddUser_Confirmation.Content = "Not all input boxes are filled or valid";
+                }
+                
             }
             else
                 Submit_AddUser();
