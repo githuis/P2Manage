@@ -33,13 +33,17 @@ namespace PTwoManage.Windows
 
         private void PopulateSwapeeUserComboBox()
         {
-            SwapeeUserComboBox.ItemsSource = Core.Instance.GetAllUsers();
+            User test = SwapperUserComboBox.SelectedItem as User;
+            if(SwapperUserComboBox.SelectedItem == null)
+                SwapeeUserComboBox.ItemsSource = Core.Instance.GetAllUsers();
+            else
+                SwapeeUserComboBox.ItemsSource = Core.Instance.GetAllUsers().Where(user => user.UserName != test.UserName);
         }
 
         private void PopulateSwapperShiftCombobox()
         {
             User test = SwapperUserComboBox.SelectedItem as User;
-            SwapperShiftCombobox.ItemsSource = Core.Instance.GetAllShifts().Where(shift => shift.EmployeeName == test.UserName);
+            SwapperShiftCombobox.ItemsSource = Core.Instance.GetAllShifts().Where(shift => shift.EmployeeName == test.UserName).Where(shift => shift._startTime >= DateTime.Now);
         }
 
         private void SwapperShiftCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -50,6 +54,7 @@ namespace PTwoManage.Windows
         private void SwapperUserComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             PopulateSwapperShiftCombobox();
+            PopulateSwapeeUserComboBox();
         }
 
         private void SwapShifts_Click(object sender, RoutedEventArgs e)
@@ -63,7 +68,6 @@ namespace PTwoManage.Windows
                 swapee.UpdateUserPointBalance(4);
                 swapper.UpdateUserPointBalance(-4);
                 shift.UpdateShift(swapee.UserName);
-                shift.EmployeeName = swapee.UserName;
                 PopulateSwapperShiftCombobox();
             }
             else
