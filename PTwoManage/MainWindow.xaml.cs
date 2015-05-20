@@ -71,8 +71,9 @@ namespace PTwoManage
                 Core.Instance.Run();
 
                 //Should be called with current week
-
+            
                 LoadDaysToView(1);
+                
             }
             catch (Exception e)
             {
