@@ -72,7 +72,7 @@ namespace PTwoManage
 
                 //Should be called with current week
             
-                LoadDaysToView(1);
+                LoadDaysToView(Core.Instance.GetWeeksInYear(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day));
                 
             }
             catch (Exception e)
