@@ -64,16 +64,11 @@ namespace PTwoManage
                 Core.Instance.LoadShiftsFromDatabase();
                 Core.Instance.LoadUserFreeRequestsFromDatabase();
                 InitializeComponent();
+                SelectedWeek = Core.Instance.GetWeeksInYear(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
                 UpdateWeekNumberDisplay();
-
-                //Temp Shifts
-
-                Core.Instance.Run();
 
                 //Should be called with current week
-                SelectedWeek = Core.Instance.GetWeeksInYear(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-                LoadDaysToView(Core.Instance.GetWeeksInYear(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day));
-                UpdateWeekNumberDisplay();
+                LoadDaysToView(SelectedWeek);
                 
             }
             catch (Exception e)
