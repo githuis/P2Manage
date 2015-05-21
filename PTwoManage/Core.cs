@@ -420,7 +420,7 @@ namespace PTwoManage
             return UserList.First().UserName;
         }
 
-        private bool CompareTags(List<string> UserTags, List<string> ShiftTags)
+        public bool CompareTags(List<string> UserTags, List<string> ShiftTags)
         {
             /*if (!ShiftTags.Any() || (!ShiftTags.Any() && !UserTags.Any()))
                 return true;*/
@@ -487,10 +487,10 @@ namespace PTwoManage
             throw new NotImplementedException();
         }
 
-        public int GetWeeksInYear(int year)
+        public int GetWeeksInYear(int year, int month = 12, int day = 31)
         {
             System.Globalization.DateTimeFormatInfo dfi = System.Globalization.DateTimeFormatInfo.CurrentInfo;
-            DateTime dt = new DateTime(year, 12, 31);
+            DateTime dt = new DateTime(year, month, day);
             System.Globalization.Calendar cal = dfi.Calendar;
             return cal.GetWeekOfYear(dt, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
         }

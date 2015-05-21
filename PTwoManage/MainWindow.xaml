@@ -5,14 +5,12 @@
         Title="P2Manage  -  Week 1  2015" Height="350" Width="800"  WindowState="Maximized"  
         >
     <Window.Resources>
-        <DataTemplate DataType="x:Type ListView.ItemTemplate" x:Key="DayDisplay">
+        <DataTemplate x:Key="DayDisplay">
             <WrapPanel>
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding EmployeeName}" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Day}" />
+                        <TextBlock Text="{Binding EmployeeName}">                               
+                        </TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding PrintableStartTime}" />
@@ -24,10 +22,17 @@
         </DataTemplate>
         <Style TargetType="ListView">
             <Setter Property="Margin" Value="10"/>
-            <Setter Property="MinWidth" Value="80"/>
+            <Setter Property="MinWidth" Value="90"/>
             <Setter Property="Width" Value="auto"/>
             <Setter Property="MinHeight" Value="30"/>
         </Style>
+        
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Width" Value="60"/>
+        </Style>
+        
+        
     </Window.Resources>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
@@ -45,151 +50,31 @@
             </MenuItem>
         </Menu>
 
-        <StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+        <StackPanel HorizontalAlignment="Center" Width="auto" >
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,10">
                 <Button Name="DecrementWeekButton" Content="Previous" Click="DecrementWeekButton_Click" Margin="5"/>
-                <TextBlock Name="WeekDisplayNumTextBlock" Text="Week: " Margin="5" Width="50"/>
+                <TextBlock Name="WeekDisplayNumTextBlock" Text="Week: " Margin="5" Width="50" TextAlignment="Center" Height="16"/>
                 <Button Name="IncrementWeekButton" Content="Next" Click="IncrementWeekButton_Click" Margin="5"/>
             </StackPanel>
-            <TextBlock TextWrapping="Wrap"><Run Text="       "/><Run Text="  "/><Run Text="Monday                Tuesday               Wednesday              Thursday                  Friday                  Saturday                 Sunday        "/></TextBlock>
+            <TextBlock TextWrapping="Wrap"><Run Text="        "/><Run Text="  "/><Run Text="Monday                     Tuesday                 Wednesday                Thursday                      Friday                     Saturday                    Sunday        "/></TextBlock>
 
             <!-- Week display -->
             <StackPanel Orientation="Horizontal">
 
-                <ListView Name="shiftDataBindingMonday">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <WrapPanel>
-                                <StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding EmployeeName}" />
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding PrintableStartTime}" />
-                                        <TextBlock Text=" - " />
-                                        <TextBlock Text="{Binding PrintableEndTime}" />
-                                    </StackPanel>
-                                </StackPanel>
-                            </WrapPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-
-
-
-                </ListView>
-                <ListView Name="shiftDataBindingTuesday">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <WrapPanel>
-                                <StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding EmployeeName}" />
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding PrintableStartTime}" />
-                                        <TextBlock Text=" - " />
-                                        <TextBlock Text="{Binding PrintableEndTime}" />
-                                    </StackPanel>
-                                </StackPanel>
-                            </WrapPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <ListView Name="shiftDataBindingWednesday">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <WrapPanel>
-                                <StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding EmployeeName}" />
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding PrintableStartTime}" />
-                                        <TextBlock Text=" - " />
-                                        <TextBlock Text="{Binding PrintableEndTime}" />
-                                    </StackPanel>
-                                </StackPanel>
-                            </WrapPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <ListView Name="shiftDataBindingThursday">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <WrapPanel>
-                                <StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding EmployeeName}" />
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding PrintableStartTime}" />
-                                        <TextBlock Text=" - " />
-                                        <TextBlock Text="{Binding PrintableEndTime}" />
-                                    </StackPanel>
-                                </StackPanel>
-                            </WrapPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <ListView Name="shiftDataBindingFriday">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <WrapPanel>
-                                <StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding EmployeeName}" />
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding PrintableStartTime}" />
-                                        <TextBlock Text=" - " />
-                                        <TextBlock Text="{Binding PrintableEndTime}" />
-                                    </StackPanel>
-                                </StackPanel>
-                            </WrapPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <ListView Name="shiftDataBindingSaturday">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <WrapPanel>
-                                <StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding EmployeeName}" />
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding PrintableStartTime}" />
-                                        <TextBlock Text=" - " />
-                                        <TextBlock Text="{Binding PrintableEndTime}" />
-                                    </StackPanel>
-                                </StackPanel>
-                            </WrapPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <ListView Name="shiftDataBindingSunday">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <WrapPanel>
-                                <StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding EmployeeName}" />
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding PrintableStartTime}" />
-                                        <TextBlock Text=" - " />
-                                        <TextBlock Text="{Binding PrintableEndTime}" />
-                                    </StackPanel>
-                                </StackPanel>
-                            </WrapPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                <ListView Name="shiftDataBindingMonday" ItemTemplate="{StaticResource DayDisplay}"></ListView>
+                <ListView Name="shiftDataBindingTuesday"  ItemTemplate="{StaticResource DayDisplay}"></ListView>
+                <ListView Name="shiftDataBindingWednesday" ItemTemplate="{StaticResource DayDisplay}"></ListView>
+                <ListView Name="shiftDataBindingThursday" ItemTemplate="{StaticResource DayDisplay}"></ListView>
+                <ListView Name="shiftDataBindingFriday" ItemTemplate="{StaticResource DayDisplay}"> </ListView>
+                <ListView Name="shiftDataBindingSaturday" ItemTemplate="{StaticResource DayDisplay}"></ListView>
+                <ListView Name="shiftDataBindingSunday" ItemTemplate="{StaticResource DayDisplay}"></ListView>
             </StackPanel>
+            <!--
             <StackPanel>
                 <TextBlock x:Name="ShiftInformationText" Text="Select a Shift for more information"/>
             </StackPanel>
+            -->
 
-        </StackPanel>
+        </StackPanel>   
     </DockPanel>
 </Window>

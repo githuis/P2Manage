@@ -65,10 +65,15 @@ namespace PTwoManage.Windows
                 User swapee = SwapeeUserComboBox.SelectedItem as User;
                 Shift shift = SwapperShiftCombobox.SelectedItem as Shift;
 
-                swapee.UpdateUserPointBalance(4);
-                swapper.UpdateUserPointBalance(-4);
-                shift.UpdateShift(swapee.UserName);
-                PopulateSwapperShiftCombobox();
+                if (Core.Instance.CompareTags(swapee.UserCategories, shift.Tag))
+                {
+                    swapee.UpdateUserPointBalance(4);
+                    swapper.UpdateUserPointBalance(-4);
+                    shift.UpdateShift(swapee.UserName);
+                    PopulateSwapperShiftCombobox();
+                }
+                else
+                    System.Media.SystemSounds.Beep.Play();
             }
             else
                 System.Media.SystemSounds.Beep.Play();
