@@ -117,6 +117,9 @@
     <Compile Include="Windows\UserSwapShift.xaml.cs">
       <DependentUpon>UserSwapShift.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\UserWorkHoursWindow.xaml.cs">
+      <DependentUpon>UserWorkHoursWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Workschedule.cs" />
     <Page Include="Windows\GeneratorProgressbar.xaml">
       <SubType>Designer</SubType>
@@ -165,6 +168,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\UserSwapShift.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\UserWorkHoursWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

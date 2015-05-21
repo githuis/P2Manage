@@ -29,6 +29,7 @@ namespace PTwoManage
         ShiftWindow shiftWindow;
         GenerateWindow generatorWindow;
         Windows.UserSwapShift userSwapWindow;
+        Windows.UserWorkHoursWindow userWorkHoursWindow;
 
         private int _year = 2015;
         private int _week = 1;
@@ -164,6 +165,12 @@ namespace PTwoManage
         void MainWindow_Closing(object sender, CancelEventArgs e)
         {
             Database.Instance.m_dbConnection.Close();
+        }
+
+        private void LookUpHours_Click(object sender, RoutedEventArgs e)
+        {
+            userWorkHoursWindow = new Windows.UserWorkHoursWindow();
+            userWorkHoursWindow.ShowDialog();
         }
         
     }
