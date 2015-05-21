@@ -71,14 +71,25 @@ namespace PTwoManage
                 Core.Instance.Run();
 
                 //Should be called with current week
-
-                LoadDaysToView(1);
+                
+                LoadDaysToView(GetCurrentWeekNumber());
+                UpdateWeekNumberDisplay();
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.InnerException.Message);
             }
 
+        }
+
+        private int GetCurrentWeekNumber()
+        {
+            int result = 0;
+            double daysInFirstWeek = 0;
+            daysInFirstWeek = Core.Instance.CalcFirstDayInYear(new DateTime(DateTime.Now.Year, 1, 1));
+            daysInFirstWeek = Math.Ceiling((DateTime.Now.DayOfYear + (daysInFirstWeek - 7) + 7) / 7);
+            result = Convert.ToInt32(daysInFirstWeek);
+            return result;
         }
 
         private void LoadDaysToView(int week)
@@ -90,6 +101,7 @@ namespace PTwoManage
             shiftDataBindingFriday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Friday, week, _year);
             shiftDataBindingSaturday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Saturday, week, _year);
             shiftDataBindingSunday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Sunday, week, _year);
+            SelectedWeek = week;
         }
 
         private void AddUser_Click(object sender, RoutedEventArgs e)

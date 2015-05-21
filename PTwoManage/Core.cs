@@ -232,7 +232,7 @@ namespace PTwoManage
             {
                 DateTime YearStartingDate = new DateTime(year, 1, 1);
                 int FirstDayInYear = 0;
-                FirstDayInYear = CalcFirstDayInYear(YearStartingDate, FirstDayInYear);
+                FirstDayInYear = CalcFirstDayInYear(YearStartingDate);
 
                 int DayInYear;
                 if (weeknumber == 1)
@@ -275,8 +275,9 @@ namespace PTwoManage
             }
         }
 
-        private int CalcFirstDayInYear(DateTime YearStartingDate, int FirstDayInYear)
+        public int CalcFirstDayInYear(DateTime YearStartingDate)
         {
+            int FirstDayInYear = 0;
             switch (YearStartingDate.DayOfWeek)
             {
                 case DayOfWeek.Monday:
