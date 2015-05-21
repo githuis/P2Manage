@@ -202,10 +202,15 @@ namespace PTwoManage
                 DateTime YearStartingDate = new DateTime(year, 1, 1);
                 int FirstDayInYear = 0;
                 FirstDayInYear = CalcFirstDayInYear(YearStartingDate);
+                if (weeknumber == 1)
+                {
+                    if (AllShiftTemplates[i]._startTime.Day <= FirstDayInYear)
+                        continue;
+                }
 
                 int DayInYear;
                 if (weeknumber == 1)
-                    DayInYear = AllShiftTemplates[i]._startTime.Day;
+                    DayInYear = AllShiftTemplates[i]._startTime.Day - (7-FirstDayInYear);
                 else if (weeknumber == 2)
                     DayInYear = FirstDayInYear + AllShiftTemplates[i]._startTime.Day;
                 else

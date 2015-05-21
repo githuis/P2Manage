@@ -161,7 +161,7 @@ namespace PTwoManage
             User user = this;
             user.Points += points;
             string sql;
-            sql = "UPDATE userTable SET points='" + user.Points + "'  WHERE username='" + user.UserName + "'";
+            sql = "UPDATE userTable SET points='" + user.Points + "' WHERE username='" + user.UserName + "'";
             Database.Instance.Execute(sql);
         }
 
