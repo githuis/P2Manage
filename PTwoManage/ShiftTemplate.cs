@@ -48,7 +48,7 @@ namespace PTwoManage
             PrintableDay = _startTime.DayOfWeek.ToString();
             PrintableTime = _startTime.ToShortTimeString() + " - " + _endTime.ToShortTimeString();
             PrintableTags = "";
-            Tag.ForEach(x => PrintableTags += (x.ToString() + " "));
+            Tag.ForEach(x => PrintableTags += (x.ToString() + ", "));
         }
     }
 }
