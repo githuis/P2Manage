@@ -17,6 +17,9 @@
                         <TextBlock Text=" - " />
                         <TextBlock Text="{Binding PrintableEndTime}" />
                     </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="{Binding SchedulePrintableTags}"/>
+                    </StackPanel>
                 </StackPanel>
             </WrapPanel>
         </DataTemplate>

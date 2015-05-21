@@ -15,6 +15,7 @@ namespace PTwoManage
         public string PrintableDay { get; set; }
         public string PrintableTime { get; set; }
         public string PrintableTags { get; set; }
+        public string SchedulePrintableTags { get; set; }
 
         public ShiftTemplate(DateTime starttime, DateTime endtime, string tag)//List<string> tag
         {
@@ -48,6 +49,8 @@ namespace PTwoManage
             PrintableDay = _startTime.DayOfWeek.ToString();
             PrintableTime = _startTime.ToShortTimeString() + " - " + _endTime.ToShortTimeString();
             PrintableTags = "";
+            
+
             Tag.ForEach(x => PrintableTags += (x.ToString() + ", "));
         }
     }
