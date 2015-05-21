@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PTwoManage.GenerateWindow" Collapsed="true">
+    <Position X="1.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAACAAQAAAAAABAAAgAAAAAAAQAABAAA=</HashCode>
+      <FileName>Windows\GenerateWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PTwoManage.Core">
+    <Position X="7.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAFxoAAQAAAAIwAQCgQEAGAAKwCACAiRAAgAAkAAgI=</HashCode>
+      <FileName>Core.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PTwoManage.Database">
+    <Position X="9" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEQAAAAgAAEAQABAAIBAQgAAAECAIAQACQgAQAAAA=</HashCode>
+      <FileName>Database.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PTwoManage.Holiday" Collapsed="true">
+    <Position X="10.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAABAAAAACAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Holiday.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PTwoManage.ShiftTemplate" Collapsed="true">
+    <Position X="4.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAIAAgAAAUCAAAAAAAAgQAAAABAAAAAAgAEAA=</HashCode>
+      <FileName>ShiftTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PTwoManage.Shift" Collapsed="true">
+    <Position X="4.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIACAAIAAACAAAAAAAAACAKCAgAAgABAAgAIAAAAA=</HashCode>
+      <FileName>Shift.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PTwoManage.User" Collapsed="true">
+    <Position X="13.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQDIBAAgCAggAAkiABEAAQIAAEAAIAKAQICYAAgABE=</HashCode>
+      <FileName>User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PTwoManage.UserFreeRequest" Collapsed="true">
+    <Position X="13.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAEBAAAAIAAAAAAAAAAAAAAAIAAgAIAAEAAAIAAAAAA=</HashCode>
+      <FileName>UserFreeRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

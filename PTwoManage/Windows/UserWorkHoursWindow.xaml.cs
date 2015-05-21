@@ -32,25 +32,35 @@ namespace PTwoManage.Windows
                 Selected_Month.Items.Add(new ComboBoxItem { Content = month });
                 count++;
             }
+
+            for (int i = DateTime.Now.Year; i >= 1990; i--)
+            {
+                string year = i.ToString();
+                Selected_Year.Items.Add(new ComboBoxItem { Content = year });
+            }
         }
 
-        private void Selected_user_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CalcMonthHours()
         {
-            DateTime month = ConvertSelectedMonth(Selected_Month.Text);
-            User target = Selected_user.SelectedItem as User;
-            double HoursThisMonth = 0;
-            TimeSpan HoursInShift = new TimeSpan(0);
-
-
-            foreach (Shift s in Core.Instance.GetAllShifts())
+            if (Selected_user.SelectedItem != null && Selected_Month.SelectedItem != null &&  Selected_Year.SelectedItem != null)
             {
-                if (s._endTime < DateTime.Now && s._startTime.Month == month.Month && s.EmployeeName == target.UserName)
+                DateTime selectedDate = ConvertSelectedMonth(Selected_Month.Text, Selected_Year.Text);
+                User target = Selected_user.SelectedItem as User;
+                double HoursThisMonth = 0;
+                TimeSpan HoursInShift = new TimeSpan(0);
+
+                foreach (Shift s in Core.Instance.GetAllShifts())
                 {
-                    HoursInShift += s._endTime - s._startTime;
+                    if (s._endTime < DateTime.Now && s._startTime.Year == selectedDate.Year && s._startTime.Month == selectedDate.Month && s.EmployeeName == target.UserName)
+                    {
+                        HoursInShift += s._endTime - s._startTime;
+                    }
                 }
+                HoursThisMonth = HoursInShift.TotalHours;
+                WorkHours.Text = HoursThisMonth.ToString();
             }
-            HoursThisMonth = HoursInShift.TotalHours;
-            WorkHours.Text = HoursThisMonth.ToString();
+            else
+                WorkHours.Text = "Waiting for input";
         }
 
         private void Populate_User_Combobox()
@@ -58,57 +68,58 @@ namespace PTwoManage.Windows
             Selected_user.ItemsSource = Core.Instance.GetAllUsers();
         }
 
-        private void Selected_Month_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private DateTime ConvertSelectedMonth(string selectedMonth, string selectedYear)
         {
-
-        }
-
-        private DateTime ConvertSelectedMonth(string selectedMonth)
-        {
-            DateTime resultMonth;
+            int resultYear = int.Parse(selectedYear);
+            DateTime resultDate;
             switch (selectedMonth)
             {
                 case "January":
-                    resultMonth = new DateTime(DateTime.Now.Year, 1, 1);
+                    resultDate = new DateTime(resultYear, 1, 1);
                     break;
                 case "February":
-                    resultMonth = new DateTime(DateTime.Now.Year, 2, 1);
+                    resultDate = new DateTime(resultYear, 2, 1);
                     break;
                 case "March":
-                    resultMonth = new DateTime(DateTime.Now.Year, 3, 1);
+                    resultDate = new DateTime(resultYear, 3, 1);
                     break;
                 case "April":
-                    resultMonth = new DateTime(DateTime.Now.Year, 4, 1);
+                    resultDate = new DateTime(resultYear, 4, 1);
                     break;
                 case "May":
-                    resultMonth = new DateTime(DateTime.Now.Year, 5, 1);
+                    resultDate = new DateTime(resultYear, 5, 1);
                     break;
                 case "June":
-                    resultMonth = new DateTime(DateTime.Now.Year, 6, 1);
+                    resultDate = new DateTime(resultYear, 6, 1);
                     break;
                 case "July":
-                    resultMonth = new DateTime(DateTime.Now.Year, 7, 1);
+                    resultDate = new DateTime(resultYear, 7, 1);
                     break;
                 case "August":
-                    resultMonth = new DateTime(DateTime.Now.Year, 8, 1);
+                    resultDate = new DateTime(resultYear, 8, 1);
                     break;
                 case "September":
-                    resultMonth = new DateTime(DateTime.Now.Year, 9, 1);
+                    resultDate = new DateTime(resultYear, 9, 1);
                     break;
                 case "October":
-                    resultMonth = new DateTime(DateTime.Now.Year, 10, 1);
+                    resultDate = new DateTime(resultYear, 10, 1);
                     break;
                 case "November":
-                    resultMonth = new DateTime(DateTime.Now.Year, 11, 1);
+                    resultDate = new DateTime(resultYear, 11, 1);
                     break;
                 case "December":
-                    resultMonth = new DateTime(DateTime.Now.Year, 12, 1);
+                    resultDate = new DateTime(resultYear, 12, 1);
                     break;
                 default:
-                    resultMonth = new DateTime();
+                    resultDate = new DateTime();
                     break;
             }
-            return resultMonth;
+            return resultDate;
+        }
+
+        private void CalcHours_Button_Click(object sender, RoutedEventArgs e)
+        {
+            CalcMonthHours();
         }
         /*
                     <ComboBoxItem>January</ComboBoxItem>
