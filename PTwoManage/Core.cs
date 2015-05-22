@@ -308,7 +308,7 @@ namespace PTwoManage
         {
 
             // Er der kun en user er vagten hans, er der ingen skal der returneres en fejl
-            Console.WriteLine("Number of user to be sorted = "+UserList.Count);
+            //Console.WriteLine("Number of user to be sorted = "+UserList.Count);
             if (UserList.Count <= 1)
             {
                 if (UserList.Count == 1)
@@ -380,8 +380,7 @@ namespace PTwoManage
                 }
             }
             // Skal derefter sorterer efter personen med færrest point
-            var SortedList = UserList.OrderBy(user => user.WorkInWeek).ThenBy(user => user.Points);
-            UserList = SortedList.ToList();
+            UserList = UserList.OrderBy(user => user.WorkInWeek).ThenBy(user => user.Points).ToList();
 
             // Til sidst tjekkes det om det er samme person som sidste år som arbejede på denne dato
             /*if (RepetingWorker(UserList.First(), UserList))

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PTwoManage
 {
-    public class User
+    public class User : IComparable
     {
         static List<User> allUsers = new List<User>();
         public List<string> UserCategories;
@@ -216,6 +216,31 @@ namespace PTwoManage
             //45358 is an arbitrary number, but it is the same for all users
             //It ensures a spread of the hash values
             return Id * 45358;
+        }
+
+        public int CompareTo(object obj)
+        {
+            User u = obj as User;
+            if (!(u is User))
+                throw new ArgumentException("Attempting to compare to an object that is not of type user.");
+
+            if (this.WorkInWeek < u.WorkInWeek)
+                return -1;
+            else if (this.WorkInWeek > u.WorkInWeek)
+                return 1;
+            else
+            {
+                if (this.Points < u.Points)
+                    return -1;
+                else if (this.Points > u.Points)
+                    return 1;
+                else
+                {
+                    return this.UserName.CompareTo(u.UserName);
+                }
+            }
+
+            
         }
 
     }
