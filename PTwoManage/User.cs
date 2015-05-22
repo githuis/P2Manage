@@ -223,6 +223,8 @@ namespace PTwoManage
             User u = obj as User;
             if (!(u is User))
                 throw new ArgumentException("Attempting to compare to an object that is not of type user.");
+            if (u == this)
+                return 0;
 
             if (this.WorkInWeek < u.WorkInWeek)
                 return -1;
@@ -236,7 +238,8 @@ namespace PTwoManage
                     return 1;
                 else
                 {
-                    return this.UserName.CompareTo(u.UserName);
+                    //Somewhat 'random' value to sort the objects are (almost) the same
+                   return (DateTime.Now.Millisecond%3) - 3;
                 }
             }
 

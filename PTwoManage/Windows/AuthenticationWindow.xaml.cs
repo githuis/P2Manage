@@ -45,7 +45,6 @@ namespace PTwoManage
 
             foreach (string s in split)
             {
-                Console.WriteLine("Login: " + loginString + "\nMatch: " + s);
                 if (loginString == s && loginString.Contains(_companyName))
                 {
                     this.DialogResult = true;

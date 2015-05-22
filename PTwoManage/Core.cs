@@ -335,9 +335,9 @@ namespace PTwoManage
                 }
             }
 
-            var SortedUnAvalibleUsers = UnAvalibleUsers.OrderBy(user => user.Points);
-            UnAvalibleUsers = SortedUnAvalibleUsers.ToList();
+            UnAvalibleUsers = UnAvalibleUsers.OrderBy(user => user.Points).ToList();
 
+            // If everyone has requested time off, there must be at least one worker foreced to take the shift.
             if (UnAvalibleUsers.Count == UserList.Count)
             {
                 foreach (User u in UnAvalibleUsers)
@@ -363,6 +363,7 @@ namespace PTwoManage
                     }
                 }
             }
+                // if some (not all, maybe none) Users want time off they get their time off
             else
             {
                 foreach (User u in UnAvalibleUsers)
@@ -380,7 +381,13 @@ namespace PTwoManage
                 }
             }
             // Skal derefter sorterer efter personen med færrest point
-            UserList = UserList.OrderBy(user => user.WorkInWeek).ThenBy(user => user.Points).ToList();
+            // Sort by 
+            //UserList = UserList.OrderBy(user => user.WorkInWeek).ThenBy(user => user.Points).ToList();
+            User[] ar = UserList.ToArray();
+            Qsort3(ar);
+            UserList = ar.ToList();
+
+            
 
             // Til sidst tjekkes det om det er samme person som sidste år som arbejede på denne dato
             /*if (RepetingWorker(UserList.First(), UserList))
@@ -391,6 +398,49 @@ namespace PTwoManage
             UserList.First().WorkInWeek++;
             UserList.First().UpdateUserPointBalance(PossitiveDayWeight);
             return UserList.First().UserName;
+        }
+
+        //Qsort with 3 way partitioning taken from http://algs4.cs.princeton.edu/23quicksort/Quick3way.java.html
+        public void Qsort3(IComparable[] a)
+        {
+            
+            Qsort3(a, 0, a.Length-1);
+        }
+
+        public void Qsort3(IComparable[] compares, int low, int high)
+        {
+            if (high <= low) return;
+            int lt = low, gt = high;
+            IComparable v = compares[low];
+            int i = low;
+            while(i <= gt)
+            {
+                int cmp = compares[i].CompareTo(v);
+                if (cmp < 0)
+                    Exchange(compares, lt++, i++);
+                else if (cmp > 0)
+                    Exchange(compares, i, gt--);
+                else
+                    i++;
+                
+            }
+            Qsort3(compares, low, lt - 1);
+            Qsort3(compares, gt + 1, high);
+        }
+
+        public void Exchange(Object[] arr, int i, int j)
+        {
+            Object swap = arr[i];
+            arr[i] = arr[j];
+            arr[j] = swap;
+        }
+
+        public void Debug_PrintSortedUserList()
+        {
+            for (int i = 0; i < _allUsers.Count-1; i++)
+            {
+                Console.WriteLine(_allUsers[i].UserName + " Days: " + _allUsers[i].WorkInWeek + " - Points: " + _allUsers[i].Points);
+            }
         }
 
         public bool CompareTags(List<string> UserTags, List<string> ShiftTags)
