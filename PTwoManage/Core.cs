@@ -422,7 +422,6 @@ namespace PTwoManage
                     Exchange(compares, i, gt--);
                 else
                     i++;
-                
             }
             Qsort3(compares, low, lt - 1);
             Qsort3(compares, gt + 1, high);

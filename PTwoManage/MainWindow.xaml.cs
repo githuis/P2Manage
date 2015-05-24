@@ -30,6 +30,7 @@ namespace PTwoManage
         GenerateWindow generatorWindow;
         Windows.UserSwapShift userSwapWindow;
         Windows.UserWorkHoursWindow userWorkHoursWindow;
+        Windows.DeleteShiftsWindow deleteShiftWindow;
 
         private int _year = 2015;
         private int _week = 1;
@@ -171,6 +172,12 @@ namespace PTwoManage
         {
             userWorkHoursWindow = new Windows.UserWorkHoursWindow();
             userWorkHoursWindow.ShowDialog();
+        }
+
+        private void DeleteShifts_Click(object sender, RoutedEventArgs e)
+        {
+            deleteShiftWindow = new Windows.DeleteShiftsWindow();
+            deleteShiftWindow.ShowDialog();
         }
         
     }

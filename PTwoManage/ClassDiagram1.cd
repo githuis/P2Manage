@@ -10,7 +10,7 @@
   <Class Name="PTwoManage.Core">
     <Position X="7.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BAAFxoAAQAAAAIwAQCgQEAGAAKwCACAiRAAgAAkAAgI=</HashCode>
+      <HashCode>BAAFxoBAQAAAAIwAQCgQEAGAAKwCACAiRAAxAAkAAgA=</HashCode>
       <FileName>Core.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -45,9 +45,10 @@
   <Class Name="PTwoManage.User" Collapsed="true">
     <Position X="13.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABQDIBAAgCAggAAkiABEAAQIAAEAAIAKAQICYAAgABE=</HashCode>
+      <HashCode>ABQDIBAAgCAggAQkiABEAAQIAAEAAIAKAQICYAAgABE=</HashCode>
       <FileName>User.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="PTwoManage.UserFreeRequest" Collapsed="true">
     <Position X="13.5" Y="2.75" Width="1.5" />

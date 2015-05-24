@@ -91,5 +91,14 @@ namespace PTwoManage
             shift.EmployeeName = newUser;
             Database.Instance.Execute(sql);
         }
+
+        public void DeleteShift()
+        {
+            Shift shift = this;
+            string sql = "DELETE FROM ShiftTable WHERE employeeName='" + shift.EmployeeName + "' AND start='" + shift._startTime.ToString() + "' AND end='" + shift._endTime.ToString() + "'";
+            Database.Instance.Execute(sql);
+            Core.Instance.GetAllShifts().Remove(shift);
+        }
+
     }
 }

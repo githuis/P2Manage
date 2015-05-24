@@ -42,8 +42,8 @@ namespace PTwoManage.Windows
 
         private void PopulateSwapperShiftCombobox()
         {
-            User test = SwapperUserComboBox.SelectedItem as User;
-            SwapperShiftCombobox.ItemsSource = Core.Instance.GetAllShifts().Where(shift => shift.EmployeeName == test.UserName).Where(shift => shift._startTime >= DateTime.Now);
+            User selectedUser = SwapperUserComboBox.SelectedItem as User;
+            SwapperShiftCombobox.ItemsSource = Core.Instance.GetAllShifts().Where(shift => shift.EmployeeName == selectedUser.UserName).Where(shift => shift._startTime >= DateTime.Now);
         }
 
         private void SwapperShiftCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)

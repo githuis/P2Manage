@@ -242,8 +242,6 @@ namespace PTwoManage
                    return (DateTime.Now.Millisecond%3) - 3;
                 }
             }
-
-            
         }
 
     }
