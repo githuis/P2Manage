@@ -115,7 +115,6 @@
     <Compile Include="Windows\UserFreeTimeRequestWindow.xaml.cs">
       <DependentUpon>UserFreeTimeRequestWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Week.cs" />
     <Compile Include="Exceptions\UserNotFoundException.cs" />
     <Compile Include="Windows\UserSwapShift.xaml.cs">
       <DependentUpon>UserSwapShift.xaml</DependentUpon>

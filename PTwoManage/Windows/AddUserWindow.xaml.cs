@@ -148,7 +148,7 @@ namespace PTwoManage
                 EditUser_Email.Text = User.GetUserByName(userName).Email;
                 EditUser_ConfirmPassword.Password = User.GetUserByName(userName).Password;
                 EditUser_ConfirmPassword.IsEnabled = false;
-                Tag_ListBox.SelectedItemsOverride = User.GetUserByName(item.Content.ToString()).UserCategories;
+                Tag_ListBox.SelectedItemsOverride = User.GetUserByName(item.Content.ToString()).Tags;
                 AddUser_Confirmation.Content = "";
             }
             Tag_ListBox.Items.Refresh();
@@ -169,7 +169,7 @@ namespace PTwoManage
             u.Phone = EditUser_Number.Text;
             u.UserName = EditUser_UserNameBox.Text;
             u.Password = EditUser_Password.Password;
-            u.UserCategories = GetCheckedTags();
+            u.Tags = GetCheckedTags();
             u.SaveUserInfoToDatabase();
             Populate_UserList();
         }
@@ -186,14 +186,9 @@ namespace PTwoManage
                         SaveToCurrentUser(User.GetUserByName(userName));
                         EmptyForm();
                     }
-                    else
-                        Console.WriteLine();
                 }
                 else
-                {
                     AddUser_Confirmation.Content = "Not all input boxes are filled or valid";
-                }
-
             }
             else
                 Submit_AddUser();
@@ -269,12 +264,6 @@ namespace PTwoManage
                 return false;
             else
                 return true;
-        }
-
-
-        private void EditUser_NameList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

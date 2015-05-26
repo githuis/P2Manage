@@ -59,7 +59,7 @@
             <Button Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left" Width="72" Margin="105,0,0,16" Height="20" VerticalAlignment="Bottom" Click="EditUser_Select_Button_Click">Load User</Button>
             <Button Grid.Row="8" Grid.Column="1" Height="20" Width="75" Margin="192,0,0,16" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="Remove_User_Click">Remove User</Button>
             <Label Name="AddUser_Confirmation" HorizontalAlignment="Left" Grid.Row="7" Grid.Column="1" Width="326"></Label>
-            <ListBox Name="EditUser_NameList" Grid.Row="0" Grid.Column="2" Grid.RowSpan="10" Width="180" SelectionMode="Single" Height="421" SelectionChanged="EditUser_NameList_SelectionChanged" HorizontalAlignment="Left" VerticalAlignment="Top"></ListBox>
+            <ListBox Name="EditUser_NameList" Grid.Row="0" Grid.Column="2" Grid.RowSpan="10" Width="180" SelectionMode="Single" Height="421" HorizontalAlignment="Left" VerticalAlignment="Top"></ListBox>
             <wpfTool:CheckListBox Name="Tag_ListBox" Grid.Column="1" Grid.Row="9" Margin="15">
             </wpfTool:CheckListBox>
         </Grid>

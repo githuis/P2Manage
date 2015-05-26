@@ -8,8 +8,10 @@ using System.IO;
 
 namespace PTwoManage
 {
+    // Definition of the Core singelton object
     public sealed class Database
     {
+        //Lists of object contained in the Database instance used to retrieve data from the database file
         private string _companyName;
         static readonly Database _instance = new Database();
         public string[] userTableColumns = new string[9]{"id", "username", "password", "name", "cprNumber", "phone", "email", "tag", "points"};
@@ -21,6 +23,7 @@ namespace PTwoManage
         public SQLiteConnection m_dbConnection;
         public List<string> readInfo = new List<string>();
 
+        // A propterty for the CompanyName field with a setter not alowing the value to be empty
         public string CompanyName
         {
             get { return _companyName; }
@@ -34,6 +37,7 @@ namespace PTwoManage
             }
         }
 
+        // A method for retrieving a reference to the Database instance
         public static Database Instance
         {
             get { return _instance; }
@@ -42,11 +46,9 @@ namespace PTwoManage
         Database()
         {
             readInfo = new List<string>();
-
-            //InitDatabase();
-
         }
 
+        // A method for opening the conection to the database file
         private void InitDatabase()
         {
             string file = AppDomain.CurrentDomain.BaseDirectory + CompanyName + ".sqlite";
@@ -59,9 +61,10 @@ namespace PTwoManage
             CreateTables();
         }
 
+        // A method for creating tables in the databasefile
         private void CreateTables()
         {
-            Execute("CREATE TABLE IF NOT EXISTS userTable (id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR(50), password VARCHAR(50), name VARCHAR(50), cprNumber VARCHAR(50), phone VARCHAR(50), email VARCHAR(50), tag VARCHAR(1000), points VARCHAR(1000))");
+            Execute("CREATE TABLE IF NOT EXISTS userTable (id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR(50), password VARCHAR(50), name VARCHAR(50), cprNumber CHAR(10), phone CHAR(12), email VARCHAR(50), tag VARCHAR(1000), points VARCHAR(1000))");
             Execute("CREATE TABLE IF NOT EXISTS ShiftTable (id INTEGER PRIMARY KEY AUTOINCREMENT, start VARCHAR(50), end VARCHAR(50), tag VARCHAR(1000), employeeName VARCHAR(50), weekNumber INT)");
             Execute("CREATE TABLE IF NOT EXISTS ShiftTemplate (id INTEGER PRIMARY KEY AUTOINCREMENT, start VARCHAR(50), end VARCHAR(50), tag VARCHAR(1000))");
             Execute("CREATE TABLE IF NOT EXISTS TagTable (tag VARCHAR(1000))");
@@ -69,6 +72,7 @@ namespace PTwoManage
             Execute("CREATE TABLE IF NOT EXISTS HolidayTable (day VARCHAR(50))");
         }
 
+        // A method for executing SQL string in the database
         public void Execute(string sql)
         {
             if(sql.Contains(";"))
@@ -81,6 +85,7 @@ namespace PTwoManage
             command.ExecuteNonQuery();
         }
 
+        // A method for retrieving information from the database file and seperating it acording to a string array
         public void Read(string sql, ref List<string> resultData, params string[] elements)
         {
             resultData.Clear();
@@ -97,6 +102,7 @@ namespace PTwoManage
             }
         }
 
+        // Two methods used for converting Lists to strings and back
         public string ListToString(List<string> inputList)
         {
             string returnString = string.Join(":", inputList.ToArray());

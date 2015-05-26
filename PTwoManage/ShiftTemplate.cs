@@ -63,8 +63,8 @@ namespace PTwoManage
 
         public void GeneratePrintableInfo()
         {
-            PrintableDay = _startTime.DayOfWeek.ToString();
-            PrintableTime = _startTime.ToShortTimeString() + " - " + _endTime.ToShortTimeString();
+            PrintableDay = StartTime.DayOfWeek.ToString();
+            PrintableTime = StartTime.ToShortTimeString() + " - " + EndTime.ToShortTimeString();
             PrintableTags = "";
 
             if (Tag.Count == 1)

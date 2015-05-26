@@ -24,7 +24,9 @@ namespace PTwoManage
             InitializeComponent();
         }
 
-        private void Submit_OffDay_Click(object sender, RoutedEventArgs e)
+        // The method checks if the holiday already exsists and writes a error message if this is the case.
+        // Else the holiday is made
+        private void Submit_Holiday_Click(object sender, RoutedEventArgs e)
         {
             if (CheckIfHolidayExsists(FreeDate.SelectedDate.Value))
             {
@@ -69,7 +71,7 @@ namespace PTwoManage
             return false;
         }
 
-        private void RemoveOffDay_Click(object sender, RoutedEventArgs e)
+        private void RemoveHoliday_Click(object sender, RoutedEventArgs e)
         {
             if(Current_Holidays.SelectedItems.Count > 0)
             {

@@ -63,8 +63,7 @@ namespace PTwoManage
                 if (!Authentication.Instance.Prompt())
                     Application.Current.Shutdown();
 
-                Core.Instance.LoadShiftsFromDatabase();
-                Core.Instance.LoadUserFreeRequestsFromDatabase();
+                
                 InitializeComponent();
                 SelectedWeek = Core.Instance.GetWeeksInYear(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
                 UpdateWeekNumberDisplay();
@@ -80,15 +79,24 @@ namespace PTwoManage
 
         }
 
+        private void InstanciateCore()
+        {
+            Core.Instance.LoadShiftsFromDatabase();
+            Core.Instance.LoadUserFreeRequestsFromDatabase();
+            Core.Instance.LoadShiftTemplatesFromDatabase();
+            Core.Instance.LoadTagsFromDatabase();
+            Core.Instance.LoadUsersFromDatabase();
+        }
+
         private void LoadDaysToView(int week)
         {
-            shiftDataBindingMonday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Monday, week, _year);
-            shiftDataBindingTuesday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Tuesday, week, _year);
-            shiftDataBindingWednesday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Wednesday, week, _year);
-            shiftDataBindingThursday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Thursday, week, _year);
-            shiftDataBindingFriday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Friday, week, _year);
-            shiftDataBindingSaturday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Saturday, week, _year);
-            shiftDataBindingSunday.ItemsSource = Core.Instance.GetAllShifts(DayOfWeek.Sunday, week, _year);
+            shiftDataBindingMonday.ItemsSource = Core.Instance.GetAllShiftsForDayInWeekInYear(DayOfWeek.Monday, week, _year);
+            shiftDataBindingTuesday.ItemsSource = Core.Instance.GetAllShiftsForDayInWeekInYear(DayOfWeek.Tuesday, week, _year);
+            shiftDataBindingWednesday.ItemsSource = Core.Instance.GetAllShiftsForDayInWeekInYear(DayOfWeek.Wednesday, week, _year);
+            shiftDataBindingThursday.ItemsSource = Core.Instance.GetAllShiftsForDayInWeekInYear(DayOfWeek.Thursday, week, _year);
+            shiftDataBindingFriday.ItemsSource = Core.Instance.GetAllShiftsForDayInWeekInYear(DayOfWeek.Friday, week, _year);
+            shiftDataBindingSaturday.ItemsSource = Core.Instance.GetAllShiftsForDayInWeekInYear(DayOfWeek.Saturday, week, _year);
+            shiftDataBindingSunday.ItemsSource = Core.Instance.GetAllShiftsForDayInWeekInYear(DayOfWeek.Sunday, week, _year);
         }
 
         private void AddUser_Click(object sender, RoutedEventArgs e)

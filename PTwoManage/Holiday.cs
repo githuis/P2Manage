@@ -16,6 +16,7 @@ namespace PTwoManage
             set { _date = value; }
         }
 
+        // A holiday is denined only by a date which is saved in the database
         public Holiday(DateTime date)
         {
             _date = date;
@@ -33,7 +34,5 @@ namespace PTwoManage
             string sql = "DELETE FROM HolidayTable WHERE day='" + this._date.ToString() + "'";
             Database.Instance.Execute(sql);
         }
-
-        
     }
 }

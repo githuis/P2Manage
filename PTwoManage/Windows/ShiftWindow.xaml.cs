@@ -68,7 +68,7 @@ namespace PTwoManage
         {
             foreach (object obj in TagList.SelectedItems)
             {
-                if(!u.UserCategories.Contains(((ListBoxItem) obj).Content))
+                if(!u.Tags.Contains(((ListBoxItem) obj).Content))
                     return false;
             }
 

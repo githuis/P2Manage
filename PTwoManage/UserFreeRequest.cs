@@ -37,6 +37,7 @@ namespace PTwoManage
             set { _startTime = value; }
         }
 
+        // A UserFreeRequest is constructed with a timespan, a message and a user which is found with the GetUserByname method
         public UserFreeRequest(DateTime start, DateTime end, string message, string userName)
         {
             _startTime = start;

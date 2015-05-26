@@ -18,8 +18,7 @@ namespace PTwoManage
         }
 
         Authentication()
-        {
-            
+        { 
         }
 
         public bool Prompt(string companyName = "")

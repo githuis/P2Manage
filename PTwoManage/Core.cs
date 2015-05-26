@@ -9,8 +9,10 @@ namespace PTwoManage
 {
     public sealed class Core
     {
+        // Definition of the Core singelton object
         static readonly Core _instance = new Core();
 
+        //Lists of object contained in the Core instance
         private List<User> _allUsers;
         private List<string> _allTags;
         private List<Shift> _allShifts;
@@ -19,11 +21,13 @@ namespace PTwoManage
         private List<Holiday> _allHolidays;
         private List<string> _info;
 
+        // A method for retrieving a reference to the Core instance
         public static Core Instance
         {
             get { return _instance; }
         }
 
+        // The static instructor which is called the first time a method or field from Core is called
         Core()
         {
             _allTags = new List<string>();
@@ -34,17 +38,47 @@ namespace PTwoManage
             _allShifts = new List<Shift>();
             _info = new List<string>();
 
+        }
+
+        // Below are a series of method for loading different object from the database and instanciate them in the lists contained on the Core indstance
+        public void LoadHolidaysFromDatabase()
+        {
+            string sql = "SELECT * FROM HolidayTable";
+            Database.Instance.Read(sql, ref _info, Database.Instance.HolidayTableColumns);
+            foreach (var item in _info)
+            {
+                string[] split = item.Split(new Char[] { ',' });
+                _allHolidays.Add(new Holiday(DateTime.Parse(split[0])));
+            }
+        }
+
+        public void LoadTagsFromDatabase()
+        {
+            string sql = "SELECT * FROM TagTable";
+            Database.Instance.Read(sql, ref _info, Database.Instance.TagTableColumns);
+            foreach (var item in _info)
+            {
+                string[] split3 = item.Split(new Char[] { ',' });
+                if (!(split3[0] == ""))
+                    _allTags.Add(split3[0]);
+            }
+        }
+
+        public void LoadUsersFromDatabase()
+        {
             string sql = "SELECT * FROM userTable";
             Database.Instance.Read(sql, ref _info, Database.Instance.userTableColumns);
             foreach (var item in _info)
             {
                 string[] split = item.Split(new Char[] { ',' });
                 _allUsers.Add(new User(int.Parse(split[0]), split[1], split[2], split[3], split[4], split[5], split[6], Database.Instance.StringToList(split[7]), int.Parse(split[8])));
-                //_allUsers.Add(new User(int.Parse(split[0]), split[1], split[2], split[3], split[4], split[5], split[6], Database.Instance.stringToList(split[7]), 400));
             }
+        }
 
-            string sql2 = "SELECT * FROM ShiftTemplate";
-            Database.Instance.Read(sql2, ref _info, Database.Instance.ShiftTemplateTableColumns);
+        public void LoadShiftTemplatesFromDatabase()
+        {
+            string sql = "SELECT * FROM ShiftTemplate";
+            Database.Instance.Read(sql, ref _info, Database.Instance.ShiftTemplateTableColumns);
             ShiftTemplate t;
             foreach (var item in _info)
             {
@@ -52,23 +86,6 @@ namespace PTwoManage
                 t = new ShiftTemplate(DateTime.Parse(split2[1]), DateTime.Parse(split2[2]), split2[3]);
                 t.GeneratePrintableInfo();
                 _allTemplates.Add(t);
-            }
-
-            string sql3 = "SELECT * FROM TagTable";
-            Database.Instance.Read(sql3, ref _info, Database.Instance.TagTableColumns);
-            foreach (var item in _info)
-            {
-                string[] split3 = item.Split(new Char[] { ',' });
-                if (!(split3[0] == ""))
-                    _allTags.Add(split3[0]);
-            }
-
-            sql = "SELECT * FROM HolidayTable";
-            Database.Instance.Read(sql, ref _info, Database.Instance.HolidayTableColumns);
-            foreach (var item in _info)
-            {
-                string[] split = item.Split(new Char[] { ',' });
-                _allHolidays.Add(new Holiday(DateTime.Parse(split[0])));
             }
         }
 
@@ -99,6 +116,7 @@ namespace PTwoManage
             }
         }
 
+        // A series of methods for retieving the list of objects in the Core instance
         public List<User> GetAllUsers()
         {
             return _allUsers;
@@ -114,6 +132,32 @@ namespace PTwoManage
             return _allTemplates;
         }
 
+        public List<string> GetAllTags()
+        {
+            return _allTags;
+        }
+
+        public List<Holiday> GetAllHolidays()
+        {
+            //Returns alle holidays in order from oldest to newest
+            _allHolidays = _allHolidays.OrderBy(holiday => holiday.Date).ToList();
+            return _allHolidays;
+        }
+
+        // A method for retrieving Shifts with a specific Day, week and year
+        public List<Shift> GetAllShiftsForDayInWeekInYear(DayOfWeek day, int weekNum, int year)
+        {
+            List<Shift> dShifts = new List<Shift>();
+            foreach (Shift s in _allShifts)
+            {
+
+                if (s.Day == day && s.Week == weekNum && s.GetYear() == year)
+                    dShifts.Add(s);
+            }
+            return dShifts;
+        }
+
+        // A series of methods for adding or removing a singe object from one of the Core instance lists
         public void AddUserToList(User user)
         {
             _allUsers.Add(user);
@@ -122,11 +166,6 @@ namespace PTwoManage
         public void RemoveUserFromList(User user)
         {
             _allUsers.Remove(user);
-        }
-
-        public List<string> GetAllTags()
-        {
-            return _allTags;
         }
 
         public void AddTemplateToList(ShiftTemplate template)
@@ -143,18 +182,6 @@ namespace PTwoManage
             return _allShifts;
         }
 
-        public List<Shift> GetAllShifts(DayOfWeek day, int weekNum, int year)
-        {
-            List<Shift> dShifts = new List<Shift>();
-            foreach (Shift s in _allShifts)
-            {
-
-                if (s.Day == day && s.Week == weekNum && s.GetYear() == year)
-                    dShifts.Add(s);
-            }
-            return dShifts;
-        }
-
         public void AddTagToList(string tag)
         {
             _allTags.Add(tag);
@@ -163,12 +190,6 @@ namespace PTwoManage
         public void DeleteTagFromList(string s)
         {
             _allTags.Remove(s);
-        }
-
-        public List<Holiday> GetAllHolidays()
-        {
-            _allHolidays = _allHolidays.OrderBy(holiday => holiday.Date).ToList();
-            return _allHolidays;
         }
 
         public void AddToHolidayList(Holiday NewHoliday)
@@ -181,52 +202,65 @@ namespace PTwoManage
             _allHolidays.Remove(toRemove);
         }
 
+        //The main method for generating shifts
         public void ScheduleGenerator(int weeknumber, int year)
         {
+            // Instead of retreiving a reference to the lists from core multiple times
+            // The method saves the reference for further use
             List<User> AllUsers = Core.Instance.GetAllUsers();
             List<ShiftTemplate> AllShiftTemplates = Core.Instance.GetAllTemplates();
             List<Holiday> AllHolidays = Core.Instance.GetAllHolidays();
 
+            //The templates are sorted so that the generetor generates from monday to sunday
             var SortedShiftTemplates = AllShiftTemplates.OrderBy(template => template.StartTime);
             AllShiftTemplates = SortedShiftTemplates.ToList();
 
+            // Since it is the beginning of a new week to generate for all users WorkInWeek is set to 0
             foreach (User u in AllUsers)
                 u.WorkInWeek = 0;
 
+            // Local variables for further use
             int PossitiveDayCost = 0;
             int NegativeDayCost = 0;
+            int resultDay = 0;
+            int resultMonth = 0;
 
+            // The loop which generates a Shift object for each template in the list of templates
             int TemplateCount = AllShiftTemplates.Count;
             for (int i = 0; i <= TemplateCount - 1; i++)
             {
+                // The year startingdate is found by makeing a date with january the 1st for the selected year
                 DateTime YearStartingDate = new DateTime(year, 1, 1);
+
+                // The first day is calculated
                 int FirstDayInYear = CalcFirstDayInYear(YearStartingDate);
                 if (weeknumber == 1)
                 {
+                    //If the date is one of the days not exsisting in the first week of the year, the loop continues to the next template
                     if (AllShiftTemplates[i].StartTime.Day <= FirstDayInYear)
                         continue;
                 }
 
                 int DayInYear = GetDayInYear(weeknumber, AllShiftTemplates[i].StartTime, FirstDayInYear);
-
-                int resultDay = 0; //Skal sende en værdi med til funktionen så den returnerer remainder
-                int resultMonth = 0;
                 TotalDayToDayInMonth(DayInYear, year, ref resultDay, ref resultMonth);
 
                 DateTime start = new DateTime(year, resultMonth, resultDay, AllShiftTemplates[i].StartTime.Hour, AllShiftTemplates[i].StartTime.Minute, AllShiftTemplates[i].StartTime.Second);
                 DateTime end = new DateTime(year, resultMonth, resultDay, AllShiftTemplates[i].EndTime.Hour, AllShiftTemplates[i].EndTime.Minute, AllShiftTemplates[i].EndTime.Second);
 
+                //If the date is a holiday the loop continues to next iteration
                 if (IfDateIsNotHoliday(start, AllHolidays))
                 {
 
-                    // Sortering af usere - Først findes de medarbejdere som kan arbejde på den type vagt
+                    // Sorting of Users. The compatible Users are found and saved in a list
                     List<User> CompatibleUsers = new List<User>();
-
                     GetCompatibleUsers(AllUsers, AllShiftTemplates[i], CompatibleUsers);
 
                     CalculateDayPrice(AllShiftTemplates[i].StartTime.Day, ref PossitiveDayCost, ref NegativeDayCost, false);
+
+                    // The SortUserList method determines the user to take the Shift based on different parameters
                     string UserName = SortUserList(CompatibleUsers, PossitiveDayCost, NegativeDayCost, start);
 
+                    // The shift is created and saved to the Core and to the Database 
                     Shift resultShift = new Shift(start, end, Database.Instance.ListToString(AllShiftTemplates[i].Tag), UserName, weeknumber);
                     resultShift.SaveShift();
                     Core.Instance.AddShiftToList(resultShift);
@@ -243,7 +277,7 @@ namespace PTwoManage
                 if (shiftTemplates.Tag.Any())
                     CompatibleUsers.Add(u);
 
-                else if (CompareTags(u.UserCategories, shiftTemplates.Tag))
+                else if (CompareTags(u.Tags, shiftTemplates.Tag))
                     CompatibleUsers.Add(u);
             }
         }

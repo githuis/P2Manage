@@ -8,8 +8,8 @@ namespace PTwoManage
 {
     public class User : IComparable
     {
-        static List<User> allUsers = new List<User>();
-        public List<string> UserCategories;
+        // Properties for the User class needed to define a user
+        public List<string> Tags;
         private int _id;
         private string _userName;
         private string _password;
@@ -50,7 +50,6 @@ namespace PTwoManage
             set { _cprNumber = value; }
         }
 
-
         public string Phone
         {
             get { return _phone; }
@@ -75,7 +74,9 @@ namespace PTwoManage
             set { _workInWeek = value; }
         }
 
-        public User(int id, string userName, string password, string name, string cprNummer, string phone, string email, List<string> tag, int points)
+        // The constructor for the User class which sets the parameters as values for the User object. 
+        // _workInWeek is set 0 because a user does not start with Shifts at creation
+        public User(int id, string userName, string password, string name, string cprNummer, string phone, string email, List<string> tag, int point)
         {
             _id = id;
             _userName = userName;
@@ -84,11 +85,12 @@ namespace PTwoManage
             _cprNumber = cprNummer;
             _phone = phone;
             _email = email;
-            UserCategories = tag;
-            _points = points;
+            Tags = tag;
+            _points = point;
             _workInWeek = 0;
         }
 
+        // A method used to find a user object by comparing a username with other usernames from the list of users
         public static User GetUserByName(string userName)
         {
             foreach (User u in Core.Instance.GetAllUsers())
@@ -113,37 +115,30 @@ namespace PTwoManage
             return false;
         }
 
-        public bool HasTag(string tag)
-        {
-            foreach (string t in UserCategories)
-            {
-                if (t == tag)
-                    return true;
-            }
-            return false;
-        }
-
         public override string ToString()
         {
             return this.UserName;
         }
 
+        // A method for saving a given user to the database by saving the user or replacing an exsisting user with the same values
         public void SaveUserInfoToDatabase()
         {
             User user = this;
             string sql = "DELETE FROM userTable WHERE username IN (SELECT username FROM userTable WHERE username ='" + user.UserName +"')";
             Database.Instance.Execute(sql);
-            sql = "INSERT OR REPLACE INTO userTable  (username, password, name, cprNumber, phone, email, tag, points) values ('" + user.UserName + "', '" + user.Password + "', '" + user.Name + "' , " + user.CprNumber + " , " + user.Phone + ", '" + user.Email + "', '" + Database.Instance.ListToString(user.UserCategories) +"', " + user.Points + ")";
+            sql = "INSERT OR REPLACE INTO userTable  (username, password, name, cprNumber, phone, email, tag, points) values ('" + user.UserName + "', '" + user.Password + "', '" + user.Name + "' , " + user.CprNumber + " , " + user.Phone + ", '" + user.Email + "', '" + Database.Instance.ListToString(user.Tags) +"', " + user.Points + ")";
             Database.Instance.Execute(sql);
         }
 
+        // A method for updating userinformation by looking up the user and replacing the current information with new information
         public void UpdateUserInfoDatabase()
         {
             User user = this;
-            string sql = "UPDATE userTable SET password='" + user.Password + "', name='" + user.Name + "', cprNumber='" + user.CprNumber + "', phone='" + user.Phone + "', email='" + user.Email + "', tag='" + Database.Instance.ListToString(user.UserCategories) + "', points='" + user.Points + "'  WHERE username='" + user.UserName + "'";
+            string sql = "UPDATE userTable SET password='" + user.Password + "', name='" + user.Name + "', cprNumber='" + user.CprNumber + "', phone='" + user.Phone + "', email='" + user.Email + "', tag='" + Database.Instance.ListToString(user.Tags) + "', points='" + user.Points + "'  WHERE username='" + user.UserName + "'";
             Database.Instance.Execute(sql);
         }
 
+        // A method for deleting a user from the database. Both the user and its shifts and FreeRequests are deleted from the database
         public void DeleteUser()
         {
             User user = this;
@@ -156,6 +151,7 @@ namespace PTwoManage
             Database.Instance.Execute(sql);
         }
 
+        // A method for changing a users pointbalance where the given user mathces a user in the database
         public void UpdateUserPointBalance(int points)
         {
             User user = this;
@@ -165,6 +161,7 @@ namespace PTwoManage
             Database.Instance.Execute(sql);
         }
 
+        // A method for checking if a user already has a shift in a given timespan by looking at each shifts timespan
         public bool HasShiftInTimeFrame(DateTime from, DateTime to)
         {
             User u = this;
@@ -183,6 +180,7 @@ namespace PTwoManage
             return ((check > start) && (check < end));
         }
 
+        // A method for comparing two user to check if they are the same user
         public override bool Equals(object obj)
         {
             if (obj == null)
@@ -218,6 +216,7 @@ namespace PTwoManage
             return Id * 45358;
         }
 
+        // A method used to compare two users and determine which is higher on the list in the sorting of users.
         public int CompareTo(object obj)
         {
             User u = obj as User;
@@ -230,6 +229,7 @@ namespace PTwoManage
                 return -1;
             else if (this.WorkInWeek > u.WorkInWeek)
                 return 1;
+            // If the placement is not determined by the amount of WorkInWeek, the pointbalance is used.
             else
             {
                 if (this.Points < u.Points)
@@ -238,11 +238,11 @@ namespace PTwoManage
                     return 1;
                 else
                 {
-                    //Somewhat 'random' value to sort the objects are (almost) the same
+                    //If both the WorkInWeek and points are the same and the user is not compared to itself
+                    // a Somewhat 'random' value is returned
                    return (DateTime.Now.Millisecond%3) - 3;
                 }
             }
         }
-
     }
 }
