@@ -24,18 +24,26 @@ namespace PTwoManage
     public partial class AddUserWindow : Window
     {
         public AddUserWindow()
-        { 
-			InitializeComponent();
-            
+        {
+            InitializeComponent();
+
             Tag_ListBox.ItemsSource = Core.Instance.GetAllTags();
 
         }
-        
+
+        private bool CheckIfUserNameExsists()
+        {
+            if (Core.Instance.GetAllUsers().Find(user => user.UserName.Contains(CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text))) == null)
+                return false;
+            else 
+                return true;
+        }
+
         private void Submit_AddUser()
         {
             try
             {
-                if (CheckBoxesForContent())
+                if (ValidateBoxContent() && !CheckIfUserExsists())
                 {
                     PreventSqlInjection();
 
@@ -64,10 +72,10 @@ namespace PTwoManage
             }            
         }
 
-        private bool CheckBoxesForContent()
+        private bool ValidateBoxContent()
         {
-            if (EditUser_Password.Password != "" && EditUser_Password.Password == EditUser_ConfirmPassword.Password && EditUser_FullName.Text != "" && EditUser_CPR.Text != "" && EditUser_Number.Text != ""
-                && EditUser_Email.Text != "")
+            if (EditUser_Password.Password != "" && EditUser_Password.Password == EditUser_ConfirmPassword.Password
+                && EditUser_FullName.Text != "" && EditUser_CPR.Text != "" && EditUser_Number.Text != "")
                 return true;
             else
                 return false;
@@ -114,7 +122,7 @@ namespace PTwoManage
             {
                 if (!tags.Contains(s))
                     Tag_ListBox.SelectedItems.Remove(s);
-            }      
+            }
         }
 
         //TODO Should this be public ?
@@ -129,7 +137,7 @@ namespace PTwoManage
             //TODO check if user exists
             if (EditUser_NameList.SelectedItem != null)
             {
-                ListBoxItem item = (ListBoxItem) EditUser_NameList.SelectedItem;
+                ListBoxItem item = (ListBoxItem)EditUser_NameList.SelectedItem;
                 string userName = item.Content.ToString();
                 //TODO Create a user and use it's properties instead of calling getuser 9999 times
                 EditUser_UserNameBox.Text = User.GetUserByName(userName).UserName;
@@ -171,17 +179,21 @@ namespace PTwoManage
             string userName = EditUser_UserNameBox.Text;
             if (User.CheckUserExists(userName))
             {
-                if (CheckBoxesForContent())
+                if (ValidateBoxContent())
                 {
-                    SaveToCurrentUser(User.GetUserByName(userName));
-                    EmptyForm();
-                    Console.WriteLine("Saved User");
+                    if (!(CheckIfUserExsists()))
+                    {
+                        SaveToCurrentUser(User.GetUserByName(userName));
+                        EmptyForm();
+                    }
+                    else
+                        Console.WriteLine();
                 }
                 else
                 {
                     AddUser_Confirmation.Content = "Not all input boxes are filled or valid";
                 }
-                
+
             }
             else
                 Submit_AddUser();
@@ -205,7 +217,7 @@ namespace PTwoManage
             string userName;
             string[] split;
             long n = 0, sum = 0;
-            if(!long.TryParse(cpr, out n))
+            if (!long.TryParse(cpr, out n))
             {
                 throw new ArgumentException("CPR number must only be numbers");
             }
@@ -220,20 +232,20 @@ namespace PTwoManage
             userName = split[0] + sum;
 
             return userName;
-        } 
-        
+        }
+
         private void Remove_User_Click(object sender, RoutedEventArgs e)
         {
             User u = null;
 
             if (EditUser_UserNameBox.Text == "")
                 System.Windows.Forms.MessageBox.Show("You must load the user you want to delete");
-            else if(User.CheckUserExists(EditUser_UserNameBox.Text))
+            else if (User.CheckUserExists(EditUser_UserNameBox.Text))
                 u = User.GetUserByName(EditUser_UserNameBox.Text);
 
             if (u != null)
                 u.DeleteUser();
-                    
+
             Core.Instance.RemoveUserFromList(u);
             EmptyForm();
             Populate_UserList();
@@ -249,6 +261,14 @@ namespace PTwoManage
                 //UserTags.Add(tag);
             }
             return UserTags;
+        }
+
+        private bool CheckIfUserExsists()
+        {
+            if (Core.Instance.GetAllUsers().Find(user => user.UserName.Contains(CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text))) == null)
+                return false;
+            else
+                return true;
         }
 
 

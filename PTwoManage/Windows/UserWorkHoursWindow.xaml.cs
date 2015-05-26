@@ -51,9 +51,9 @@ namespace PTwoManage.Windows
 
                 foreach (Shift s in Core.Instance.GetAllShifts())
                 {
-                    if (s._endTime < DateTime.Now && s._startTime.Year == selectedDate.Year && s._startTime.Month == selectedDate.Month && s.EmployeeName == target.UserName)
+                    if (s.EndTime < DateTime.Now && s.StartTime.Year == selectedDate.Year && s.StartTime.Month == selectedDate.Month && s.UserName == target.UserName)
                     {
-                        HoursInShift += s._endTime - s._startTime;
+                        HoursInShift += s.EndTime - s.StartTime;
                     }
                 }
                 HoursThisMonth = HoursInShift.TotalHours;

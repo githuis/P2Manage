@@ -8,50 +8,47 @@ namespace PTwoManage
 {
     public class Shift : ShiftTemplate
     {
-        public int Employee;
+        // Private properties for Shift needed to display a Shift
+        private string _userName;
         private int _weeknumber;
 
-        public string EmployeeName { get; set; }
-        public DayOfWeek Day { get; set; }        
+        // Variables used to print Shift object in various windows
+        public DayOfWeek Day { get; set; }
         public string PrintableStartTime { get; set; }
         public string PrintableEndTime { get; set; }
 
-        public int Week 
-        { 
-            get { return _weeknumber; } 
+        public string UserName
+        {
+            get { return _userName; }
+            set { _userName = value; }
         }
 
-        public DateTime StartTime
+        public int Week
         {
-            get { return _startTime; }
-            set { _startTime = value; }
+            get { return _weeknumber; }
         }
 
-        public DateTime EndTime
-        {
-            get { return _endTime; }
-            set { _endTime = value; }
-        }
-		
         public Shift(DateTime starttime, DateTime endtime, string tag, string userName, int weeknumber)
             : base(starttime, endtime, tag)
         {
-            EmployeeName = userName;
-            _weeknumber = weeknumber;
-            _startTime = starttime;
-            _endTime = endtime;
-            Day = _startTime.DayOfWeek;
-            PrintableStartTime = _startTime.Hour.ToString() + ":" + _startTime.Minute.ToString();
-            PrintableEndTime = _endTime.Hour.ToString() + ":" + _endTime.Minute.ToString();
-            if (User.CheckUserExists(userName))
-               if (User.GetUserByName(userName).HasShiftInTimeFrame(starttime, endtime))
-                    throw new ArgumentException("In class 'Shift' -- User already has a shift at this time");
+                ValidateShiftTimeAndUser(starttime, endtime, userName);
+                _userName = userName;
+                _weeknumber = weeknumber;
+                _startTime = starttime;
+                _endTime = endtime;
+                Day = _startTime.DayOfWeek;
+                PrintableStartTime = _startTime.Hour.ToString() + ":" + _startTime.Minute.ToString();
+                PrintableEndTime = _endTime.Hour.ToString() + ":" + _endTime.Minute.ToString();
+        }
 
-		}
-
-        private void CalculateBreakTime(String hours, String breakTime)
+        private void ValidateShiftTimeAndUser(DateTime starttime, DateTime endtime, string userName)
         {
-
+            if (User.CheckUserExists(userName))
+                if (User.GetUserByName(userName).HasShiftInTimeFrame(starttime, endtime))
+                {
+                    throw new ArgumentException(" User: " + this.UserName + " already has a shift at this time"); 
+                }
+   
         }
 
         public int GetYear()
@@ -59,46 +56,27 @@ namespace PTwoManage
             return StartTime.Year;
         }
 
-        
-
-		/*
-        public void SaveInfoShiftTemplate()
-        {
-            ShiftTemplate template = this;
-            int test = 1;
-            string s = "test";
-            //for (int i = 0; i <= template.Tag.Count; i++)
-            {
-                if(i>0)
-                    s += "-";
-                s += template.Tag[i];
-            }
-             
-
-            string sql = "INSERT INTO ShiftTemplate (id, date, start, end, tag) values (" + test + ", '" + template.Date + "', '" + template._startTime.ToString("dd-MM-yyyy-HH-mm-ss") + "', '" + template._endTime.ToString("dd-MM-yyyy-HH-mm-ss") + "', '" + Database.Instance.listToString(template.Tag) + "')";
-		*/
         public void SaveShift()
         {
             Shift shift = this;
-            string sql = "INSERT INTO ShiftTable (start, end, tag, employeeName, weekNumber) values ('" + shift._startTime.ToString() + "', '" + shift._endTime.ToString() + "', '" + Database.Instance.ListToString(shift.Tag) + "', '" + shift.EmployeeName + "', " + shift._weeknumber + ")";
+            string sql = "INSERT INTO ShiftTable (start, end, tag, employeeName, weekNumber) values ('" + shift._startTime.ToString() + "', '" + shift._endTime.ToString() + "', '" + Database.Instance.ListToString(shift.Tag) + "', '" + shift.UserName + "', " + shift._weeknumber + ")";
             Database.Instance.Execute(sql);
         }
 
         public void UpdateShift(string newUser)
         {
             Shift shift = this;
-            string sql = "UPDATE ShiftTable SET employeeName='" + newUser + "'  WHERE employeeName='" + shift.EmployeeName + "' AND start='" + shift._startTime.ToString() + "' AND end='" + shift._endTime.ToString() + "'";
-            shift.EmployeeName = newUser;
+            string sql = "UPDATE ShiftTable SET employeeName='" + newUser + "'  WHERE employeeName='" + shift.UserName + "' AND start='" + shift._startTime.ToString() + "' AND end='" + shift._endTime.ToString() + "'";
+            shift.UserName = newUser;
             Database.Instance.Execute(sql);
         }
 
         public void DeleteShift()
         {
             Shift shift = this;
-            string sql = "DELETE FROM ShiftTable WHERE employeeName='" + shift.EmployeeName + "' AND start='" + shift._startTime.ToString() + "' AND end='" + shift._endTime.ToString() + "'";
+            string sql = "DELETE FROM ShiftTable WHERE employeeName='" + shift.UserName + "' AND start='" + shift._startTime.ToString() + "' AND end='" + shift._endTime.ToString() + "'";
             Database.Instance.Execute(sql);
             Core.Instance.GetAllShifts().Remove(shift);
         }
-
     }
 }

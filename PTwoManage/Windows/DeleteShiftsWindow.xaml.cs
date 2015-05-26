@@ -38,7 +38,7 @@ namespace PTwoManage.Windows
         private void PopulateShiftListview()
         {
             User selectedUser = UserCombobox.SelectedItem as User;
-            ShiftListview.ItemsSource = Core.Instance.GetAllShifts().Where(shift => shift.EmployeeName ==  selectedUser.UserName).Where(shift => shift._startTime >= DateTime.Now);
+            ShiftListview.ItemsSource = Core.Instance.GetAllShifts().Where(shift => shift.UserName ==  selectedUser.UserName).Where(shift => shift.StartTime >= DateTime.Now);
         }
 
         private void DeleShift_Click(object sender, RoutedEventArgs e)

@@ -116,14 +116,13 @@
       <DependentUpon>UserFreeTimeRequestWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Week.cs" />
-    <Compile Include="UserNotFoundException.cs" />
+    <Compile Include="Exceptions\UserNotFoundException.cs" />
     <Compile Include="Windows\UserSwapShift.xaml.cs">
       <DependentUpon>UserSwapShift.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\UserWorkHoursWindow.xaml.cs">
       <DependentUpon>UserWorkHoursWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Workschedule.cs" />
     <Page Include="Windows\DeleteShiftsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

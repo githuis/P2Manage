@@ -15,7 +15,7 @@ namespace PTwoManage
         private List<string> _allTags;
         private List<Shift> _allShifts;
         private List<ShiftTemplate> _allTemplates;
-		    private List<UserFreeRequest> _allRequests;
+        private List<UserFreeRequest> _allRequests;
         private List<Holiday> _allHolidays;
         private List<string> _info;
 
@@ -38,17 +38,17 @@ namespace PTwoManage
             Database.Instance.Read(sql, ref _info, Database.Instance.userTableColumns);
             foreach (var item in _info)
             {
-                string[] split = item.Split(new Char[]{','});
+                string[] split = item.Split(new Char[] { ',' });
                 _allUsers.Add(new User(int.Parse(split[0]), split[1], split[2], split[3], split[4], split[5], split[6], Database.Instance.StringToList(split[7]), int.Parse(split[8])));
                 //_allUsers.Add(new User(int.Parse(split[0]), split[1], split[2], split[3], split[4], split[5], split[6], Database.Instance.stringToList(split[7]), 400));
             }
-            
+
             string sql2 = "SELECT * FROM ShiftTemplate";
             Database.Instance.Read(sql2, ref _info, Database.Instance.ShiftTemplateTableColumns);
             ShiftTemplate t;
             foreach (var item in _info)
             {
-                string[] split2 = item.Split(new Char[] {','});
+                string[] split2 = item.Split(new Char[] { ',' });
                 t = new ShiftTemplate(DateTime.Parse(split2[1]), DateTime.Parse(split2[2]), split2[3]);
                 t.GeneratePrintableInfo();
                 _allTemplates.Add(t);
@@ -58,8 +58,8 @@ namespace PTwoManage
             Database.Instance.Read(sql3, ref _info, Database.Instance.TagTableColumns);
             foreach (var item in _info)
             {
-                string[] split3 = item.Split(new Char[]{','});
-                if(!(split3[0] == ""))
+                string[] split3 = item.Split(new Char[] { ',' });
+                if (!(split3[0] == ""))
                     _allTags.Add(split3[0]);
             }
 
@@ -98,7 +98,7 @@ namespace PTwoManage
                 _allRequests.Add(new UserFreeRequest(DateTime.Parse(split4[0]), DateTime.Parse(split4[1]), holder, split4[3]));
             }
         }
-        
+
         public List<User> GetAllUsers()
         {
             return _allUsers;
@@ -124,7 +124,7 @@ namespace PTwoManage
             _allUsers.Remove(user);
         }
 
-        public  List<string> GetAllTags()
+        public List<string> GetAllTags()
         {
             return _allTags;
         }
@@ -146,15 +146,15 @@ namespace PTwoManage
         public List<Shift> GetAllShifts(DayOfWeek day, int weekNum, int year)
         {
             List<Shift> dShifts = new List<Shift>();
-           foreach(Shift s in _allShifts)
-           {
+            foreach (Shift s in _allShifts)
+            {
 
-               if (s.Day == day && s.Week == weekNum && s.GetYear() == year)
-                   dShifts.Add(s);
-           }
-           return dShifts;
-		}   
-		
+                if (s.Day == day && s.Week == weekNum && s.GetYear() == year)
+                    dShifts.Add(s);
+            }
+            return dShifts;
+        }
+
         public void AddTagToList(string tag)
         {
             _allTags.Add(tag);
@@ -187,7 +187,7 @@ namespace PTwoManage
             List<ShiftTemplate> AllShiftTemplates = Core.Instance.GetAllTemplates();
             List<Holiday> AllHolidays = Core.Instance.GetAllHolidays();
 
-            var SortedShiftTemplates = AllShiftTemplates.OrderBy(template => template._startTime);
+            var SortedShiftTemplates = AllShiftTemplates.OrderBy(template => template.StartTime);
             AllShiftTemplates = SortedShiftTemplates.ToList();
 
             foreach (User u in AllUsers)
@@ -197,31 +197,24 @@ namespace PTwoManage
             int NegativeDayCost = 0;
 
             int TemplateCount = AllShiftTemplates.Count;
-            for (int i = 0; i <= TemplateCount-1; i++)
+            for (int i = 0; i <= TemplateCount - 1; i++)
             {
                 DateTime YearStartingDate = new DateTime(year, 1, 1);
-                int FirstDayInYear = 0;
-                FirstDayInYear = CalcFirstDayInYear(YearStartingDate);
+                int FirstDayInYear = CalcFirstDayInYear(YearStartingDate);
                 if (weeknumber == 1)
                 {
-                    if (AllShiftTemplates[i]._startTime.Day <= FirstDayInYear)
+                    if (AllShiftTemplates[i].StartTime.Day <= FirstDayInYear)
                         continue;
                 }
 
-                int DayInYear;
-                if (weeknumber == 1)
-                    DayInYear = AllShiftTemplates[i]._startTime.Day - (7-FirstDayInYear);
-                else if (weeknumber == 2)
-                    DayInYear = FirstDayInYear + AllShiftTemplates[i]._startTime.Day;
-                else
-                    DayInYear = FirstDayInYear + (weeknumber - 2) * 7 + AllShiftTemplates[i]._startTime.Day;
+                int DayInYear = GetDayInYear(weeknumber, AllShiftTemplates[i].StartTime, FirstDayInYear);
 
-                int dayH = 15; //Skal sende en værdi med til funktionen så den returnerer remainder
-                int md = 1;
-                TotalDayToDayInMonth(DayInYear, year, ref dayH, ref md);
+                int resultDay = 0; //Skal sende en værdi med til funktionen så den returnerer remainder
+                int resultMonth = 0;
+                TotalDayToDayInMonth(DayInYear, year, ref resultDay, ref resultMonth);
 
-                DateTime start = new DateTime(year, md, dayH, AllShiftTemplates[i]._startTime.Hour, AllShiftTemplates[i]._startTime.Minute, AllShiftTemplates[i]._startTime.Second);
-                DateTime end = new DateTime(year, md, dayH, AllShiftTemplates[i]._endTime.Hour, AllShiftTemplates[i]._endTime.Minute, AllShiftTemplates[i]._endTime.Second);
+                DateTime start = new DateTime(year, resultMonth, resultDay, AllShiftTemplates[i].StartTime.Hour, AllShiftTemplates[i].StartTime.Minute, AllShiftTemplates[i].StartTime.Second);
+                DateTime end = new DateTime(year, resultMonth, resultDay, AllShiftTemplates[i].EndTime.Hour, AllShiftTemplates[i].EndTime.Minute, AllShiftTemplates[i].EndTime.Second);
 
                 if (IfDateIsNotHoliday(start, AllHolidays))
                 {
@@ -229,24 +222,46 @@ namespace PTwoManage
                     // Sortering af usere - Først findes de medarbejdere som kan arbejde på den type vagt
                     List<User> CompatibleUsers = new List<User>();
 
-                    foreach (User u in AllUsers)
-                    {
-                        if (AllShiftTemplates[i].Tag.Any())
-                            CompatibleUsers.Add(u);
+                    GetCompatibleUsers(AllUsers, AllShiftTemplates[i], CompatibleUsers);
 
-                        else if (CompareTags(u.UserCategories, AllShiftTemplates[i].Tag))
-                            CompatibleUsers.Add(u);
-                    }
-
-                    CalculateDayPrice(AllShiftTemplates[i]._startTime.Day, ref PossitiveDayCost, ref NegativeDayCost, false);
+                    CalculateDayPrice(AllShiftTemplates[i].StartTime.Day, ref PossitiveDayCost, ref NegativeDayCost, false);
                     string UserName = SortUserList(CompatibleUsers, PossitiveDayCost, NegativeDayCost, start);
 
                     Shift resultShift = new Shift(start, end, Database.Instance.ListToString(AllShiftTemplates[i].Tag), UserName, weeknumber);
-
                     resultShift.SaveShift();
-                    Core._instance.AddShiftToList(resultShift);
+                    Core.Instance.AddShiftToList(resultShift);
                 }
+                else
+                    continue;
             }
+        }
+
+        private void GetCompatibleUsers(List<User> AllUsers, ShiftTemplate shiftTemplates, List<User> CompatibleUsers)
+        {
+            foreach (User u in AllUsers)
+            {
+                if (shiftTemplates.Tag.Any())
+                    CompatibleUsers.Add(u);
+
+                else if (CompareTags(u.UserCategories, shiftTemplates.Tag))
+                    CompatibleUsers.Add(u);
+            }
+        }
+
+        private static int GetDayInYear(int weeknumber, DateTime StartTime, int FirstDayInYear)
+        {
+            int DayInYear;
+            if (weeknumber == 1)
+            {
+                DayInYear = StartTime.Day - (7 - FirstDayInYear);
+                if (DayInYear <= 0)
+                    DayInYear = 1;
+            }
+            else if (weeknumber == 2)
+                DayInYear = FirstDayInYear + StartTime.Day;
+            else
+                DayInYear = FirstDayInYear + (weeknumber - 2) * 7 + StartTime.Day;
+            return DayInYear;
         }
 
         public int CalcFirstDayInYear(DateTime YearStartingDate)
@@ -322,12 +337,12 @@ namespace PTwoManage
             List<User> UnAvalibleUsers = new List<User>();
             int TotalNumberOfRequests = Requests.Count;
             int TotalNumberOfUsers = UserList.Count;
-            
-            foreach(UserFreeRequest q in Requests)
+
+            foreach (UserFreeRequest q in Requests)
             {
-                foreach(User u in UserList)
+                foreach (User u in UserList)
                 {
-                    if (q.User.Equals(u)  && (Date.DayOfYear >= q.StartTime.DayOfYear) && (Date.DayOfYear <= q.EndTime.DayOfYear))
+                    if (q.User.Equals(u) && (Date.DayOfYear >= q.StartTime.DayOfYear) && (Date.DayOfYear <= q.EndTime.DayOfYear))
                     {
                         UnAvalibleUsers.Add(u);
                         break;
@@ -363,7 +378,7 @@ namespace PTwoManage
                     }
                 }
             }
-                // if some (not all, maybe none) Users want time off they get their time off
+            // if some (not all, maybe none) Users want time off they get their time off
             else
             {
                 foreach (User u in UnAvalibleUsers)
@@ -387,7 +402,7 @@ namespace PTwoManage
             Qsort3(ar);
             UserList = ar.ToList();
 
-            
+
 
             // Til sidst tjekkes det om det er samme person som sidste år som arbejede på denne dato
             /*if (RepetingWorker(UserList.First(), UserList))
@@ -403,8 +418,8 @@ namespace PTwoManage
         //Qsort with 3 way partitioning taken from http://algs4.cs.princeton.edu/23quicksort/Quick3way.java.html
         public void Qsort3(IComparable[] a)
         {
-            
-            Qsort3(a, 0, a.Length-1);
+
+            Qsort3(a, 0, a.Length - 1);
         }
 
         public void Qsort3(IComparable[] compares, int low, int high)
@@ -413,7 +428,7 @@ namespace PTwoManage
             int lt = low, gt = high;
             IComparable v = compares[low];
             int i = low;
-            while(i <= gt)
+            while (i <= gt)
             {
                 int cmp = compares[i].CompareTo(v);
                 if (cmp < 0)
@@ -436,7 +451,7 @@ namespace PTwoManage
 
         public void Debug_PrintSortedUserList()
         {
-            for (int i = 0; i < _allUsers.Count-1; i++)
+            for (int i = 0; i < _allUsers.Count - 1; i++)
             {
                 Console.WriteLine(_allUsers[i].UserName + " Days: " + _allUsers[i].WorkInWeek + " - Points: " + _allUsers[i].Points);
             }
@@ -453,7 +468,7 @@ namespace PTwoManage
         {
             foreach (Shift s in shifts)
             {
-                
+
             }
             return false;
         }
@@ -490,14 +505,14 @@ namespace PTwoManage
 
         private bool IfDateIsNotHoliday(DateTime startDate, List<Holiday> Holidays)
         {
-            foreach (Holiday h in Holidays) 
+            foreach (Holiday h in Holidays)
             {
                 if (h.Date == startDate)
                     return false;
             }
 
             return true;
-        } 
+        }
 
         public List<UserFreeRequest> GetAllFreeRequests()
         {

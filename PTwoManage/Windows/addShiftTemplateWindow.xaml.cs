@@ -132,6 +132,7 @@ namespace PTwoManage
                 Start_Time.Clear();
                 End_Time.Clear();
                 Error_message.Content = "";
+                Tag_List.UnselectAll();
             }
 
             TemplateList.Items.Refresh();
