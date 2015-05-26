@@ -22,11 +22,12 @@ namespace PTwoManage
     public partial class AuthenticationWindow : Window
     {
         private string _companyName = "";
+        //The unique salt for hashing
         string salt = "$6$rounds=1938$W2Wyyaa59gSmgv0K";
+
         public AuthenticationWindow()
         {
             InitializeComponent();
-             
         }
 
         private void AuthLogin_Click(object sender, RoutedEventArgs e)
@@ -34,12 +35,14 @@ namespace PTwoManage
             Authenticate(AuthUsernameBox.Text, AuthPasswordBox.Password);
         }
 
+        //Checks if the entered username and password matches one of those on the thirdparty site. 
+        //if they do, set the companyname variable in Database
         private void Authenticate(string AuthUsername, string AuthPassword)
         {
             string loginString = AuthUsername + "," + GenPassHash(AuthPassword);
 
             System.Net.WebClient wc = new System.Net.WebClient();
-            //Vi bruger en personlig hjemmeside til midlertidigt at holde vores test-brugere
+            //We use a temporary personal website to store usernames and hashed passowrds for test users.
             string webData = wc.DownloadString("http://everflows.com/com.txt");
             string[] split = webData.Split(new Char[] { ';' });
 
@@ -60,11 +63,13 @@ namespace PTwoManage
 
         }
 
+        //Sets the private companyname variable, which means it also gets used.
         public void UseCompanyName(string companyName)
         {
             _companyName = companyName;
         }
 
+        //Generates a hash from the unique salt in the top of this class
         private string GenPassHash(string pass)
         {
             string hash = Crypter.Sha512.Crypt(pass, salt);

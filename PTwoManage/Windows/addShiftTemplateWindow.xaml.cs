@@ -23,16 +23,19 @@ namespace PTwoManage
         public AddShiftTemplateWindow()
         {
             InitializeComponent();
-           
             LoadShift();
         }
 
+        // Checks that the character you enter is a number, if not, don't type it.
         private void EditTime_NumberValidation(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9:]+");
             e.Handled = regex.IsMatch(e.Text);
         }
 
+        // If: Starttime is valid format, endtime is valid format and there is a day selected
+        //starttime is before endtime
+        //
         private void Save_ShiftTemplate(object sender, RoutedEventArgs e)
         {
             bool isValidated;
@@ -46,7 +49,6 @@ namespace PTwoManage
                 isValidated = false;
                 Error_message.Content = "End time is not a valid minute format";
             }
-
             else if (Day_List.SelectedItem == null)
             {
                 isValidated = false;
@@ -138,6 +140,7 @@ namespace PTwoManage
             TemplateList.Items.Refresh();
         }
 
+        // Checks wether a string is a valid HH:MM format.
         private bool Check_If_Valid_Time(string s)
         {
             string[] split;
@@ -165,6 +168,7 @@ namespace PTwoManage
             return false;
         }
 
+        //Checks wether starttime is before endtime
         private bool CompareTime(string start, string end)
         {
             string[] splitS = null, splitE = null;
@@ -192,12 +196,15 @@ namespace PTwoManage
             return false;
         }
 
+        //Called when Save Tag is clicked
+        //Adds tag to taglist and clears textbox
         private void Tag_Add_To_ListBox_Click(object sender, RoutedEventArgs e)
         {
             Tag_List.Items.Add(Tag_Add_TextBox.Text);
             Tag_Add_TextBox.Clear();
         }
 
+        //Fills the list of tags with all existing tags
         private void Populate_TagList()
         {
             Tag_List.Items.Clear();
@@ -209,6 +216,7 @@ namespace PTwoManage
             }
         }
 
+         
         private void Add_Tag_Click(object sender, RoutedEventArgs e)
         {
             string toTrim = ";'\\:";
@@ -223,6 +231,7 @@ namespace PTwoManage
             }   
         }
 
+        //Saves tags to database
         public void SaveTagToDatabase(string s)
         {
             string tag = s;
@@ -230,18 +239,16 @@ namespace PTwoManage
             Database.Instance.Execute(sql);
         }
 
+        //Populates lists when called
         public void LoadShift()
         {
             Populate_TagList();
             TemplateList.ItemsSource = null;
             TemplateList.ItemsSource = Core.Instance.GetAllTemplates();
         }
-
-        public static bool CompareTags(List<string> UserTags, List<string> ShiftTags)
-        {
-            return !ShiftTags.Except(UserTags).Any();
-        }
         
+        //Called when Delete Template is Clicked
+        //Finds a ShiftTemplate, then removes it, then reloads list
         private void DeleteTemplate_Click(object sender, RoutedEventArgs e)
         {
             if(Core.Instance.GetAllTemplates().Count > 0 && TemplateList.SelectedItems.Count > 0)
@@ -255,6 +262,7 @@ namespace PTwoManage
             LoadShift();
         }
 
+        //Removes a tag, if the taglist isn't empty
         private void DeleteTag_Click(object sender, RoutedEventArgs e)
         {
             if(Tag_List.SelectedItems.Count > 0)
@@ -267,6 +275,7 @@ namespace PTwoManage
             }            
         }
         
+        //Deletes tag from the database
         private void DeleteTag(string s)
         {
             string sql;

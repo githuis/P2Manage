@@ -42,6 +42,7 @@ namespace PTwoManage
             }
         }
 
+        // Fills the list with curent holidays
         private void Populate_HolidayList()
         {
             Current_Holidays.Items.Clear();
@@ -55,11 +56,13 @@ namespace PTwoManage
             }
         }
 
+        // Public variant of Populate_HolidayList()
         public void Load_Holidays()
         {
             Populate_HolidayList();
         }
 
+        // Returns a bool based on wether there already is a holiday for this DateTime (Day and Time)
         private bool CheckIfHolidayExsists(DateTime SubmittetDate)
         {
             List<Holiday> AllHolidays = Core.Instance.GetAllHolidays();
@@ -71,6 +74,8 @@ namespace PTwoManage
             return false;
         }
 
+        // If there are holidays, check all holidays wether they match the clicked one
+        // if it does, remove it and repopulate list.
         private void RemoveHoliday_Click(object sender, RoutedEventArgs e)
         {
             if(Current_Holidays.SelectedItems.Count > 0)

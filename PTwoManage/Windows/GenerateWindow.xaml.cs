@@ -30,11 +30,13 @@ namespace PTwoManage
             SetWeekComboBoxes();
         }
 
+        //Sets the year textbox's text to the current year
         private void SetYearBoxText()
         {
             YearTextBox.Text = DateTime.Now.Year.ToString();
         }
 
+        //Gets the max week for selected year, and adds weeks from 1 to max to the comboboxes
         private bool SetWeekComboBoxes()
         {
             int max = 0;
@@ -59,6 +61,9 @@ namespace PTwoManage
                 return false;
         }
 
+        //Checks if weeks are valid
+        //if they are open a window with a progressbar in it
+        //Then calls the ScheduleGenerator for every week selected.
         private void GenerateSchedule_Click(object sender, RoutedEventArgs e)
         {
             toWeek = (int)ToWeekComboBox.SelectedItem;
@@ -89,6 +94,7 @@ namespace PTwoManage
 
         }
 
+        //Is supposed to update the maximum weeks in comboboxes, I don't think it works though
         private void UpdateWeeksInYear(object sender, TextCompositionEventArgs e)
         {
             int a;

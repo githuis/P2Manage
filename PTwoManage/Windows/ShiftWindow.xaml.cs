@@ -33,6 +33,7 @@ namespace PTwoManage
             Populate_UserList();
         }
 
+        //Fils TagList with all existing tags
         private void Populate_TagList()
         {
             TagList.Items.Clear();
@@ -44,6 +45,7 @@ namespace PTwoManage
             }
         }
 
+        //Fills the list of users acording to which tags are selected
         private void Populate_UserList()
         {
             UserList.Items.Clear();
@@ -64,6 +66,7 @@ namespace PTwoManage
             }
         }
 
+        //Checks if user is compatible with selected tags
         private bool IsUserCompatibleWithTags(User u)
         {
             foreach (object obj in TagList.SelectedItems)
@@ -74,6 +77,7 @@ namespace PTwoManage
 
             return true;
         }
+
 
         private void SaveShift_Click(object sender, RoutedEventArgs e)
         {
