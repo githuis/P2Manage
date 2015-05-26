@@ -2,7 +2,7 @@ PTwoManage intro/guide.
 
 
 For at bruge programmet:
-Der er hvis du har en idé om hvordan programmer fungerer allerede, eller ikke har brug for meget instruktion,
+NOTE:Der er hvis du har en idé om hvordan programmer fungerer allerede, eller ikke har brug for meget instruktion,
 kan det være nok at følge den korte version, ellers tjek den lange.
 
 	Kort version:
@@ -16,10 +16,10 @@ kan det være nok at følge den korte version, ellers tjek den lange.
 		Fortsæt indtil alle ønskede ShiftTemplates er oprettet, luk vinduet.
 		Menu > Schedule > Generate Schedule.
 		Vælg start- og slutuge samt år, klik generer (luk vinduet).
-		Færdig.
+		Færdig med at lave vagter.
+		Sidefunktioner og lign. er forklaret i slutningen af Lang version.
 		
 	Lang version:
-
 Det første der sker når programmet køres er at man bliver promptet med et login.
 Der er 3 hard-codede bruger, der kan benyttes (username:password), der skelnes imellem store/små bogstaver.
 	a423:123	
@@ -72,9 +72,8 @@ Vælg en start- og slutuge, Vælg år, klik på Generate Schedule.
 Der kommer nu et nyt vindue op, det angiver hvor langt genereringen er. 
 Når progressbaren viser aktivitet er genereringen færdig.
 Vinduerne skulle gerne selv lukke når genereringen er færdig
+Hvis ikke, luk dem.
 
-
-
-
+Færdig med at lave vagtplan.
 
 
