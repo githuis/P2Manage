@@ -22,13 +22,14 @@ namespace PTwoManage
             _date = date;
         }
 
-        // This method saves a holiday 
+        // This method saves a holiday to the database by sending a SQL string to the execute command
         public void SaveHoliday()
         {
             string sql = "INSERT INTO HolidayTable (day) values ('" + this.Date.ToString() + "')";
             Database.Instance.Execute(sql);
         }
 
+        // This method serches for a specific holiday and removes it from the database
         public void RemoveHoliday()
         {
             Core.Instance.RemoveHolidayFromList(this);

@@ -103,6 +103,7 @@ namespace PTwoManage
             throw new UserNotFoundException();
         }
 
+        // A method for checking if a User exsist by matching by their UserName
         public static bool CheckUserExists(string userName)
         {
             foreach (User u in Core.Instance.GetAllUsers())

@@ -9,7 +9,7 @@
             <WrapPanel>
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding EmployeeName}">                               
+                        <TextBlock Text="{Binding UserName}">                               
                         </TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
@@ -45,14 +45,14 @@
             <MenuItem Header="_Manage users" Click="AddUser_Click"></MenuItem>
             <MenuItem Header="_Schedule">
                 <MenuItem Header="_Create Templates and Tags" Click="AddTemplate_Click"></MenuItem>
-                <MenuItem Header="_Generate schedule" Click="ScheduleGenerator_Click"></MenuItem>
+                <MenuItem Header="_Generate Schedule" Click="ScheduleGenerator_Click"></MenuItem>
                 <MenuItem Header="_Request Day Off" Click="UserFreeRequest_Click"></MenuItem>
                 <MenuItem Header="_Create Extra Shifts" Click="CreateShift_Click"></MenuItem>
                 <MenuItem Header="_Delete Shifts" Click="DeleteShifts_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Utilities">
-                <MenuItem Header="_Swap shift" Click="ShiftSwap_Click" ></MenuItem>
-                <MenuItem Header="Lookup userhours" Click="LookUpHours_Click"></MenuItem>
+                <MenuItem Header="_Swap Shift" Click="ShiftSwap_Click" ></MenuItem>
+                <MenuItem Header="Lookup Userhours" Click="LookUpHours_Click"></MenuItem>
                 <MenuItem Header="_Create Holiday" Click="MakeHoliday_Click"></MenuItem>
             </MenuItem>
         </Menu>

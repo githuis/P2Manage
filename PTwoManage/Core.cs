@@ -137,6 +137,11 @@ namespace PTwoManage
             return _allTags;
         }
 
+        public List<UserFreeRequest> GetAllFreeRequests()
+        {
+            return _allRequests;
+        }
+
         public List<Holiday> GetAllHolidays()
         {
             //Returns alle holidays in order from oldest to newest
@@ -270,6 +275,7 @@ namespace PTwoManage
             }
         }
 
+        // Serches the userlist for Users matching the tags in the specified ShiftTemplate
         private void GetCompatibleUsers(List<User> AllUsers, ShiftTemplate shiftTemplates, List<User> CompatibleUsers)
         {
             foreach (User u in AllUsers)
@@ -282,6 +288,7 @@ namespace PTwoManage
             }
         }
 
+        // Finds the current day in the year being generated for
         private static int GetDayInYear(int weeknumber, DateTime StartTime, int FirstDayInYear)
         {
             int DayInYear;
@@ -298,6 +305,7 @@ namespace PTwoManage
             return DayInYear;
         }
 
+        //  Returns which day is the first day of the year in a DayOfWeek format
         public int CalcFirstDayInYear(DateTime YearStartingDate)
         {
             int FirstDayInYear = 0;
@@ -330,6 +338,7 @@ namespace PTwoManage
             return FirstDayInYear;
         }
 
+        // Alters a DayInYear to a corresponding month and day in the month
         private void TotalDayToDayInMonth(int DayInYear, int year, ref int RemaindingDaysInCurrentMonth, ref int ResultMonth)
         {
             int RunningDays = 0;
@@ -356,8 +365,7 @@ namespace PTwoManage
         private string SortUserList(List<User> UserList, int PossitiveDayWeight, int NegativeDayweight, DateTime Date)
         {
 
-            // Er der kun en user er vagten hans, er der ingen skal der returneres en fejl
-            //Console.WriteLine("Number of user to be sorted = "+UserList.Count);
+            // If the list only contains one user this user is returned
             if (UserList.Count <= 1)
             {
                 if (UserList.Count == 1)
@@ -366,7 +374,7 @@ namespace PTwoManage
                     throw new ArgumentException("The userlist is currently empty so no user match the tags on a template");
             }
 
-            // Skal først tage forbehold for medarbejder ønsker ved at undersøge om deres point > vægt og så fjerne pointsne og  fjrerne dem fra listen
+            // Checks for each request if it is in the week being generated for and then finds the user
             List<UserFreeRequest> Requests = Core.Instance.GetAllUserRequests();
             List<User> UnAvalibleUsers = new List<User>();
             int TotalNumberOfRequests = Requests.Count;
@@ -384,6 +392,7 @@ namespace PTwoManage
                 }
             }
 
+            // Quick sorting of the list by sorting for points
             UnAvalibleUsers = UnAvalibleUsers.OrderBy(user => user.Points).ToList();
 
             // If everyone has requested time off, there must be at least one worker foreced to take the shift.
@@ -429,30 +438,21 @@ namespace PTwoManage
                     }
                 }
             }
-            // Skal derefter sorterer efter personen med færrest point
-            // Sort by 
-            //UserList = UserList.OrderBy(user => user.WorkInWeek).ThenBy(user => user.Points).ToList();
+
+            // Then the list ils sorted with the Quicksort 3 way algorithm
             User[] ar = UserList.ToArray();
             Qsort3(ar);
             UserList = ar.ToList();
 
-
-
-            // Til sidst tjekkes det om det er samme person som sidste år som arbejede på denne dato
-            /*if (RepetingWorker(UserList.First(), UserList))
-            {
-                UserList.Remove(UserList.First());
-            }
-            else*/
+            // After sorting the list, the first user on the list is the user which gets the Shift
             UserList.First().WorkInWeek++;
             UserList.First().UpdateUserPointBalance(PossitiveDayWeight);
             return UserList.First().UserName;
         }
 
-        //Qsort with 3 way partitioning taken from http://algs4.cs.princeton.edu/23quicksort/Quick3way.java.html
+        //Qsort with 3 way partitioning 
         public void Qsort3(IComparable[] a)
         {
-
             Qsort3(a, 0, a.Length - 1);
         }
 
@@ -476,6 +476,7 @@ namespace PTwoManage
             Qsort3(compares, gt + 1, high);
         }
 
+        // A function for switching to elements of an array
         public void Exchange(Object[] arr, int i, int j)
         {
             Object swap = arr[i];
@@ -491,22 +492,13 @@ namespace PTwoManage
             }
         }
 
+        // A method used for checking if a User contains all tags specified by a ShiftTemplate
         public bool CompareTags(List<string> UserTags, List<string> ShiftTags)
         {
-            /*if (!ShiftTags.Any() || (!ShiftTags.Any() && !UserTags.Any()))
-                return true;*/
             return !ShiftTags.Except(UserTags).Any();
         }
 
-        public bool RepetingWorker(User repeat, List<Shift> shifts)
-        {
-            foreach (Shift s in shifts)
-            {
-
-            }
-            return false;
-        }
-
+        // A method used for calculating the price of a day
         public void CalculateDayPrice(int day, ref int PossitiveDayPrice, ref int NegativeDayPrice, bool isHoliday = false)
         {
             if (!isHoliday)
@@ -537,6 +529,7 @@ namespace PTwoManage
             }
         }
 
+        // Check if the given day is a holiday defined in the list of holidays
         private bool IfDateIsNotHoliday(DateTime startDate, List<Holiday> Holidays)
         {
             foreach (Holiday h in Holidays)
@@ -544,13 +537,7 @@ namespace PTwoManage
                 if (h.Date == startDate)
                     return false;
             }
-
             return true;
-        }
-
-        public List<UserFreeRequest> GetAllFreeRequests()
-        {
-            return _allRequests;
         }
 
         public void WarningError(string msg)
@@ -558,6 +545,7 @@ namespace PTwoManage
             throw new NotImplementedException();
         }
 
+        // This method returns the number of weeks in a given year
         public int GetWeeksInYear(int year, int month = 12, int day = 31)
         {
             System.Globalization.DateTimeFormatInfo dfi = System.Globalization.DateTimeFormatInfo.CurrentInfo;

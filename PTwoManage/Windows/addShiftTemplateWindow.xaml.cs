@@ -130,6 +130,7 @@ namespace PTwoManage
                 End_Time.Clear();
                 Error_message.Content = "";
                 Tag_List.UnselectAll();
+                LoadShift();
             }
         }
 

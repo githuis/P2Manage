@@ -65,6 +65,7 @@ namespace PTwoManage
 
                 
                 InitializeComponent();
+                InstanciateCore();
                 SelectedWeek = Core.Instance.GetWeeksInYear(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
                 UpdateWeekNumberDisplay();
 
@@ -76,7 +77,6 @@ namespace PTwoManage
             {
                 MessageBox.Show(e.InnerException.Message);
             }
-
         }
 
         private void InstanciateCore()

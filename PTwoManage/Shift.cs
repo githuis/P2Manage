@@ -8,11 +8,11 @@ namespace PTwoManage
 {
     public class Shift : ShiftTemplate
     {
-        // Private properties for Shift needed to display a Shift
+        // Private field for Shift needed to display a Shift
         private string _userName;
         private int _weeknumber;
 
-        // Variables used to print Shift object in various windows
+        // Fields used to print Shift object in various windows
         public DayOfWeek Day { get; set; }
         public string PrintableStartTime { get; set; }
         public string PrintableEndTime { get; set; }
@@ -28,19 +28,19 @@ namespace PTwoManage
             get { return _weeknumber; }
         }
 
+        // The constructor for a Shift object. It takes base in the ShiftTemplate constructor
         public Shift(DateTime starttime, DateTime endtime, string tag, string userName, int weeknumber)
             : base(starttime, endtime, tag)
         {
                 ValidateShiftTimeAndUser(starttime, endtime, userName);
                 _userName = userName;
                 _weeknumber = weeknumber;
-                _startTime = starttime;
-                _endTime = endtime;
-                Day = _startTime.DayOfWeek;
-                PrintableStartTime = _startTime.Hour.ToString() + ":" + _startTime.Minute.ToString();
-                PrintableEndTime = _endTime.Hour.ToString() + ":" + _endTime.Minute.ToString();
+                Day = StartTime.DayOfWeek;
+                PrintableStartTime = StartTime.Hour.ToString() + ":" + StartTime.Minute.ToString();
+                PrintableEndTime = EndTime.Hour.ToString() + ":" + EndTime.Minute.ToString();
         }
 
+        // This methoc checks if a given user already has a Shift in the given timespan
         private void ValidateShiftTimeAndUser(DateTime starttime, DateTime endtime, string userName)
         {
             if (User.CheckUserExists(userName))
@@ -48,7 +48,6 @@ namespace PTwoManage
                 {
                     throw new ArgumentException(" User: " + this.UserName + " already has a shift at this time"); 
                 }
-   
         }
 
         public int GetYear()
@@ -56,6 +55,7 @@ namespace PTwoManage
             return StartTime.Year;
         }
 
+        // A method for saving Shifts to the database
         public void SaveShift()
         {
             Shift shift = this;
@@ -63,6 +63,7 @@ namespace PTwoManage
             Database.Instance.Execute(sql);
         }
 
+        // A method for updating a exsisting Shifts data with new infromation. Specified to update a Shifts User.
         public void UpdateShift(string newUser)
         {
             Shift shift = this;
@@ -71,6 +72,7 @@ namespace PTwoManage
             Database.Instance.Execute(sql);
         }
 
+        // A method for deleting a given shift form the database
         public void DeleteShift()
         {
             Shift shift = this;

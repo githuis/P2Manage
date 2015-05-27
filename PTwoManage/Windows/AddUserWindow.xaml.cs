@@ -31,6 +31,7 @@ namespace PTwoManage
 
         }
 
+        //This method is called when a user should be saved to the database but the user information still need to be verified
         private void Submit_AddUser()
         {
             try
@@ -75,6 +76,7 @@ namespace PTwoManage
                 return false;
         }
 
+        // A method for removing SQL tags from userinputs
         private void PreventSqlInjection()
         {
             string toTrim = ";'\\:";
@@ -86,6 +88,7 @@ namespace PTwoManage
             EditUser_Email.Text = EditUser_Email.Text.Trim(toTrim.ToCharArray());
         }
 
+        // A method for refreshing the UserList in the GUI
         private void Populate_UserList()
         {
             EditUser_NameList.Items.Clear();
@@ -97,6 +100,7 @@ namespace PTwoManage
             }
         }
 
+        // A method for refreshing the TagList in the GUI
         private void Populate_TagList()
         {
             Tag_ListBox.ItemsSource = null;
@@ -119,21 +123,20 @@ namespace PTwoManage
             }
         }
 
-        //TODO Should this be public ?
-        public void EditUser_Load()
+        private void EditUser_Load()
         {
             Populate_TagList();
             Populate_UserList();
         }
 
+        // A method called when the Edit User button is clicked
         private void EditUser_Select_Button_Click(object sender, RoutedEventArgs e)
         {
-            //TODO check if user exists
+            // If no user is selected the no user i loaded
             if (EditUser_NameList.SelectedItem != null)
             {
                 ListBoxItem item = (ListBoxItem)EditUser_NameList.SelectedItem;
                 string userName = item.Content.ToString();
-                //TODO Create a user and use it's properties instead of calling getuser 9999 times
                 EditUser_UserNameBox.Text = User.GetUserByName(userName).UserName;
                 EditUser_Password.Password = User.GetUserByName(userName).Password;
                 EditUser_FullName.Text = User.GetUserByName(userName).Name;
@@ -148,12 +151,14 @@ namespace PTwoManage
             Tag_ListBox.Items.Refresh();
         }
 
+        // A method called each time a user enters a charecter in some of the inputboxes in the GUI
         private void EditUser_NumberValidation(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
 
+        // Updates an exsisting Users information
         private void SaveToCurrentUser(User user)
         {
             User u = User.GetUserByName(user.UserName);
