@@ -78,7 +78,7 @@ namespace PTwoManage
             return true;
         }
 
-
+        // A method for saving a custom Shift to the database
         private void SaveShift_Click(object sender, RoutedEventArgs e)
         {
             DateTime start = DateTime.Now;
@@ -86,10 +86,12 @@ namespace PTwoManage
             Shift toAdd = null;
             User us = null;
 
+            // These objects are used for finding the specified week
             DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
             var cal =  dfi.Calendar;
 
-
+            // Checks if the inputboxes are empty. The information is not TryPares since the DatePicker do not allow users
+            // To enter and invalid DateTime
             if( Startime_Shift_Box.Text != null && Endtime_Shift_Box.Text != null)
             {
                 start = DateTime.Parse(Startime_Shift_Box.Text);

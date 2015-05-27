@@ -68,6 +68,7 @@ namespace PTwoManage
                 isValidated = true;
             }
 
+            // If all validation checkout then the ShiftTemplate infomration is exstracted and saved to the database
             if (isValidated == true)
             {
                 ListBoxItem SelectedDay = Day_List.SelectedItem as ListBoxItem;
@@ -111,20 +112,26 @@ namespace PTwoManage
                 s += ":00";
                 t += ":00";
 
+                // If the datatime is not able to be parsed to a DataTime object, the ShiftTemplate is not made
+                // As of the validation this should not be able to happen
                 if (!(DateTime.TryParse(s, out Start) && DateTime.TryParse(t, out End)))
                 {
                     throw new ArgumentException("Start or End is not a valid datetime");
                 }
 
+                // Gets the selected tags and adds them to a list of strings
                 List<string> TemplateTags = new List<string>();
                 foreach (ListBoxItem item in Tag_List.SelectedItems)
                 {
                     string tag = item.Content.ToString();
                     TemplateTags.Add(tag);
                 }
-                ShiftTemplate shiftTemplate = new ShiftTemplate(Start, End, Database.Instance.ListToString(TemplateTags));
 
+                // The ShiftTemplate object is made with the gathered information
+                ShiftTemplate shiftTemplate = new ShiftTemplate(Start, End, Database.Instance.ListToString(TemplateTags));
                 shiftTemplate.SaveInfoShiftTemplate();
+
+                // After the object is saved it is saved to the database and the inputboxes are cleared
                 Core.Instance.AddTemplateToList(shiftTemplate);
                 Start_Time.Clear();
                 End_Time.Clear();
@@ -202,7 +209,7 @@ namespace PTwoManage
             }
         }
 
-         
+        // This method is called when a new tag should be added to the list of tags and saved to the database
         private void Add_Tag_Click(object sender, RoutedEventArgs e)
         {
             string toTrim = ";'\\:";

@@ -193,6 +193,7 @@ namespace PTwoManage
                 Submit_AddUser();
         }
 
+        // A method for clearring inputboxes in the GUI
         private void EmptyForm()
         {
             EditUser_UserNameBox.Text = "";
@@ -206,6 +207,7 @@ namespace PTwoManage
             Tag_ListBox.SelectedItemsOverride = new List<string>();
         }
 
+        // A method for creating a unic username
         private string CreateUserName(string FullName, string cpr)
         {
             string userName;
@@ -228,6 +230,7 @@ namespace PTwoManage
             return userName;
         }
 
+        // A method for deleting a User from the list of Users in the GUI
         private void Remove_User_Click(object sender, RoutedEventArgs e)
         {
             User u = null;
@@ -257,6 +260,7 @@ namespace PTwoManage
             return UserTags;
         }
 
+        // A method for checking if a UserName already exsists in the Userlist
         private bool CheckIfUsernameExsists()
         {
             if (Core.Instance.GetAllUsers().Find(user => user.UserName.Contains(CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text))) == null)

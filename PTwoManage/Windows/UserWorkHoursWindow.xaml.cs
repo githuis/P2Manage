@@ -25,6 +25,7 @@ namespace PTwoManage.Windows
             InitializeComponent();
             Populate_User_Combobox();
 
+            // These objects are used for populating the Month combobox with month names
             var americanCulture = new CultureInfo("en-US");
             var count = 1;
             foreach (var month in americanCulture.DateTimeFormat.MonthNames.Take(12))
@@ -33,6 +34,7 @@ namespace PTwoManage.Windows
                 count++;
             }
 
+            // Populates the year combobox with years after 1990 and forward.
             for (int i = DateTime.Now.Year; i >= 1990; i--)
             {
                 string year = i.ToString();
@@ -40,6 +42,8 @@ namespace PTwoManage.Windows
             }
         }
 
+        // A method for calculating a users shifts for at given month and year. 
+        // If the current month is selected then the current amount of shifts is used
         private void CalcMonthHours()
         {
             if (Selected_user.SelectedItem != null && Selected_Month.SelectedItem != null &&  Selected_Year.SelectedItem != null)
@@ -121,19 +125,5 @@ namespace PTwoManage.Windows
         {
             CalcMonthHours();
         }
-        /*
-                    <ComboBoxItem>January</ComboBoxItem>
-            <ComboBoxItem>February</ComboBoxItem>
-            <ComboBoxItem>March</ComboBoxItem>
-            <ComboBoxItem>April</ComboBoxItem>
-            <ComboBoxItem>May</ComboBoxItem>
-            <ComboBoxItem>June</ComboBoxItem>
-            <ComboBoxItem>July</ComboBoxItem>
-            <ComboBoxItem>August</ComboBoxItem>
-            <ComboBoxItem>September</ComboBoxItem>
-            <ComboBoxItem>October</ComboBoxItem>
-            <ComboBoxItem>November</ComboBoxItem>
-            <ComboBoxItem>December</ComboBoxItem>
-         */
     }
 }
