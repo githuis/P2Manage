@@ -123,7 +123,7 @@ namespace PTwoManage
             }
         }
 
-        private void EditUser_Load()
+        public void EditUser_Load()
         {
             Populate_TagList();
             Populate_UserList();

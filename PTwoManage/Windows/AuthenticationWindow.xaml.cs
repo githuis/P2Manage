@@ -58,11 +58,6 @@ namespace PTwoManage
             this.Title = "Error - Username/password is incorrect";
         }
 
-        private void AuthCancel_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         //Sets the private companyname variable, which means it also gets used.
         public void UseCompanyName(string companyName)
         {
