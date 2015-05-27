@@ -52,7 +52,7 @@
             </MenuItem>
             <MenuItem Header="_Utilities">
                 <MenuItem Header="_Swap Shift" Click="ShiftSwap_Click" ></MenuItem>
-                <MenuItem Header="Lookup Userhours" Click="LookUpHours_Click"></MenuItem>
+                <MenuItem Header="_Lookup Users Hours" Click="LookUpHours_Click"></MenuItem>
                 <MenuItem Header="_Create Holiday" Click="MakeHoliday_Click"></MenuItem>
             </MenuItem>
         </Menu>
