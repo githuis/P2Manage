@@ -26,35 +26,28 @@ namespace PTwoManage
         public AddUserWindow()
         {
             InitializeComponent();
-
+            // Fills the ListBox with all tags from the Core instance
             Tag_ListBox.ItemsSource = Core.Instance.GetAllTags();
 
-        }
-
-        private bool CheckIfUserNameExsists()
-        {
-            if (Core.Instance.GetAllUsers().Find(user => user.UserName.Contains(CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text))) == null)
-                return false;
-            else 
-                return true;
         }
 
         private void Submit_AddUser()
         {
             try
             {
-                if (ValidateBoxContent() && !CheckIfUserExsists())
+                if (ValidateBoxContent() && !CheckIfUsernameExsists())
                 {
+                    // This method remove SQL tags from the inputboxes and allows a users input to be used.
                     PreventSqlInjection();
 
-                    User newUser = new User(1, CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text), EditUser_Password.Password, EditUser_FullName.Text, EditUser_CPR.Text, EditUser_Number.Text, EditUser_Email.Text, GetCheckedTags(), 100);
+                    // At creation the user points is set to 0 and ID is set to 1 but not saved ind the database because the database automaticaly applies a new ID
+                    User newUser = new User(1, CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text), EditUser_Password.Password, EditUser_FullName.Text, EditUser_CPR.Text, EditUser_Number.Text, EditUser_Email.Text, GetCheckedTags(), 0);
 
                     Core.Instance.AddUserToList(newUser);
                     AddUser_Confirmation.Content = EditUser_FullName.Text + " was added to the system";
                     AddUser_Confirmation.Foreground = Brushes.Green;
                     newUser.SaveUserInfoToDatabase();
                     EmptyForm();
-
                 }
                 else
                 {
@@ -69,9 +62,10 @@ namespace PTwoManage
             catch (ArgumentException e)
             {
                 System.Windows.Forms.MessageBox.Show(e.Message, "Error");
-            }            
+            }
         }
 
+        // This method check each user inputbox for content. If the boxes are empty the method returns false
         private bool ValidateBoxContent()
         {
             if (EditUser_Password.Password != "" && EditUser_Password.Password == EditUser_ConfirmPassword.Password
@@ -181,7 +175,7 @@ namespace PTwoManage
             {
                 if (ValidateBoxContent())
                 {
-                    if (!(CheckIfUserExsists()))
+                    if (!(CheckIfUsernameExsists()))
                     {
                         SaveToCurrentUser(User.GetUserByName(userName));
                         EmptyForm();
@@ -258,7 +252,7 @@ namespace PTwoManage
             return UserTags;
         }
 
-        private bool CheckIfUserExsists()
+        private bool CheckIfUsernameExsists()
         {
             if (Core.Instance.GetAllUsers().Find(user => user.UserName.Contains(CreateUserName(EditUser_FullName.Text, EditUser_CPR.Text))) == null)
                 return false;

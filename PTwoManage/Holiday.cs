@@ -22,16 +22,17 @@ namespace PTwoManage
             _date = date;
         }
 
+        // This method saves a holiday 
         public void SaveHoliday()
         {
-            string sql = "INSERT INTO HolidayTable (day) values ('" + this._date.ToString() + "')";
+            string sql = "INSERT INTO HolidayTable (day) values ('" + this.Date.ToString() + "')";
             Database.Instance.Execute(sql);
         }
 
         public void RemoveHoliday()
         {
             Core.Instance.RemoveHolidayFromList(this);
-            string sql = "DELETE FROM HolidayTable WHERE day='" + this._date.ToString() + "'";
+            string sql = "DELETE FROM HolidayTable WHERE day='" + this.Date.ToString() + "'";
             Database.Instance.Execute(sql);
         }
     }

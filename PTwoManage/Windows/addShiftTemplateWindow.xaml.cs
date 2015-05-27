@@ -38,17 +38,21 @@ namespace PTwoManage
         //
         private void Save_ShiftTemplate(object sender, RoutedEventArgs e)
         {
+            // If the bool isValidated at one of the checks is marked as false the ShiftTemplate will not be created.
+            // Instead a message explaning the error will be written
             bool isValidated;
-            if (!Check_If_Valid_Time(Start_Time.Text))
+            if (!CheckIfValidTime(Start_Time.Text))
             {
                 isValidated = false;
                 Error_message.Content = "Start time is not a valid hour format";
             }
-            else if (!Check_If_Valid_Time(End_Time.Text))
+
+            else if (!CheckIfValidTime(End_Time.Text))
             {
                 isValidated = false;
                 Error_message.Content = "End time is not a valid minute format";
             }
+
             else if (Day_List.SelectedItem == null)
             {
                 isValidated = false;
@@ -97,8 +101,9 @@ namespace PTwoManage
                         break;
                 }
 
-                DateTime Start = new DateTime();
-                DateTime End = new DateTime();
+                // Creates a datetime with the given times.
+                DateTime Start;
+                DateTime End;
                 string s = DayInWeek + "/01/2007 ";
                 string t = s;
                 s += Start_Time.Text;
@@ -106,19 +111,9 @@ namespace PTwoManage
                 s += ":00";
                 t += ":00";
 
-                if (DateTime.TryParse(s, out Start) && DateTime.TryParse(t, out End))
+                if (!(DateTime.TryParse(s, out Start) && DateTime.TryParse(t, out End)))
                 {
-                    Start = DateTime.Parse(s);
-                    End = DateTime.Parse(t);
-                }
-                else
-                {
-                    Console.WriteLine("Damn");
-                }
-
-                if (Start < End)
-                {
-
+                    throw new ArgumentException("Start or End is not a valid datetime");
                 }
 
                 List<string> TemplateTags = new List<string>();
@@ -136,12 +131,10 @@ namespace PTwoManage
                 Error_message.Content = "";
                 Tag_List.UnselectAll();
             }
-
-            TemplateList.Items.Refresh();
         }
 
         // Checks wether a string is a valid HH:MM format.
-        private bool Check_If_Valid_Time(string s)
+        private bool CheckIfValidTime(string s)
         {
             string[] split;
 
@@ -154,18 +147,10 @@ namespace PTwoManage
             if (split.Length != 2)
                 return false;
 
-
-            try
-            {
-                if (int.Parse(split[0]) <= 23 && int.Parse(split[1]) <= 59)
-                    return true;
-            }
-            catch
-            {
-
-            }
-
-            return false;
+            if (int.Parse(split[0]) <= 23 && int.Parse(split[1]) <= 59)
+                return true;
+            else
+                return false;
         }
 
         //Checks wether starttime is before endtime
