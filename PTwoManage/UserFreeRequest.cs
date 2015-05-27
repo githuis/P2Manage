@@ -46,6 +46,7 @@ namespace PTwoManage
             _user = User.GetUserByName(userName);
         }
 
+        //Saves a request to the database.
         public void SaveUserRequest()
         {
             UserFreeRequest request = this;
