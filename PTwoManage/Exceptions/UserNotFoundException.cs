@@ -7,6 +7,9 @@ using System.Windows;
 
 namespace PTwoManage
 {
+    /// <summary>
+    /// Prompts the user with an errormessage. May be fatal.
+    /// </summary>
     class UserNotFoundException : Exception
     {
         public UserNotFoundException()

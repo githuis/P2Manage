@@ -116,10 +116,10 @@ namespace PTwoManage
                 Core.Instance.GetAllShifts().Add(toAdd);
         }
 
+        //Repopulates list to reflect changes to selected
         private void TagList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Populate_UserList();
-            Console.WriteLine("IT WERKS");
         }
     }
 }
