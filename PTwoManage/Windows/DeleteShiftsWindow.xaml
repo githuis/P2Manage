@@ -3,21 +3,26 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="DeleteShiftsWindow" Height="300" Width="539.523">
     <Grid>
-        <ComboBox Name="UserCombobox" SelectionChanged="UserCombobox_SelectionChanged" HorizontalAlignment="Left" Margin="23,40,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Delete marked  shifts" Click="DeleShift_Click" HorizontalAlignment="Left" Margin="40,204,0,0" VerticalAlignment="Top" Width="75" />
-        <TextBlock  HorizontalAlignment="Left" Margin="23,19,0,0" TextWrapping="Wrap" Text="User" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="175,19,0,0" TextWrapping="Wrap" Text="Choosen shifts" VerticalAlignment="Top"/>
-        <ListBox Name="ShiftListview" SelectionMode="Multiple" HorizontalAlignment="Left" Height="219" Margin="175,40,0,0" VerticalAlignment="Top" Width="347">
-        <ListBox.ItemTemplate>
-            <DataTemplate>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding StartTime, StringFormat=ddd-dd-MMM\ HH:mm}"></TextBlock>
-                    <TextBlock Text="    To    "></TextBlock>
-                    <TextBlock Text="{Binding EndTime, StringFormat=ddd-dd-MMM\ HH:mm}"></TextBlock>
+        <ComboBox Name="UserCombobox" SelectionChanged="UserCombobox_SelectionChanged" HorizontalAlignment="Left"
+                  Margin="23,40,0,0" VerticalAlignment="Top" Width="120" />
+        <Button Content="Delete marked  shifts" Click="DeleShift_Click" HorizontalAlignment="Left" Margin="40,204,0,0"
+                VerticalAlignment="Top" Width="75" />
+        <TextBlock HorizontalAlignment="Left" Margin="23,19,0,0" TextWrapping="Wrap" Text="User"
+                   VerticalAlignment="Top" />
+        <TextBlock HorizontalAlignment="Left" Margin="175,19,0,0" TextWrapping="Wrap" Text="Choosen shifts"
+                   VerticalAlignment="Top" />
+        <ListBox Name="ShiftListview" SelectionMode="Multiple" HorizontalAlignment="Left" Height="219"
+                 Margin="175,40,0,0" VerticalAlignment="Top" Width="347">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding StartTime, StringFormat=ddd-dd-MMM\ HH:mm}" />
+                        <TextBlock Text="    To    " />
+                        <TextBlock Text="{Binding EndTime, StringFormat=ddd-dd-MMM\ HH:mm}" />
 
-                </StackPanel>
-            </DataTemplate>
-        </ListBox.ItemTemplate>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
     </Grid>
 </Window>

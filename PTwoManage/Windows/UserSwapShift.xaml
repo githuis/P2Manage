@@ -3,24 +3,31 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Swap shift window" Height="267.164" Width="455.224">
     <Grid>
-        <ComboBox Name="SwapperUserComboBox" SelectionChanged="SwapperUserComboBox_SelectionChanged" HorizontalAlignment="Left" Margin="23,40,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox Name="SwapeeUserComboBox" HorizontalAlignment="Left" Margin="23,111,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox Name="SwapperShiftCombobox" SelectionChanged="SwapperShiftCombobox_SelectionChanged" HorizontalAlignment="Left" Margin="166,40,0,0" VerticalAlignment="Top" Width="248" >
+        <ComboBox Name="SwapperUserComboBox" SelectionChanged="SwapperUserComboBox_SelectionChanged"
+                  HorizontalAlignment="Left" Margin="23,40,0,0" VerticalAlignment="Top" Width="120" />
+        <ComboBox Name="SwapeeUserComboBox" HorizontalAlignment="Left" Margin="23,111,0,0" VerticalAlignment="Top"
+                  Width="120" />
+        <ComboBox Name="SwapperShiftCombobox" SelectionChanged="SwapperShiftCombobox_SelectionChanged"
+                  HorizontalAlignment="Left" Margin="166,40,0,0" VerticalAlignment="Top" Width="248">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding StartTime, StringFormat=ddd-dd-MMM\ HH:mm}"></TextBlock>
-                        <TextBlock Text="    To    "></TextBlock>
-                        <TextBlock Text="{Binding EndTime, StringFormat=ddd-dd-MMM\ HH:mm}"></TextBlock>
+                        <TextBlock Text="{Binding StartTime, StringFormat=ddd-dd-MMM\ HH:mm}" />
+                        <TextBlock Text="    To    " />
+                        <TextBlock Text="{Binding EndTime, StringFormat=ddd-dd-MMM\ HH:mm}" />
 
                     </StackPanel>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Button Content="Give shift" HorizontalAlignment="Left" Margin="116,185,0,0" VerticalAlignment="Top" Width="75" Click="SwapShifts_Click"/>
-        <TextBlock  HorizontalAlignment="Left" Margin="23,19,0,0" TextWrapping="Wrap" Text="User giving shift" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="27,90,0,0" TextWrapping="Wrap" Text="User recieving shift" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="166,19,0,0" TextWrapping="Wrap" Text="Choosen shift" VerticalAlignment="Top"/>
+        <Button Content="Give shift" HorizontalAlignment="Left" Margin="116,185,0,0" VerticalAlignment="Top" Width="75"
+                Click="SwapShifts_Click" />
+        <TextBlock HorizontalAlignment="Left" Margin="23,19,0,0" TextWrapping="Wrap" Text="User giving shift"
+                   VerticalAlignment="Top" />
+        <TextBlock HorizontalAlignment="Left" Margin="27,90,0,0" TextWrapping="Wrap" Text="User recieving shift"
+                   VerticalAlignment="Top" />
+        <TextBlock HorizontalAlignment="Left" Margin="166,19,0,0" TextWrapping="Wrap" Text="Choosen shift"
+                   VerticalAlignment="Top" />
 
     </Grid>
 </Window>

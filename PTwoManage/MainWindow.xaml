@@ -1,16 +1,14 @@
 ﻿<Window x:Class="PTwoManage.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Closing="MainWindow_Closing" 
-        Title="P2Manage  -  Week 1  2015" Height="350" Width="800"  WindowState="Maximized"  
-        >
+        Closing="MainWindow_Closing"
+        Title="P2Manage  -  Week 1  2015" Height="350" Width="800" WindowState="Maximized">
     <Window.Resources>
         <DataTemplate x:Key="DayDisplay">
             <WrapPanel>
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding UserName}">                               
-                        </TextBlock>
+                        <TextBlock Text="{Binding UserName}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding PrintableStartTime}" />
@@ -24,57 +22,62 @@
             </WrapPanel>
         </DataTemplate>
         <Style TargetType="ListView">
-            <Setter Property="Margin" Value="10"/>
-            <Setter Property="MinWidth" Value="90"/>
-            <Setter Property="Width" Value="auto"/>
-            <Setter Property="MinHeight" Value="30"/>
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="MinWidth" Value="90" />
+            <Setter Property="Width" Value="auto" />
+            <Setter Property="MinHeight" Value="30" />
         </Style>
-        
+
         <Style TargetType="Button">
-            <Setter Property="Padding" Value="5"/>
-            <Setter Property="Width" Value="60"/>
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Width" Value="60" />
         </Style>
-        
-        
+
+
     </Window.Resources>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File" IsEnabled="False">
-                <MenuItem Header="Settings"></MenuItem>
+                <MenuItem Header="Settings" />
             </MenuItem>
-            <MenuItem Header="_Manage users" Click="AddUser_Click"></MenuItem>
+            <MenuItem Header="_Manage users" Click="AddUser_Click" />
             <MenuItem Header="_Schedule">
-                <MenuItem Header="_Create Templates and Tags" Click="AddTemplate_Click"></MenuItem>
-                <MenuItem Header="_Generate Schedule" Click="ScheduleGenerator_Click"></MenuItem>
-                <MenuItem Header="_Request Day Off" Click="UserFreeRequest_Click"></MenuItem>
-                <MenuItem Header="_Create Extra Shifts" Click="CreateShift_Click"></MenuItem>
-                <MenuItem Header="_Delete Shifts" Click="DeleteShifts_Click"></MenuItem>
+                <MenuItem Header="_Create Templates and Tags" Click="AddTemplate_Click" />
+                <MenuItem Header="_Generate Schedule" Click="ScheduleGenerator_Click" />
+                <MenuItem Header="_Request Day Off" Click="UserFreeRequest_Click" />
+                <MenuItem Header="_Create Extra Shifts" Click="CreateShift_Click" />
+                <MenuItem Header="_Delete Shifts" Click="DeleteShifts_Click" />
             </MenuItem>
             <MenuItem Header="_Utilities">
-                <MenuItem Header="_Swap Shift" Click="ShiftSwap_Click" ></MenuItem>
-                <MenuItem Header="_Lookup Users Hours" Click="LookUpHours_Click"></MenuItem>
-                <MenuItem Header="_Create Holiday" Click="MakeHoliday_Click"></MenuItem>
+                <MenuItem Header="_Swap Shift" Click="ShiftSwap_Click" />
+                <MenuItem Header="_Lookup Users Hours" Click="LookUpHours_Click" />
+                <MenuItem Header="_Create Holiday" Click="MakeHoliday_Click" />
             </MenuItem>
         </Menu>
 
-        <StackPanel HorizontalAlignment="Center" Width="auto" >
+        <StackPanel HorizontalAlignment="Center" Width="auto">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,10">
-                <Button Name="DecrementWeekButton" Content="Previous" Click="DecrementWeekButton_Click" Margin="5"/>
-                <TextBlock Name="WeekDisplayNumTextBlock" Text="Week: " Margin="5" Width="50" TextAlignment="Center" Height="16"/>
-                <Button Name="IncrementWeekButton" Content="Next" Click="IncrementWeekButton_Click" Margin="5"/>
+                <Button Name="DecrementWeekButton" Content="Previous" Click="DecrementWeekButton_Click" Margin="5" />
+                <TextBlock Name="WeekDisplayNumTextBlock" Text="Week: " Margin="5" Width="50" TextAlignment="Center"
+                           Height="16" />
+                <Button Name="IncrementWeekButton" Content="Next" Click="IncrementWeekButton_Click" Margin="5" />
             </StackPanel>
-            <TextBlock TextWrapping="Wrap"><Run Text="        "/><Run Text="  "/><Run Text="Monday                     Tuesday                 Wednesday                Thursday                      Friday                     Saturday                    Sunday        "/></TextBlock>
+            <TextBlock TextWrapping="Wrap">
+                <Run Text="        " /><Run Text="  " />
+                <Run
+                    Text="Monday                     Tuesday                 Wednesday                Thursday                      Friday                     Saturday                    Sunday        " />
+            </TextBlock>
 
             <!-- Week display -->
             <StackPanel Orientation="Horizontal">
 
-                <ListView Name="shiftDataBindingMonday" ItemTemplate="{StaticResource DayDisplay}"></ListView>
-                <ListView Name="shiftDataBindingTuesday"  ItemTemplate="{StaticResource DayDisplay}"></ListView>
-                <ListView Name="shiftDataBindingWednesday" ItemTemplate="{StaticResource DayDisplay}"></ListView>
-                <ListView Name="shiftDataBindingThursday" ItemTemplate="{StaticResource DayDisplay}"></ListView>
-                <ListView Name="shiftDataBindingFriday" ItemTemplate="{StaticResource DayDisplay}"> </ListView>
-                <ListView Name="shiftDataBindingSaturday" ItemTemplate="{StaticResource DayDisplay}"></ListView>
-                <ListView Name="shiftDataBindingSunday" ItemTemplate="{StaticResource DayDisplay}"></ListView>
+                <ListView Name="shiftDataBindingMonday" ItemTemplate="{StaticResource DayDisplay}" />
+                <ListView Name="shiftDataBindingTuesday" ItemTemplate="{StaticResource DayDisplay}" />
+                <ListView Name="shiftDataBindingWednesday" ItemTemplate="{StaticResource DayDisplay}" />
+                <ListView Name="shiftDataBindingThursday" ItemTemplate="{StaticResource DayDisplay}" />
+                <ListView Name="shiftDataBindingFriday" ItemTemplate="{StaticResource DayDisplay}" />
+                <ListView Name="shiftDataBindingSaturday" ItemTemplate="{StaticResource DayDisplay}" />
+                <ListView Name="shiftDataBindingSunday" ItemTemplate="{StaticResource DayDisplay}" />
             </StackPanel>
             <!--
             <StackPanel>
@@ -82,6 +85,6 @@
             </StackPanel>
             -->
 
-        </StackPanel>   
+        </StackPanel>
     </DockPanel>
 </Window>

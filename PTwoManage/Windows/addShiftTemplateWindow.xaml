@@ -18,15 +18,21 @@
             <ListBoxItem>Saturday</ListBoxItem>
             <ListBoxItem>Sunday</ListBoxItem>
         </ListBox>
-        <TextBox Name="Start_Time" PreviewTextInput="EditTime_NumberValidation" Height="35" Margin="139,41,345,349" MaxLength="5" ToolTip="Enter  &quot;HH.MM&quot; Format"/>
-        <TextBox Name="End_Time" PreviewTextInput="EditTime_NumberValidation" Height="35"  MaxLength="5" Margin="139,111,345,279"/>
+        <TextBox Name="Start_Time" PreviewTextInput="EditTime_NumberValidation" Height="35" Margin="139,41,345,349"
+                 MaxLength="5" ToolTip="Enter  &quot;HH.MM&quot; Format" />
+        <TextBox Name="End_Time" PreviewTextInput="EditTime_NumberValidation" Height="35" MaxLength="5"
+                 Margin="139,111,345,279" />
         <Button Margin="139,151,345,0" Click="Save_ShiftTemplate" Height="35" VerticalAlignment="Top">Submit Template</Button>
-        <Button Margin="139,191,345,0" Click="DeleteTemplate_Click"  Height="35" VerticalAlignment="Top">Delete Template</Button>
+        <Button Margin="139,191,345,0" Click="DeleteTemplate_Click" Height="35" VerticalAlignment="Top">Delete Template</Button>
 
-        <ListBox Name="Tag_List" HorizontalAlignment="Left" Height="164" Margin="20,243,0,0" VerticalAlignment="Top" Width="114" SelectionMode="Multiple"></ListBox>
-        <TextBox Name="Tag_Add_TextBox" HorizontalAlignment="Left" Height="35" Margin="139,261,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="161"/>
-        <Button Content="Save Tag" HorizontalAlignment="Left" Margin="139,301,0,0" Width="161" Click="Add_Tag_Click" VerticalAlignment="Top" Height="35"/>
-        <Button Content="Delete Tag" HorizontalAlignment="Left" Margin="139,341,0,0" VerticalAlignment="Top" Width="161" Click="DeleteTag_Click"  Height="35"/>
+        <ListBox Name="Tag_List" HorizontalAlignment="Left" Height="164" Margin="20,243,0,0" VerticalAlignment="Top"
+                 Width="114" SelectionMode="Multiple" />
+        <TextBox Name="Tag_Add_TextBox" HorizontalAlignment="Left" Height="35" Margin="139,261,0,0" TextWrapping="Wrap"
+                 VerticalAlignment="Top" Width="161" />
+        <Button Content="Save Tag" HorizontalAlignment="Left" Margin="139,301,0,0" Width="161" Click="Add_Tag_Click"
+                VerticalAlignment="Top" Height="35" />
+        <Button Content="Delete Tag" HorizontalAlignment="Left" Margin="139,341,0,0" VerticalAlignment="Top"
+                Width="161" Click="DeleteTag_Click" Height="35" />
 
         <ListView Name="TemplateList" Margin="375,30,10,10">
             <ListView.ItemTemplate>
@@ -34,19 +40,20 @@
                     <WrapPanel>
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding PrintableDay}"/>
+                                <TextBlock Text="{Binding PrintableDay}" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding PrintableTime}"/>
+                                <TextBlock Text="{Binding PrintableTime}" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding PrintableTags}"/>
+                                <TextBlock Text="{Binding PrintableTags}" />
                             </StackPanel>
                         </StackPanel>
                     </WrapPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Label Name="Error_message" HorizontalAlignment="Left" Margin="139,381,0,0" VerticalAlignment="Top" Height="34" Width="231"/>
+        <Label Name="Error_message" HorizontalAlignment="Left" Margin="139,381,0,0" VerticalAlignment="Top" Height="34"
+               Width="231" />
     </Grid>
 </Window>

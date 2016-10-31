@@ -1,22 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Text.RegularExpressions;
 
 namespace PTwoManage
 {
     /// <summary>
-    /// Interaction logic for addShiftTemplateWindow.xaml
+    ///     Interaction logic for addShiftTemplateWindow.xaml
     /// </summary>
     public partial class AddShiftTemplateWindow : Window
     {
@@ -29,7 +22,7 @@ namespace PTwoManage
         // Checks that the character you enter is a number, if not, don't type it.
         private void EditTime_NumberValidation(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex("[^0-9:]+");
+            var regex = new Regex("[^0-9:]+");
             e.Handled = regex.IsMatch(e.Text);
         }
 
@@ -69,11 +62,11 @@ namespace PTwoManage
             }
 
             // If all validation checkout then the ShiftTemplate infomration is exstracted and saved to the database
-            if (isValidated == true)
+            if (isValidated)
             {
-                ListBoxItem SelectedDay = Day_List.SelectedItem as ListBoxItem;
+                var SelectedDay = Day_List.SelectedItem as ListBoxItem;
 
-                int DayInWeek = 0;
+                var DayInWeek = 0;
                 switch (SelectedDay.Content.ToString())
                 {
                     case "Monday":
@@ -105,8 +98,8 @@ namespace PTwoManage
                 // Creates a datetime with the given times.
                 DateTime Start;
                 DateTime End;
-                string s = DayInWeek + "/01/2007 ";
-                string t = s;
+                var s = DayInWeek + "/01/2007 ";
+                var t = s;
                 s += Start_Time.Text;
                 t += End_Time.Text;
                 s += ":00";
@@ -115,20 +108,18 @@ namespace PTwoManage
                 // If the datatime is not able to be parsed to a DataTime object, the ShiftTemplate is not made
                 // As of the validation this should not be able to happen
                 if (!(DateTime.TryParse(s, out Start) && DateTime.TryParse(t, out End)))
-                {
                     throw new ArgumentException("Start or End is not a valid datetime");
-                }
 
                 // Gets the selected tags and adds them to a list of strings
-                List<string> TemplateTags = new List<string>();
+                var TemplateTags = new List<string>();
                 foreach (ListBoxItem item in Tag_List.SelectedItems)
                 {
-                    string tag = item.Content.ToString();
+                    var tag = item.Content.ToString();
                     TemplateTags.Add(tag);
                 }
 
                 // The ShiftTemplate object is made with the gathered information
-                ShiftTemplate shiftTemplate = new ShiftTemplate(Start, End, Database.Instance.ListToString(TemplateTags));
+                var shiftTemplate = new ShiftTemplate(Start, End, Database.Instance.ListToString(TemplateTags));
                 shiftTemplate.SaveInfoShiftTemplate();
 
                 // After the object is saved it is saved to the database and the inputboxes are cleared
@@ -148,17 +139,16 @@ namespace PTwoManage
 
             if (s == "")
                 return false;
-            else if (s.Contains(':'))
-                split = s.Split(new Char[] { ':' });
+            if (s.Contains(':'))
+                split = s.Split(':');
             else return false;
 
             if (split.Length != 2)
                 return false;
 
-            if (int.Parse(split[0]) <= 23 && int.Parse(split[1]) <= 59)
+            if ((int.Parse(split[0]) <= 23) && (int.Parse(split[1]) <= 59))
                 return true;
-            else
-                return false;
+            return false;
         }
 
         //Checks wether starttime is before endtime
@@ -169,23 +159,21 @@ namespace PTwoManage
 
             if (start.Contains(':') && end.Contains(':'))
             {
-                splitS = start.Split(new Char[] { ':' });
-                splitE = end.Split(new char[] { ':' });
+                splitS = start.Split(':');
+                splitE = end.Split(':');
             }
-            if (splitS != null &&
-                splitE != null &&
+            if ((splitS != null) &&
+                (splitE != null) &&
                 int.TryParse(splitS[0], out startA) &&
                 int.TryParse(splitS[1], out startB) &&
                 int.TryParse(splitE[0], out endA) &&
                 int.TryParse(splitE[1], out endB))
-            {
                 if (startA > endA)
                     return true;
                 else if (startA == endA)
                     return startB > endB;
                 else
                     return false;
-            }
             return false;
         }
 
@@ -201,10 +189,10 @@ namespace PTwoManage
         private void Populate_TagList()
         {
             Tag_List.Items.Clear();
-            foreach (string tag in Core.Instance.GetAllTags())
+            foreach (var tag in Core.Instance.GetAllTags())
             {
-                ListBoxItem item = new ListBoxItem();
-                item.Content = tag as string;
+                var item = new ListBoxItem();
+                item.Content = tag;
                 Tag_List.Items.Add(item);
             }
         }
@@ -212,8 +200,8 @@ namespace PTwoManage
         // This method is called when a new tag should be added to the list of tags and saved to the database
         private void Add_Tag_Click(object sender, RoutedEventArgs e)
         {
-            string toTrim = ";'\\:";
-            string newTag = Tag_Add_TextBox.Text.Trim(toTrim.ToCharArray());
+            var toTrim = ";'\\:";
+            var newTag = Tag_Add_TextBox.Text.Trim(toTrim.ToCharArray());
 
             if (newTag != "")
             {
@@ -221,14 +209,14 @@ namespace PTwoManage
                 SaveTagToDatabase(newTag);
                 Populate_TagList();
                 Tag_Add_TextBox.Clear();
-            }   
+            }
         }
 
         //Saves tags to database
         public void SaveTagToDatabase(string s)
         {
-            string tag = s;
-            string sql = "INSERT INTO TagTable (tag) values ( '" + tag + "')";
+            var tag = s;
+            var sql = "INSERT INTO TagTable (tag) values ( '" + tag + "')";
             Database.Instance.Execute(sql);
         }
 
@@ -239,16 +227,18 @@ namespace PTwoManage
             TemplateList.ItemsSource = null;
             TemplateList.ItemsSource = Core.Instance.GetAllTemplates();
         }
-        
+
         //Called when Delete Template is Clicked
         //Finds a ShiftTemplate, then removes it, then reloads list
         private void DeleteTemplate_Click(object sender, RoutedEventArgs e)
         {
-            if(Core.Instance.GetAllTemplates().Count > 0 && TemplateList.SelectedItems.Count > 0)
+            if ((Core.Instance.GetAllTemplates().Count > 0) && (TemplateList.SelectedItems.Count > 0))
             {
                 ShiftTemplate toRemove = null;
-                toRemove = Core.Instance.GetAllTemplates().Find(x => x.ToString() == ((ShiftTemplate)TemplateList.SelectedItem).ToString());
-                
+                toRemove =
+                    Core.Instance.GetAllTemplates()
+                        .Find(x => x.ToString() == ((ShiftTemplate) TemplateList.SelectedItem).ToString());
+
                 if (toRemove != null)
                     toRemove.DeleteShiftTemplate();
             }
@@ -258,16 +248,16 @@ namespace PTwoManage
         //Removes a tag, if the taglist isn't empty
         private void DeleteTag_Click(object sender, RoutedEventArgs e)
         {
-            if(Tag_List.SelectedItems.Count > 0)
+            if (Tag_List.SelectedItems.Count > 0)
             {
-                object tag = ((ListBoxItem) Tag_List.SelectedItem).Content;
-                string s = tag as string;
+                var tag = ((ListBoxItem) Tag_List.SelectedItem).Content;
+                var s = tag as string;
                 DeleteTag(s);
                 Core.Instance.DeleteTagFromList(s);
                 Populate_TagList();
-            }            
+            }
         }
-        
+
         //Deletes tag from the database
         private void DeleteTag(string s)
         {

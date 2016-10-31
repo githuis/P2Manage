@@ -1,22 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Globalization;
 
 namespace PTwoManage.Windows
 {
     /// <summary>
-    /// Interaction logic for UserWorkOursWindow.xaml
+    ///     Interaction logic for UserWorkOursWindow.xaml
     /// </summary>
     public partial class UserWorkHoursWindow : Window
     {
@@ -30,15 +21,15 @@ namespace PTwoManage.Windows
             var count = 1;
             foreach (var month in americanCulture.DateTimeFormat.MonthNames.Take(12))
             {
-                Selected_Month.Items.Add(new ComboBoxItem { Content = month });
+                Selected_Month.Items.Add(new ComboBoxItem {Content = month});
                 count++;
             }
 
             // Populates the year combobox with years after 1990 and forward.
-            for (int i = DateTime.Now.Year; i >= 1990; i--)
+            for (var i = DateTime.Now.Year; i >= 1990; i--)
             {
-                string year = i.ToString();
-                Selected_Year.Items.Add(new ComboBoxItem { Content = year });
+                var year = i.ToString();
+                Selected_Year.Items.Add(new ComboBoxItem {Content = year});
             }
         }
 
@@ -46,20 +37,18 @@ namespace PTwoManage.Windows
         // If the current month is selected then the current amount of shifts is used
         private void CalcMonthHours()
         {
-            if (Selected_user.SelectedItem != null && Selected_Month.SelectedItem != null &&  Selected_Year.SelectedItem != null)
+            if ((Selected_user.SelectedItem != null) && (Selected_Month.SelectedItem != null) &&
+                (Selected_Year.SelectedItem != null))
             {
-                DateTime selectedDate = ConvertSelectedMonth(Selected_Month.Text, Selected_Year.Text);
-                User target = Selected_user.SelectedItem as User;
+                var selectedDate = ConvertSelectedMonth(Selected_Month.Text, Selected_Year.Text);
+                var target = Selected_user.SelectedItem as User;
                 double HoursThisMonth = 0;
-                TimeSpan HoursInShift = new TimeSpan(0);
+                var HoursInShift = new TimeSpan(0);
 
-                foreach (Shift s in Core.Instance.GetAllShifts())
-                {
-                    if (s.EndTime < DateTime.Now && s.StartTime.Year == selectedDate.Year && s.StartTime.Month == selectedDate.Month && s.UserName == target.UserName)
-                    {
+                foreach (var s in Core.Instance.GetAllShifts())
+                    if ((s.EndTime < DateTime.Now) && (s.StartTime.Year == selectedDate.Year) &&
+                        (s.StartTime.Month == selectedDate.Month) && (s.UserName == target.UserName))
                         HoursInShift += s.EndTime - s.StartTime;
-                    }
-                }
                 HoursThisMonth = HoursInShift.TotalHours;
                 WorkHours.Text = HoursThisMonth.ToString();
             }
@@ -74,7 +63,7 @@ namespace PTwoManage.Windows
 
         private DateTime ConvertSelectedMonth(string selectedMonth, string selectedYear)
         {
-            int resultYear = int.Parse(selectedYear);
+            var resultYear = int.Parse(selectedYear);
             DateTime resultDate;
             switch (selectedMonth)
             {
