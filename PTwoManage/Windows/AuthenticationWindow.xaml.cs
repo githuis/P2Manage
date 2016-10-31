@@ -1,34 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using CryptSharp;
 
 namespace PTwoManage
 {
     /// <summary>
-    /// Interaction logic for AuthenticationWindow.xaml
-    /// Hashing lib from http://www.zer7.com/software/cryptsharp
+    ///     Interaction logic for AuthenticationWindow.xaml
+    ///     Hashing lib from http://www.zer7.com/software/cryptsharp
     /// </summary>
     public partial class AuthenticationWindow : Window
     {
-        private string _companyName = "";
-        //The unique salt for hashing
-        string salt = "$6$rounds=1938$W2Wyyaa59gSmgv0K";
-
         public AuthenticationWindow()
         {
             InitializeComponent();
         }
+
+        private string _companyName = "";
+        //The unique salt for hashing
+        private readonly string salt = "$6$rounds=1938$W2Wyyaa59gSmgv0K";
 
         private void AuthLogin_Click(object sender, RoutedEventArgs e)
         {
@@ -39,23 +29,21 @@ namespace PTwoManage
         //if they do, set the companyname variable in Database
         private void Authenticate(string AuthUsername, string AuthPassword)
         {
-            string loginString = AuthUsername + "," + GenPassHash(AuthPassword);
+            var loginString = AuthUsername + "," + GenPassHash(AuthPassword);
 
-            System.Net.WebClient wc = new System.Net.WebClient();
+            var wc = new WebClient();
             //We use a temporary personal website to store usernames and hashed passowrds for test users.
-            string webData = wc.DownloadString("http://everflows.com/com.txt");
-            string[] split = webData.Split(new Char[] { ';' });
+            var webData = wc.DownloadString("http://everflows.com/com.txt");
+            var split = webData.Split(';');
 
-            foreach (string s in split)
-            {
-                if (loginString == s && loginString.Contains(_companyName))
+            foreach (var s in split)
+                if ((loginString == s) && loginString.Contains(_companyName))
                 {
-                    this.DialogResult = true;
+                    DialogResult = true;
                     Database.Instance.CompanyName = AuthUsername;
-                    this.Title = "Success";
+                    Title = "Success";
                 }
-            }
-            this.Title = "Error - Username/password is incorrect";
+            Title = "Error - Username/password is incorrect";
         }
 
         //Sets the private companyname variable, which means it also gets used.
@@ -67,10 +55,15 @@ namespace PTwoManage
         //Generates a hash from the unique salt in the top of this class
         private string GenPassHash(string pass)
         {
-            string hash = Crypter.Sha512.Crypt(pass, salt);
-            string[] split = hash.Split('$');
+            var hash = Crypter.Sha512.Crypt(pass, salt);
+            var split = hash.Split('$');
 
             return split[4];
+        }
+
+        private void AuthCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }

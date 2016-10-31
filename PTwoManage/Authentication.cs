@@ -1,27 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PTwoManage
+﻿namespace PTwoManage
 {
     public sealed class Authentication
     {
-        static readonly Authentication _instance = new Authentication();
+        //Empty ctor
+        private Authentication()
+        {
+        }
 
-        AuthenticationWindow AuthWindow;
+        private AuthenticationWindow AuthWindow;
 
         //Public refrence to the single instance of this Class
-        public static Authentication Instance
-        {
-            get {return _instance; }
-        }
-
-        //Empty ctor
-        Authentication()
-        { 
-        }
+        public static Authentication Instance { get; } = new Authentication();
 
         //Prompts the user with a login window
         //If the login is succesful return true othewise return false
@@ -29,8 +18,8 @@ namespace PTwoManage
         {
             AuthWindow = new AuthenticationWindow();
             AuthWindow.UseCompanyName(companyName);
-            Nullable<bool> dialogResult = AuthWindow.ShowDialog();
-            AuthWindow.Topmost = true; 
+            var dialogResult = AuthWindow.ShowDialog();
+            AuthWindow.Topmost = true;
 
             return (bool) dialogResult;
         }

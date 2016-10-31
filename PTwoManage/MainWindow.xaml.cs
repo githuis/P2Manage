@@ -1,39 +1,49 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Globalization;
 using System.ComponentModel;
+using System.Windows;
+using PTwoManage.Windows;
 
 namespace PTwoManage
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    ///     Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        AddUserWindow addUserWindow;
-        AddShiftTemplateWindow addShiftTemplateWindow;
-        UserFreeTimeRequestWindow userFreeTimeRequestWindow;
-        AddHolidayWindow addHolidayWindow;
-        ShiftWindow shiftWindow;
-        GenerateWindow generatorWindow;
-        Windows.UserSwapShift userSwapWindow;
-        Windows.UserWorkHoursWindow userWorkHoursWindow;
-        Windows.DeleteShiftsWindow deleteShiftWindow;
+        //Force the user to log in before accessing the actual application. If log in fails, exit program
+        //Then loads window and loads all seven days with the current week.
+        public MainWindow()
+        {
+            try
+            {
+                if (!Authentication.Instance.Prompt())
+                    Application.Current.Shutdown();
+
+
+                InitializeComponent();
+                InstanciateCore();
+                SelectedWeek = Core.Instance.GetWeeksInYear(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                UpdateWeekNumberDisplay();
+                LoadDaysToView(SelectedWeek);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.InnerException.Message);
+            }
+        }
+
+        private int _week = 1;
 
         private int _year = 2015;
-        private int _week = 1;
+        private AddHolidayWindow addHolidayWindow;
+        private AddShiftTemplateWindow addShiftTemplateWindow;
+        private AddUserWindow addUserWindow;
+        private DeleteShiftsWindow deleteShiftWindow;
+        private GenerateWindow generatorWindow;
+        private ShiftWindow shiftWindow;
+        private UserFreeTimeRequestWindow userFreeTimeRequestWindow;
+        private UserSwapShift userSwapWindow;
+        private UserWorkHoursWindow userWorkHoursWindow;
 
         //Handles the value for _week so that it remains from 1 to the maximum week in year.
         //If the value goes above max or below min it also changes the year.
@@ -44,7 +54,7 @@ namespace PTwoManage
             set
             {
                 _week = value;
-                if(_week > Core.Instance.GetWeeksInYear(_year))
+                if (_week > Core.Instance.GetWeeksInYear(_year))
                 {
                     _week = 1;
                     _year++;
@@ -55,31 +65,7 @@ namespace PTwoManage
                     _week = Core.Instance.GetWeeksInYear(_year);
                 }
 
-                this.Title = "P2Manage  -  Week " + _week + "  " + _year;
-                    
-            }
-        }
-
-        //Force the user to log in before accessing the actual application. If log in fails, exit program
-        //Then loads window and loads all seven days with the current week.
-        public MainWindow()
-        {
-            try
-            {
-                if (!Authentication.Instance.Prompt())
-                    Application.Current.Shutdown();
-
-                
-                InitializeComponent();
-                InstanciateCore();
-                SelectedWeek = Core.Instance.GetWeeksInYear(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-                UpdateWeekNumberDisplay();
-                LoadDaysToView(SelectedWeek);
-                
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.InnerException.Message);
+                Title = "P2Manage  -  Week " + _week + "  " + _year;
             }
         }
 
@@ -97,20 +83,27 @@ namespace PTwoManage
         //Load all shifts with a given Day, Weeknumber and year.
         private void LoadDaysToView(int week)
         {
-            shiftDataBindingMonday.ItemsSource = Core.Instance.GetAllShiftsForDayInWeekInYear(DayOfWeek.Monday, week, _year);
-            shiftDataBindingTuesday.ItemsSource = Core.Instance.GetAllShiftsForDayInWeekInYear(DayOfWeek.Tuesday, week, _year);
-            shiftDataBindingWednesday.ItemsSource = Core.Instance.GetAllShiftsForDayInWeekInYear(DayOfWeek.Wednesday, week, _year);
-            shiftDataBindingThursday.ItemsSource = Core.Instance.GetAllShiftsForDayInWeekInYear(DayOfWeek.Thursday, week, _year);
-            shiftDataBindingFriday.ItemsSource = Core.Instance.GetAllShiftsForDayInWeekInYear(DayOfWeek.Friday, week, _year);
-            shiftDataBindingSaturday.ItemsSource = Core.Instance.GetAllShiftsForDayInWeekInYear(DayOfWeek.Saturday, week, _year);
-            shiftDataBindingSunday.ItemsSource = Core.Instance.GetAllShiftsForDayInWeekInYear(DayOfWeek.Sunday, week, _year);
+            shiftDataBindingMonday.ItemsSource = Core.Instance.GetAllShiftsForDayInWeekInYear(DayOfWeek.Monday, week,
+                _year);
+            shiftDataBindingTuesday.ItemsSource = Core.Instance.GetAllShiftsForDayInWeekInYear(DayOfWeek.Tuesday, week,
+                _year);
+            shiftDataBindingWednesday.ItemsSource = Core.Instance.GetAllShiftsForDayInWeekInYear(DayOfWeek.Wednesday,
+                week, _year);
+            shiftDataBindingThursday.ItemsSource = Core.Instance.GetAllShiftsForDayInWeekInYear(DayOfWeek.Thursday, week,
+                _year);
+            shiftDataBindingFriday.ItemsSource = Core.Instance.GetAllShiftsForDayInWeekInYear(DayOfWeek.Friday, week,
+                _year);
+            shiftDataBindingSaturday.ItemsSource = Core.Instance.GetAllShiftsForDayInWeekInYear(DayOfWeek.Saturday, week,
+                _year);
+            shiftDataBindingSunday.ItemsSource = Core.Instance.GetAllShiftsForDayInWeekInYear(DayOfWeek.Sunday, week,
+                _year);
         }
 
         //Is called when Menu > Manage Users is clicked
         //Opens a window where Users can be edited.
         private void AddUser_Click(object sender, RoutedEventArgs e)
         {
-            if(Authentication.Instance.Prompt(Database.Instance.CompanyName))
+            if (Authentication.Instance.Prompt(Database.Instance.CompanyName))
             {
                 addUserWindow = new AddUserWindow();
                 addUserWindow.EditUser_Load();
@@ -194,12 +187,12 @@ namespace PTwoManage
         //Opens a window for interchanging Shifts between users
         private void ShiftSwap_Click(object sender, RoutedEventArgs e)
         {
-            userSwapWindow = new Windows.UserSwapShift();
+            userSwapWindow = new UserSwapShift();
             userSwapWindow.ShowDialog();
         }
 
         //Closes the connection to the database when the program closes
-        void MainWindow_Closing(object sender, CancelEventArgs e)
+        private void MainWindow_Closing(object sender, CancelEventArgs e)
         {
             Database.Instance.m_dbConnection.Close();
         }
@@ -208,7 +201,7 @@ namespace PTwoManage
         //Opens a window for checking how many hours a user has worked
         private void LookUpHours_Click(object sender, RoutedEventArgs e)
         {
-            userWorkHoursWindow = new Windows.UserWorkHoursWindow();
+            userWorkHoursWindow = new UserWorkHoursWindow();
             userWorkHoursWindow.ShowDialog();
         }
 
@@ -216,9 +209,8 @@ namespace PTwoManage
         //Opens a window for deleting existing shifts
         private void DeleteShifts_Click(object sender, RoutedEventArgs e)
         {
-            deleteShiftWindow = new Windows.DeleteShiftsWindow();
+            deleteShiftWindow = new DeleteShiftsWindow();
             deleteShiftWindow.ShowDialog();
         }
-        
     }
 }
